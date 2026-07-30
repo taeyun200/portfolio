@@ -1,6 +1,5 @@
-const CATEGORIES = ["대입 · 진학지도", "학교 업무 자동화", "개인 생산성 자동화"];
-
-const PROJECTS = [
+// Seed data used only if KV has never been written to (fresh namespace / fallback).
+export const DEFAULT_PROJECTS = [
   {
     id: "ipsi-db",
     title: "ipsi-db",

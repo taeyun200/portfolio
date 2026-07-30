@@ -1,0 +1,9 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "taeyun-portfolio",
+  "pages_build_output_dir": ".",
+  "compatibility_date": "2026-07-01",
+  "kv_namespaces": [
+    { "binding": "PORTFOLIO_KV", "id": "3b5682746008416ab131dab3c2f59f21" }
+  ]
+}

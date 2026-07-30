@@ -1,19 +1,32 @@
 const STATUS_LABEL = { "in-progress": "진행중", done: "완료" };
 const VISIBILITY_LABEL = { public: "🌐 공개", private: "🔒 비공개" };
+let PROJECTS = [];
+
+// Project content now comes through an authenticated write API (see functions/api/admin/save.js),
+// not hardcoded data — escape it before it hits innerHTML to avoid stored XSS.
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, (c) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+  })[c]);
+}
+
+function safeRepoHref(repo) {
+  return typeof repo === "string" && repo.startsWith("https://") ? escapeHtml(repo) : null;
+}
 
 function methodHtml(method) {
   if (Array.isArray(method)) {
-    return `<ul>${method.map((m) => `<li>${m}</li>`).join("")}</ul>`;
+    return `<ul>${method.map((m) => `<li>${escapeHtml(m)}</li>`).join("")}</ul>`;
   }
-  return `<p>${method}</p>`;
+  return `<p>${escapeHtml(method)}</p>`;
 }
 
 function screenshotHtml(p) {
   const src = SCREENSHOTS[p.id];
   if (src) {
-    return `<img class="screenshot" src="${src}" alt="${p.title} 스크린샷">`;
+    return `<img class="screenshot" src="${src}" alt="${escapeHtml(p.title)} 스크린샷">`;
   }
-  return `<div class="screenshot-placeholder" data-project="${p.id}">스크린샷 준비 중</div>`;
+  return `<div class="screenshot-placeholder" data-project="${escapeHtml(p.id)}">스크린샷 준비 중</div>`;
 }
 
 function headerHtml(p) {
@@ -21,29 +34,30 @@ function headerHtml(p) {
     <div class="card-header ${p.status}">
       <span class="status-pill">${STATUS_LABEL[p.status]}</span>
       <span class="visibility-pill">${VISIBILITY_LABEL[p.visibility]}</span>
-      <h3>${p.title}</h3>
+      <h3>${escapeHtml(p.title)}</h3>
     </div>`;
 }
 
 function footerHtml(p) {
+  const href = safeRepoHref(p.repo);
   return `
     <div class="card-footer">
       <div class="meta-group">
-        ${p.repo ? `<a class="repo-link" href="${p.repo}" target="_blank" rel="noopener">🔗 GitHub</a>` : ""}
-        <span class="meta-item">🕒 ${p.updated}</span>
+        ${href ? `<a class="repo-link" href="${href}" target="_blank" rel="noopener">🔗 GitHub</a>` : ""}
+        <span class="meta-item">🕒 ${escapeHtml(p.updated)}</span>
       </div>
     </div>`;
 }
 
 function cardHtml(p) {
   return `
-    <article class="card" data-id="${p.id}" tabindex="0" role="button" aria-haspopup="dialog">
+    <article class="card" data-id="${escapeHtml(p.id)}" tabindex="0" role="button" aria-haspopup="dialog">
       ${headerHtml(p)}
       <div class="card-body">
         ${screenshotHtml(p)}
         <div class="card-content">
           <h4>목적</h4>
-          <p>${p.purpose}</p>
+          <p>${escapeHtml(p.purpose)}</p>
         </div>
         ${footerHtml(p)}
       </div>
@@ -88,7 +102,7 @@ function detailHtml(p) {
     ${headerHtml(p)}
     <div class="dialog-body">
       <h4>목적</h4>
-      <p>${p.purpose}</p>
+      <p>${escapeHtml(p.purpose)}</p>
       <h4>방법</h4>
       ${methodHtml(p.method)}
       ${footerHtml(p)}
@@ -123,6 +137,19 @@ function setupDialog() {
   });
 }
 
-renderCategories();
-renderTabs();
-setupDialog();
+async function init() {
+  const root = document.getElementById("categories");
+  try {
+    const res = await fetch("/api/projects");
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    PROJECTS = await res.json();
+  } catch (err) {
+    root.textContent = "프로젝트 정보를 불러오지 못했습니다. 잠시 후 새로고침해 주세요.";
+    return;
+  }
+  renderCategories();
+  renderTabs();
+  setupDialog();
+}
+
+init();

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>포트폴리오 편집</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/edit.css">
+</head>
+<body>
+<div class="wrap">
+
+  <h1>포트폴리오 편집</h1>
+
+  <section id="login-section">
+    <p>비밀번호를 입력하세요.</p>
+    <form id="login-form">
+      <input type="password" id="password" placeholder="비밀번호" autocomplete="current-password" required>
+      <button type="submit">로그인</button>
+    </form>
+    <p id="login-message" class="message"></p>
+  </section>
+
+  <section id="editor-section" hidden>
+    <div class="editor-toolbar">
+      <button id="save-btn">전체 저장</button>
+      <button id="logout-btn" type="button">로그아웃</button>
+      <span id="save-message" class="message"></span>
+    </div>
+    <div id="project-forms"></div>
+  </section>
+
+</div>
+<script src="../js/categories.js"></script>
+<script src="edit.js"></script>
+</body>
+</html>
