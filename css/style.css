@@ -5,12 +5,6 @@
   --muted: #666;
   --border: #e2e2e5;
   --accent: #2f6fed;
-  --tag-bg: #eef2fc;
-  --tag-text: #2f4d9e;
-  --badge-public-bg: #e6f6ea;
-  --badge-public-text: #1e7d3c;
-  --badge-private-bg: #fdeeee;
-  --badge-private-text: #b3392f;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -21,12 +15,6 @@
     --muted: #9a9a9e;
     --border: #303136;
     --accent: #6ea1ff;
-    --tag-bg: #262a3a;
-    --tag-text: #9db4f0;
-    --badge-public-bg: #163625;
-    --badge-public-text: #4fd07a;
-    --badge-private-bg: #3a2222;
-    --badge-private-text: #ef8a80;
   }
 }
 
@@ -79,13 +67,6 @@ header.intro p.role {
 
 header.intro p.summary {
   max-width: 640px;
-}
-
-.stack-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 16px;
 }
 
 .category {
@@ -221,20 +202,6 @@ header.intro p.summary {
 
 .card-content ul li {
   margin-bottom: 2px;
-}
-
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.tag {
-  font-size: 0.72rem;
-  background: var(--tag-bg);
-  color: var(--tag-text);
-  padding: 3px 8px;
-  border-radius: 6px;
 }
 
 .card-footer {
