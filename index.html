@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>김태연 - 프로젝트 포트폴리오</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="intro">
+    <h1>김태연</h1>
+    <p class="role">교육 현장 자동화 도구 개발 · 진학지도 데이터 분석</p>
+    <p class="summary">
+      학교 업무와 대입 진학지도 과정에서 반복되는 수작업을 자동화 도구로 바꾸는 작업을 합니다.
+      구글시트/엑셀 기반 업무를 대시보드와 스크립트로 대체하고, AI API(Claude/Gemini 등)와
+      Notion API를 연결해 정보 입력·조회 과정을 단순화합니다.
+    </p>
+    <div class="stack-tags">
+      <span class="tag">Python</span>
+      <span class="tag">JavaScript</span>
+      <span class="tag">Excel VBA</span>
+      <span class="tag">Google Apps Script</span>
+      <span class="tag">Notion API</span>
+      <span class="tag">Cloudflare Workers</span>
+      <span class="tag">Next.js / Supabase</span>
+      <span class="tag">Claude / Gemini / OpenAI API</span>
+    </div>
+  </header>
+
+  <div id="categories"></div>
+
+  <footer>
+    <p>비공개 저장소 프로젝트는 소속 기관 정보를 일반화하여 소개합니다. 카드를 클릭하면 상세 내용을 볼 수 있습니다.</p>
+  </footer>
+
+</div>
+
+<dialog id="detail-dialog">
+  <button class="dialog-close" aria-label="닫기">×</button>
+  <div id="detail-content"></div>
+</dialog>
+
+<script src="js/projects.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
