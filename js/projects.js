@@ -57,17 +57,6 @@ const PROJECTS = [
     updated: "2026.07.25",
   },
   {
-    id: "suhaeng-seteuk",
-    title: "세특 작성 보조 도구",
-    category: "대입 · 진학지도",
-    status: "done",
-    visibility: "private",
-    purpose: "수행평가 제출물을 근거로 세부능력 및 특기사항의 객관적 기록 부분 작성을 보조. 총평 등 교사 고유 판단 영역은 명확히 제외하고 역할 경계를 지키도록 설계.",
-    method: "제출물 텍스트를 분석해 정해진 규칙 안에서 사실 기반 초안을 생성.",
-    tags: ["Python"],
-    updated: "2026.07.27",
-  },
-  {
     id: "mock-exam-analysis",
     title: "모의고사 성적분석 시스템",
     category: "대입 · 진학지도",
