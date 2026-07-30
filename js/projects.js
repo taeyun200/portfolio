@@ -7,11 +7,11 @@ const PROJECTS = [
     category: "대입 · 진학지도",
     status: "in-progress",
     visibility: "public",
-    purpose: "여러 학교(15개교)의 대입 결과 데이터를 한 곳에 모아 진학상담 시 참고할 수 있는 개인용 데이터베이스.",
+    purpose: "대학 수시·정시 세부전형별 모집인원, 경쟁률, 충원률, '어디가' 발표 기준점수(컷) 등을 종합한 진학지도용 데이터베이스와 대시보드 제작.",
     method: "Python 스크립트로 데이터 수집·정제 후 조회 가능한 형태로 관리.",
     tags: ["Python"],
     repo: "https://github.com/taeyun200/ipsi-db",
-    updated: "2026.07.29",
+    updated: "2026.07.30",
   },
   {
     id: "hapbul",
