@@ -20,7 +20,7 @@ for (const id of fs.readdirSync(shotsDir)) {
     .sort((a, b) => b.mtime - a.mtime);
 
   if (candidates.length > 0) {
-    result[id] = `assets/screenshots/${id}/${candidates[0].f}`;
+    result[id] = `assets/screenshots/${id}/${encodeURIComponent(candidates[0].f)}`;
   }
 }
 
