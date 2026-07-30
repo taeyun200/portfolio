@@ -50,9 +50,26 @@ header.intro {
   margin-bottom: 48px;
 }
 
+.intro-top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.profile-photo {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top center;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+}
+
 header.intro h1 {
   font-size: 1.8rem;
-  margin: 0 0 8px;
+  margin: 0 0 4px;
 }
 
 header.intro p.role {
