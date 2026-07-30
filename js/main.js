@@ -55,11 +55,32 @@ function renderCategories() {
   root.innerHTML = CATEGORIES.map((cat) => {
     const items = PROJECTS.filter((p) => p.category === cat);
     return `
-      <section class="category">
+      <section class="category" data-category="${cat}">
         <h2>${cat}</h2>
         <div class="card-grid">${items.map(cardHtml).join("")}</div>
       </section>`;
   }).join("");
+}
+
+function filterByCategory(cat) {
+  document.querySelectorAll("#categories .category").forEach((section) => {
+    section.hidden = cat !== "전체" && section.dataset.category !== cat;
+  });
+}
+
+function renderTabs() {
+  const tabs = document.getElementById("tabs");
+  const labels = ["전체", ...CATEGORIES];
+  tabs.innerHTML = labels
+    .map((cat, i) => `<button class="tab${i === 0 ? " active" : ""}" data-category="${cat}">${cat}</button>`)
+    .join("");
+
+  tabs.addEventListener("click", (e) => {
+    const btn = e.target.closest(".tab");
+    if (!btn) return;
+    tabs.querySelectorAll(".tab").forEach((t) => t.classList.toggle("active", t === btn));
+    filterByCategory(btn.dataset.category);
+  });
 }
 
 function detailHtml(p) {
@@ -103,4 +124,5 @@ function setupDialog() {
 }
 
 renderCategories();
+renderTabs();
 setupDialog();
