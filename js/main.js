@@ -1,10 +1,6 @@
 const STATUS_LABEL = { "in-progress": "진행중", done: "완료" };
 const VISIBILITY_LABEL = { public: "🌐 공개", private: "🔒 비공개" };
 
-function tagsHtml(tags) {
-  return tags.map((t) => `<span class="tag">${t}</span>`).join("");
-}
-
 function methodHtml(method) {
   if (Array.isArray(method)) {
     return `<ul>${method.map((m) => `<li>${m}</li>`).join("")}</ul>`;
@@ -24,7 +20,6 @@ function headerHtml(p) {
 function footerHtml(p) {
   return `
     <div class="card-footer">
-      <div class="meta-group"><span class="meta-item">🧩 ${p.tags.length}개 기술</span></div>
       <div class="meta-group">
         ${p.repo ? `<a class="repo-link" href="${p.repo}" target="_blank" rel="noopener">🔗 GitHub</a>` : ""}
         <span class="meta-item">🕒 ${p.updated}</span>
@@ -41,7 +36,6 @@ function cardHtml(p) {
         <div class="card-content">
           <h4>목적</h4>
           <p>${p.purpose}</p>
-          <div class="tags">${tagsHtml(p.tags)}</div>
         </div>
         ${footerHtml(p)}
       </div>
@@ -68,7 +62,6 @@ function detailHtml(p) {
       <p>${p.purpose}</p>
       <h4>방법</h4>
       ${methodHtml(p.method)}
-      <div class="tags">${tagsHtml(p.tags)}</div>
       ${footerHtml(p)}
     </div>`;
 }
