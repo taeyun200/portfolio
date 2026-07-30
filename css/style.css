@@ -170,6 +170,13 @@ header.intro p.summary {
   );
 }
 
+.screenshot {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
 .card-content {
   border: 1px dashed var(--border);
   border-radius: 10px;

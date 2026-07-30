@@ -8,6 +8,14 @@ function methodHtml(method) {
   return `<p>${method}</p>`;
 }
 
+function screenshotHtml(p) {
+  const src = SCREENSHOTS[p.id];
+  if (src) {
+    return `<img class="screenshot" src="${src}" alt="${p.title} 스크린샷">`;
+  }
+  return `<div class="screenshot-placeholder" data-project="${p.id}">스크린샷 준비 중</div>`;
+}
+
 function headerHtml(p) {
   return `
     <div class="card-header ${p.status}">
@@ -32,7 +40,7 @@ function cardHtml(p) {
     <article class="card" data-id="${p.id}" tabindex="0" role="button" aria-haspopup="dialog">
       ${headerHtml(p)}
       <div class="card-body">
-        <div class="screenshot-placeholder" data-project="${p.id}">스크린샷 준비 중</div>
+        ${screenshotHtml(p)}
         <div class="card-content">
           <h4>목적</h4>
           <p>${p.purpose}</p>
