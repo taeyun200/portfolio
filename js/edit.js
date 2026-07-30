@@ -28,6 +28,9 @@ function projectFormHtml(p, i) {
   return `
     <details class="project-form" open>
       <summary>${escapeAttr(p.title)}</summary>
+      <div class="form-toolbar">
+        <button type="button" class="delete-btn" data-index="${i}">이 프로젝트 삭제</button>
+      </div>
       <label>제목<input type="text" data-field="title" data-index="${i}" value="${escapeAttr(p.title)}"></label>
       <label>카테고리
         <select data-field="category" data-index="${i}">
@@ -76,6 +79,17 @@ function collectProjects() {
   });
   return projects;
 }
+
+formsRoot.addEventListener("click", (e) => {
+  const btn = e.target.closest(".delete-btn");
+  if (!btn) return;
+  const i = Number(btn.dataset.index);
+  collectProjects(); // keep any unsaved edits in other forms before restructuring
+  const title = projects[i].title;
+  if (!confirm(`"${title}" 프로젝트를 목록에서 삭제할까요?\n(전체 저장을 눌러야 실제로 반영됩니다)`)) return;
+  projects.splice(i, 1);
+  renderForms();
+});
 
 async function tryLoadEditor() {
   const res = await fetch("/api/admin/data");

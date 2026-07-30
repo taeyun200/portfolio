@@ -64,16 +64,22 @@ function cardHtml(p) {
     </article>`;
 }
 
+function activeCategories() {
+  return CATEGORIES.filter((cat) => PROJECTS.some((p) => p.category === cat));
+}
+
 function renderCategories() {
   const root = document.getElementById("categories");
-  root.innerHTML = CATEGORIES.map((cat) => {
-    const items = PROJECTS.filter((p) => p.category === cat);
-    return `
+  root.innerHTML = activeCategories()
+    .map((cat) => {
+      const items = PROJECTS.filter((p) => p.category === cat);
+      return `
       <section class="category" data-category="${cat}">
         <h2>${cat}</h2>
         <div class="card-grid">${items.map(cardHtml).join("")}</div>
       </section>`;
-  }).join("");
+    })
+    .join("");
 }
 
 function filterByCategory(cat) {
@@ -84,7 +90,7 @@ function filterByCategory(cat) {
 
 function renderTabs() {
   const tabs = document.getElementById("tabs");
-  const labels = ["전체", ...CATEGORIES];
+  const labels = ["전체", ...activeCategories()];
   tabs.innerHTML = labels
     .map((cat, i) => `<button class="tab${i === 0 ? " active" : ""}" data-category="${cat}">${cat}</button>`)
     .join("");
