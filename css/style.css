@@ -530,6 +530,16 @@ dialog#detail-dialog::backdrop { background: transparent; }
   gap: 10px;
 }
 
+/* dialog 와 .dialog-body 사이에 이 div 가 있어 flex 체인이 끊겨 있었다.
+   여기에 flex 를 이어 주지 않으면 .dialog-body 의 flex:1 / min-height:0 이 전부
+   무의미해지고, 본문은 높이 제약을 못 받아 스크롤 대신 넘쳐서 잘린다. */
+#detail-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
 #detail-dialog .card-header { flex-shrink: 0; }
 
 /* flex 세로 컨테이너의 자식은 기본값이 flex-shrink:1 이라, 내용이 모달 높이를 넘으면
@@ -680,5 +690,4 @@ dialog#contact-dialog::backdrop { background: transparent; }
   margin: 0 auto;
 }
 
-/* 모달이 넓어지면서 본문 줄이 너무 길어지므로 글만 폭을 묶는다 (도식·리포트는 전폭 사용) */
-.dialog-body > p:not(.result), .dialog-body > ul { max-width: 68ch; }
+/* 폭 제한 없이 모달 폭을 그대로 쓴다 — 오른쪽을 비워 둔 채 줄을 바꾸지 않도록. */
