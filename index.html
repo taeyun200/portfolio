@@ -19,38 +19,42 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div class="wrap">
 
-  <header class="intro">
-    <div class="intro-top">
-      <img class="profile-photo" src="assets/profile/profile.jpg" alt="김태연 프로필 사진">
-      <div>
-        <h1>김태연</h1>
-        <p class="role">진학 데이터 분석 · 교육 현장 자동화 도구 개발</p>
+<header class="hero">
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <p class="eyebrow">김태연 · 현직 고교 교사</p>
+      <h1>반복되는 학교 일을<br><em>쓸 수 있는 도구</em>로 바꿉니다</h1>
+      <p class="summary">
+        대입 진학상담 분석과 학교 업무의 수작업을 자동화합니다. 진학 데이터 분석 · 엑셀러 · 바이브코더.
+      </p>
+      <p class="interests">
+        <strong>관심 분야</strong> 진학 데이터 분석 · 학교 업무 자동화 · 개인정보를 지키는 교육용 도구 설계
+      </p>
+      <div class="hero-actions">
+        <button id="contact-btn" type="button">연수 · 강의 · 협업 문의</button>
+        <a class="ghost-btn" href="#works">산출물 둘러보기 ↓</a>
       </div>
     </div>
-    <p class="summary">
-      대입 진학상담 분석과 학교 업무에서 반복되는 수작업을 자동화 도구로 바꾸는 현직 고교 교사 &amp; 엑셀러 &amp; 바이브코더
-    </p>
-    <p class="interests">
-      <strong>관심 분야</strong> 진학 데이터 분석 · 학교 업무 자동화 · 개인정보를 지키는 교육용 도구 설계
-    </p>
-    <p class="contact">
-      <button id="contact-btn" type="button">✉ 연수 · 강의 · 협업 문의</button>
-    </p>
-  </header>
+    <div class="hero-photo">
+      <img class="profile-photo" src="assets/profile/profile.jpg" alt="김태연 프로필 사진">
+    </div>
+  </div>
+</header>
 
-  <div id="stats" class="stats"></div>
+<main id="works">
+  <div class="container">
+    <div id="stats" class="stats"></div>
+    <nav class="tabs" id="tabs"></nav>
+    <div id="categories"></div>
+  </div>
+</main>
 
-  <nav class="tabs" id="tabs"></nav>
-
-  <div id="categories"></div>
-
-  <footer>
+<footer>
+  <div class="container">
     <p>비공개 저장소 프로젝트는 소속 기관 정보를 일반화하여 소개합니다. 카드를 클릭하면 상세 내용을 볼 수 있습니다.</p>
-  </footer>
-
-</div>
+  </div>
+</footer>
 
 <dialog id="detail-dialog">
   <button class="dialog-close" aria-label="닫기">×</button>
