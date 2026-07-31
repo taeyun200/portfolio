@@ -636,13 +636,21 @@ dialog#contact-dialog::backdrop { background: transparent; }
   }
 }
 
-/* 구조 도식 — 좁은 모달에서는 가로 스크롤로 넘긴다 (축소하면 글자가 안 읽힌다) */
+/* 구조 도식 — 글 흐름과 섞이지 않도록 자기 띠를 갖는다.
+   좁은 화면에서는 축소 대신 가로 스크롤로 넘긴다 (줄이면 글자가 안 읽힌다). */
+.diagram-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 14px 0 6px;
+}
+
 .diagram {
-  margin: 4px 0 2px;
-  padding: 14px;
+  margin: 0;
+  padding: 18px 16px;
   border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--surface);
+  border-radius: 14px;
+  background: var(--band);
   overflow-x: auto;
 }
 

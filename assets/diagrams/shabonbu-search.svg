@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 300" role="img"
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 272" role="img"
      aria-label="브라우저는 검색어만 서버로 보내고, 서버가 909건 중 가장 가까운 40건의 텍스트만 돌려주는 구조">
   <style>
     .bx { fill: #ffffff; stroke: #4f252e; stroke-width: 1.4; }
@@ -73,12 +73,5 @@
     <rect x="510" y="72" width="110" height="64" rx="10" class="bx" />
     <text x="565" y="99" text-anchor="middle" class="lbl">읽을 답변</text>
     <text x="565" y="119" text-anchor="middle" class="sub">질문 + 답변</text>
-    <text x="0" y="184" class="sub">단어가 정확히</text>
-    <text x="0" y="201" class="sub">겹치지 않아도</text>
-    <text x="0" y="218" class="sub">뜻이 비슷하면</text>
-    <text x="0" y="235" class="sub">찾아냅니다.</text>
-    <text x="510" y="164" class="sub">한 번에 40건씩만</text>
-    <text x="510" y="181" class="sub">나가므로 전량</text>
-    <text x="510" y="198" class="sub">수집이 어렵습니다.</text>
   </g>
 </svg>

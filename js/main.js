@@ -109,11 +109,15 @@ function renderTabs() {
 // 주의: Pages 는 없는 파일에 404 가 아니라 index.html(200) 을 돌려준다. 그래도 <img> 가
 // HTML 을 이미지로 디코딩하지 못해 error 가 나므로 아래 onerror 로 잡힌다.
 function diagramHtml(p) {
+  // 제목까지 함께 지워야 하므로 바깥 블록을 통째로 제거한다.
   return `
-    <figure class="diagram">
-      <img src="assets/diagrams/${escapeHtml(p.id)}.svg" alt="${escapeHtml(p.title)} 구조 도식"
-           onerror="this.parentElement.remove()">
-    </figure>`;
+    <div class="diagram-block">
+      <h4>구조</h4>
+      <figure class="diagram">
+        <img src="assets/diagrams/${escapeHtml(p.id)}.svg" alt="${escapeHtml(p.title)} 구조 도식"
+             onerror="this.closest('.diagram-block').remove()">
+      </figure>
+    </div>`;
 }
 
 function detailHtml(p) {

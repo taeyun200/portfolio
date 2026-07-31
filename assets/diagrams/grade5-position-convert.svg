@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 268" role="img"
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 252" role="img"
      aria-label="9등급 시절 졸업생과 5등급 재학생을 공통 백분위 축으로 환산해, 비슷한 위치의 과거 학생이 어디에 지원하고 합격했는지 찾아 주는 구조">
   <style>
     .bx { fill: #ffffff; stroke: #4f252e; stroke-width: 1.4; }
@@ -70,9 +70,5 @@
     <text x="541" y="88" text-anchor="middle" class="sub">“비슷한 위치의</text>
     <text x="541" y="106" text-anchor="middle" class="sub">과거 학생이 어디에</text>
     <text x="541" y="124" text-anchor="middle" class="sub">지원·합격했는가”</text>
-  </g>
-
-  <g class="s s6">
-    <text x="0" y="262" class="sub">등급 체계가 바뀌어 비교가 끊긴 자료를, 위치라는 공통 축으로 되살립니다.</text>
   </g>
 </svg>

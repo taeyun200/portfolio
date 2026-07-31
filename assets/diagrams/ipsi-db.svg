@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 246" role="img"
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 223" role="img"
      aria-label="흩어진 대학 공시자료를 파이썬으로 수집·정제해 하나의 진학지도용 데이터베이스로 모으고 조회하는 구조">
   <style>
     .bx { fill: #ffffff; stroke: #4f252e; stroke-width: 1.4; }
@@ -34,8 +34,6 @@
     <text x="76" y="84" text-anchor="middle" class="sub">경쟁률 · 충원률</text>
     <rect x="0" y="106" width="152" height="38" rx="8" class="bx" />
     <text x="76" y="130" text-anchor="middle" class="sub">‘어디가’ 기준점수</text>
-    <text x="0" y="166" class="sub">해마다 갱신되고</text>
-    <text x="0" y="184" class="sub">대학·전형마다 형식이 다름</text>
   </g>
 
   <g class="s s2">
@@ -61,9 +59,5 @@
     <text x="533" y="171" text-anchor="middle" class="lbl">조회 · 대시보드</text>
     <text x="533" y="191" text-anchor="middle" class="sub">“이 전형, 작년에</text>
     <text x="533" y="207" text-anchor="middle" class="sub">몇 명 뽑고 컷은 얼마”</text>
-  </g>
-
-  <g class="s s5">
-    <text x="0" y="234" class="sub">상담 중에 자료를 뒤지지 않고 바로 답하기 위한 데이터베이스입니다.</text>
   </g>
 </svg>
