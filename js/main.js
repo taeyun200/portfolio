@@ -166,6 +166,46 @@ function setupDialog() {
   });
 }
 
+// 숫자는 전부 데이터에서 계산한다 — 손으로 적어두면 항목을 늘렸을 때 조용히 거짓말이 된다.
+function renderStats() {
+  const done = PROJECTS.filter((p) => p.progress === "done").length;
+  const latest = PROJECTS[0] ? PROJECTS[0].date.slice(5).replace("-", ".") : "-";
+  const cells = [
+    ["산출물", PROJECTS.length],
+    ["완료", done],
+    ["진행중", PROJECTS.length - done],
+    ["최근 갱신", latest],
+  ];
+  document.getElementById("stats").innerHTML = cells
+    .map(([label, value]) => `<div class="stat"><strong>${escapeHtml(String(value))}</strong><span>${label}</span></div>`)
+    .join("");
+}
+
+// .reveal 을 JS로만 붙인다. 스크립트가 죽거나 IntersectionObserver 가 없으면
+// 클래스가 안 붙어 카드는 그냥 보인다 — 애니메이션 때문에 내용이 사라지는 일은 없다.
+function setupReveal() {
+  if (!("IntersectionObserver" in window)) return;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries
+        .filter((e) => e.isIntersecting)
+        .forEach((e, i) => {
+          e.target.style.transitionDelay = `${i * 50}ms`;
+          e.target.classList.add("in");
+          io.unobserve(e.target);
+        });
+    },
+    { rootMargin: "0px 0px -40px 0px" }
+  );
+
+  document.querySelectorAll("#categories .card").forEach((card) => {
+    card.classList.add("reveal");
+    io.observe(card);
+  });
+}
+
 function setupContact() {
   const dialog = document.getElementById("contact-dialog");
   const form = document.getElementById("contact-form");
@@ -220,8 +260,10 @@ async function init() {
   }
   // ISO dates sort correctly as plain strings — that is why the schema uses them.
   PROJECTS.sort((a, b) => b.date.localeCompare(a.date));
+  renderStats();
   renderCategories();
   renderTabs();
+  setupReveal();
   setupDialog();
   setupContact();
   // Shared link like /#hapbul lands straight on that project.
