@@ -5,6 +5,8 @@ const REQUIRED_FIELDS = [
   "problem", "approach", "result", "progress", "visibility",
 ];
 
+const SHOT_VALUES = ["top", "bottom", "fit"];
+
 function nonEmptyString(v) {
   return typeof v === "string" && v.trim() !== "";
 }
@@ -24,6 +26,8 @@ export function isValidProject(p) {
   // ponytail: summary/result must exist but may be blank while the 7 seed entries are backfilled.
   // Tighten to nonEmptyString once every project has both (PRD §6-3).
   if (typeof p.summary !== "string" || typeof p.result !== "string") return false;
+  // 선택 필드 — 없으면 가운데. 임의 CSS 를 그대로 받지 않고 아는 값만 허용한다.
+  if ("shot" in p && !SHOT_VALUES.includes(p.shot)) return false;
   return true;
 }
 

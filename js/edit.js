@@ -63,6 +63,14 @@ function projectFormHtml(p, i) {
       <label>문제 — 어떤 문제를 해결했는가<textarea data-field="problem" data-index="${i}" rows="3">${escapeAttr(p.problem)}</textarea></label>
       <label>접근 — 어떻게 만들었는가 (한 줄에 하나씩)<textarea data-field="approach" data-index="${i}" rows="4">${escapeAttr(approachToText(p.approach))}</textarea></label>
       <label>결과 — 실제로 쓰이고 있다는 근거 (선택 · 없으면 비워두세요)<textarea data-field="result" data-index="${i}" rows="3" placeholder="예) 3개 학년 부장이 학기마다 사용 중 / 작년 연수에서 40명이 실제로 돌려봄 / 성적처리 6시간→20분">${escapeAttr(p.result)}</textarea></label>
+      <label>스크린샷에서 보여줄 부분
+        <select data-field="shot" data-index="${i}">
+          <option value="center" ${!p.shot ? "selected" : ""}>가운데 (기본)</option>
+          <option value="top" ${p.shot === "top" ? "selected" : ""}>위쪽</option>
+          <option value="bottom" ${p.shot === "bottom" ? "selected" : ""}>아래쪽</option>
+          <option value="fit" ${p.shot === "fit" ? "selected" : ""}>전체 보이기 (잘림 없음)</option>
+        </select>
+      </label>
       <label>기술 태그 (쉼표로 구분)<input type="text" data-field="tags" data-index="${i}" value="${escapeAttr(p.tags.join(", "))}"></label>
       <label>GitHub 링크 (선택)<input type="text" data-field="repo" data-index="${i}" value="${escapeAttr(p.repo || "")}"></label>
       <label>제작 시기<input type="date" data-field="date" data-index="${i}" value="${escapeAttr(p.date)}"></label>
@@ -84,6 +92,10 @@ function collectProjects() {
       projects[i].tags = el.value.split(",").map((t) => t.trim()).filter(Boolean);
     } else if (field === "approach") {
       projects[i].approach = textToApproach(el.value);
+    } else if (field === "shot") {
+      // 기본값이면 필드를 아예 두지 않아 데이터를 깔끔하게 유지한다.
+      if (el.value && el.value !== "center") projects[i].shot = el.value;
+      else delete projects[i].shot;
     } else if (field === "repo") {
       const v = el.value.trim();
       if (v) projects[i].repo = v;

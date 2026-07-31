@@ -19,6 +19,8 @@ export function normalize(p) {
     visibility: p.visibility || "public",
   };
   if (p.repo) out.repo = p.repo;
+  // 스크린샷을 카드 칸에 맞춰 자를 때 어디를 남길지. 기본(가운데)이면 아예 두지 않는다.
+  if (p.shot) out.shot = p.shot;
   return out;
 }
 

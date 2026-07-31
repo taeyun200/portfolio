@@ -26,6 +26,15 @@ const missing = { ...ok };
 delete missing.result;
 assert(!isValidProject(missing), "missing field rejected");
 
+// 스크린샷 자를 위치 — 선택 필드라 없어도 통과, 있으면 아는 값만
+assert(isValidProject({ ...ok, shot: "top" }));
+assert(isValidProject({ ...ok, shot: "fit" }));
+assert(isValidProject(ok), "shot 없이도 통과");
+assert(!isValidProject({ ...ok, shot: "left" }), "모르는 값 거부");
+assert(!isValidProject({ ...ok, shot: "url(evil)" }), "임의 CSS 거부");
+assert.equal(normalize({ ...ok, shot: "top" }).shot, "top", "normalize 가 shot 을 보존");
+assert(!("shot" in normalize(ok)), "기본값이면 필드를 만들지 않는다");
+
 assert.equal(findDuplicateId([ok, { ...ok, id: "other" }]), null);
 assert.equal(findDuplicateId([ok, { ...ok, title: "다른 제목" }]), "my-tool");
 

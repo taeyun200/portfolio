@@ -24,7 +24,8 @@ function approachHtml(approach) {
 function screenshotHtml(p) {
   const src = SCREENSHOTS[p.id];
   if (src) {
-    return `<img class="screenshot" src="${src}" alt="${escapeHtml(p.title)} 스크린샷">`;
+    const shot = ["top", "bottom", "fit"].includes(p.shot) ? ` shot-${p.shot}` : "";
+    return `<img class="screenshot${shot}" src="${src}" alt="${escapeHtml(p.title)} 스크린샷">`;
   }
   return `<div class="screenshot-placeholder" data-project="${escapeHtml(p.id)}">스크린샷 준비 중</div>`;
 }

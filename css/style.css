@@ -679,3 +679,12 @@ dialog#contact-dialog::backdrop { background: transparent; }
 }
 
 /* 폭 제한 없이 모달 폭을 그대로 쓴다 — 오른쪽을 비워 둔 채 줄을 바꾸지 않도록. */
+
+/* 스크린샷에서 보여줄 부분 — 카드 칸 비율과 이미지 비율이 달라 잘리는 자리를 고른다 */
+.screenshot.shot-top { object-position: top; }
+.screenshot.shot-bottom { object-position: bottom; }
+
+.screenshot.shot-fit {
+  object-fit: contain;
+  background: var(--band);
+}
