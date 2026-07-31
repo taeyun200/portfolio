@@ -467,8 +467,6 @@ dialog#detail-dialog {
   max-height: 100dvh;
   padding: 0;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
   background: var(--surface);
   color: var(--text);
   border: none;
@@ -478,8 +476,15 @@ dialog#detail-dialog {
   box-shadow: -24px 0 60px rgba(79, 37, 46, 0.24);
 }
 
-/* 열릴 때만 애니메이션. 닫힘은 dialog 가 즉시 사라져 전환을 태울 수 없다. */
-dialog#detail-dialog[open] { animation: panel-in 0.3s cubic-bezier(0.22, 0.8, 0.3, 1); }
+/* display 는 반드시 [open] 안에만 둔다. 기본 규칙에 두면 닫힌 dialog 를 숨기는
+   브라우저 기본 스타일(dialog:not([open]){display:none})을 덮어써, 빈 패널이
+   페이지 로드 시점부터 화면에 붙어 있게 된다.
+   열릴 때만 애니메이션 — 닫힘은 dialog 가 즉시 사라져 전환을 태울 수 없다. */
+dialog#detail-dialog[open] {
+  display: flex;
+  flex-direction: column;
+  animation: panel-in 0.3s cubic-bezier(0.22, 0.8, 0.3, 1);
+}
 
 @keyframes panel-in {
   from { transform: translateX(100%); }
