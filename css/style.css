@@ -664,6 +664,10 @@ dialog#contact-dialog::backdrop { background: transparent; }
   width: 100%;
   min-width: 440px;
   height: auto;
+  /* 도식이 화면 높이를 다 먹으면 모달 아래로 잘려 나간다. 상한을 두면 비율은 그대로
+     둔 채 폭이 함께 줄어 항상 한눈에 들어온다. */
+  max-height: 42dvh;
+  margin: 0 auto;
 }
 
 /* 모달이 넓어지면서 본문 줄이 너무 길어지므로 글만 폭을 묶는다 (도식·리포트는 전폭 사용) */
