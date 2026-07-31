@@ -127,7 +127,7 @@ body {
    가상요소 + z-index:-1 대신 배경 그라디언트 — 쌓임 맥락에 안 걸린다. */
 .hero h1 em {
   font-style: normal;
-  background: linear-gradient(transparent 64%, rgba(244, 174, 82, 0.6) 64%);
+  background: linear-gradient(transparent 64%, rgba(244, 174, 82, 0.5) 64%);
   padding: 0 2px;
 }
 
@@ -468,10 +468,12 @@ dialog#detail-dialog {
   overflow: hidden;
   background: var(--surface);
   color: var(--text);
-  box-shadow: 0 24px 60px rgba(79, 37, 46, 0.35);
+  /* 뒷배경을 어둡게 덮지 않으므로, 모달 자신의 테두리와 그림자로 페이지와 분리한다. */
+  border: 1px solid var(--border);
+  box-shadow: 0 30px 70px rgba(79, 37, 46, 0.28), 0 0 0 1px rgba(79, 37, 46, 0.06);
 }
 
-dialog#detail-dialog::backdrop { background: rgba(79, 37, 46, 0.55); }
+dialog#detail-dialog::backdrop { background: transparent; }
 
 .dialog-close {
   position: absolute;
@@ -532,10 +534,11 @@ dialog#contact-dialog {
   width: 90vw;
   background: var(--surface);
   color: var(--text);
-  box-shadow: 0 24px 60px rgba(79, 37, 46, 0.35);
+  border: 1px solid var(--border);
+  box-shadow: 0 30px 70px rgba(79, 37, 46, 0.28), 0 0 0 1px rgba(79, 37, 46, 0.06);
 }
 
-dialog#contact-dialog::backdrop { background: rgba(79, 37, 46, 0.55); }
+dialog#contact-dialog::backdrop { background: transparent; }
 
 #contact-form { display: flex; flex-direction: column; gap: 13px; }
 #contact-form h3 { margin: 0; font-size: 1.15rem; font-weight: 800; }
