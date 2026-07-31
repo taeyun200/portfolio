@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 300" role="img"
+     aria-label="브라우저는 검색어만 서버로 보내고, 서버가 909건 중 가장 가까운 40건의 텍스트만 돌려주는 구조">
+  <style>
+    /* img 로 불러오면 페이지 CSS가 닿지 않으므로 색을 이 안에서 정의한다. */
+    .bx { fill: #ffffff; stroke: #4f252e; stroke-width: 1.4; }
+    .safe { fill: #c1ebe9; stroke: #4f252e; stroke-width: 1.4; }
+    .vault { fill: none; stroke: #4f252e; stroke-width: 1.4; stroke-dasharray: 5 4; }
+    .lbl { font-size: 15px; font-weight: 700; fill: #4f252e; }
+    .sub { font-size: 12.5px; fill: #8b6068; }
+    .step { font-size: 12.5px; fill: #4f252e; }
+    .flow { font-size: 12.5px; font-weight: 700; fill: #4f252e; }
+    .arw { stroke: #f4ae52; stroke-width: 2.6; fill: none; }
+    text { font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
+
+    @media (prefers-color-scheme: dark) {
+      .bx { fill: #3b1f26; stroke: #f3ddd2; }
+      .safe { fill: #1d5a5c; stroke: #f3ddd2; }
+      .vault { stroke: #f3ddd2; }
+      .lbl, .flow, .step { fill: #f8ece1; }
+      .sub { fill: #c6a29e; }
+      .arw { stroke: #f4ae52; }
+    }
+  </style>
+
+  <defs>
+    <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#f4ae52" />
+    </marker>
+  </defs>
+
+  <rect x="0" y="58" width="132" height="92" rx="10" class="bx" />
+  <text x="66" y="86" text-anchor="middle" class="lbl">브라우저</text>
+  <text x="66" y="110" text-anchor="middle" class="sub">“세특은 어떻게</text>
+  <text x="66" y="127" text-anchor="middle" class="sub">써야 하나요?”</text>
+
+  <path d="M138 104 H186" class="arw" marker-end="url(#b)" />
+  <text x="162" y="94" text-anchor="middle" class="flow">검색어만</text>
+
+  <rect x="196" y="10" width="250" height="252" rx="12" class="safe" />
+  <text x="321" y="34" text-anchor="middle" class="lbl">서버</text>
+
+  <rect x="214" y="48" width="214" height="34" rx="7" class="bx" />
+  <text x="321" y="70" text-anchor="middle" class="step">① 검색어를 숫자 벡터로</text>
+
+  <rect x="214" y="90" width="214" height="34" rx="7" class="bx" />
+  <text x="321" y="112" text-anchor="middle" class="step">② 909건과 유사도 비교</text>
+
+  <rect x="214" y="132" width="214" height="34" rx="7" class="bx" />
+  <text x="321" y="154" text-anchor="middle" class="step">③ 가장 가까운 40건만</text>
+
+  <rect x="214" y="184" width="214" height="58" rx="8" class="vault" />
+  <text x="321" y="208" text-anchor="middle" class="lbl">질의응답 909건 원문</text>
+  <text x="321" y="228" text-anchor="middle" class="sub">서버 밖으로 나가지 않음</text>
+
+  <path d="M452 104 H500" class="arw" marker-end="url(#b)" />
+  <text x="476" y="94" text-anchor="middle" class="flow">40건만</text>
+
+  <rect x="510" y="72" width="110" height="64" rx="10" class="bx" />
+  <text x="565" y="99" text-anchor="middle" class="lbl">읽을 답변</text>
+  <text x="565" y="119" text-anchor="middle" class="sub">질문 + 답변</text>
+
+  <text x="0" y="184" class="sub">단어가 정확히</text>
+  <text x="0" y="201" class="sub">겹치지 않아도</text>
+  <text x="0" y="218" class="sub">뜻이 비슷하면</text>
+  <text x="0" y="235" class="sub">찾아냅니다.</text>
+
+  <text x="510" y="164" class="sub">한 번에 40건씩만</text>
+  <text x="510" y="181" class="sub">나가므로 전량</text>
+  <text x="510" y="198" class="sub">수집이 어렵습니다.</text>
+</svg>

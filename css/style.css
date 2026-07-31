@@ -612,3 +612,20 @@ dialog#contact-dialog::backdrop { background: transparent; }
     transition: none;
   }
 }
+
+/* 구조 도식 — 좁은 모달에서는 가로 스크롤로 넘긴다 (축소하면 글자가 안 읽힌다) */
+.diagram {
+  margin: 4px 0 2px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  overflow-x: auto;
+}
+
+.diagram img {
+  display: block;
+  width: 100%;
+  min-width: 440px;
+  height: auto;
+}

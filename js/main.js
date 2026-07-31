@@ -105,6 +105,16 @@ function renderTabs() {
   });
 }
 
+// 도식은 있으면 쓰고 없으면 만다. 목록 파일을 따로 두지 않고 404 를 그대로 신호로 쓴다 —
+// 그림을 추가할 때 파일만 넣으면 되고, 생성 스크립트를 다시 돌릴 일이 없다.
+function diagramHtml(p) {
+  return `
+    <figure class="diagram">
+      <img src="assets/diagrams/${escapeHtml(p.id)}.svg" alt="${escapeHtml(p.title)} 구조 도식"
+           onerror="this.parentElement.remove()">
+    </figure>`;
+}
+
 function detailHtml(p) {
   return `
     ${headerHtml(p)}
@@ -113,6 +123,7 @@ function detailHtml(p) {
       <p>${escapeHtml(p.problem)}</p>
       <h4>접근</h4>
       ${approachHtml(p.approach)}
+      ${diagramHtml(p)}
       ${p.result ? `<h4>결과</h4><p class="result">${escapeHtml(p.result)}</p>` : ""}
       ${footerHtml(p)}
     </div>`;

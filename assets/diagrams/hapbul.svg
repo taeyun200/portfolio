@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 322" role="img"
+     aria-label="서버형은 여러 고교가 질의를 보내면 서버가 집계 결과만 돌려주고, 로컬형은 학교 PC 안에서만 동작해 아무것도 전송하지 않는 구조">
+  <style>
+    /* img 로 불러오면 페이지 CSS가 닿지 않으므로 색을 이 안에서 정의한다. */
+    .bx { fill: #ffffff; stroke: #4f252e; stroke-width: 1.4; }
+    .safe { fill: #c1ebe9; stroke: #4f252e; stroke-width: 1.4; }
+    .vault { fill: none; stroke: #4f252e; stroke-width: 1.4; stroke-dasharray: 5 4; }
+    .lbl { font-size: 15px; font-weight: 700; fill: #4f252e; }
+    .sub { font-size: 12.5px; fill: #8b6068; }
+    .tag { font-size: 12px; font-weight: 700; fill: #b35c0f; letter-spacing: .1em; }
+    .flow { font-size: 12.5px; font-weight: 700; fill: #4f252e; }
+    .arw { stroke: #f4ae52; stroke-width: 2.6; fill: none; }
+    .rule { stroke: #4f252e; stroke-width: 1; opacity: .22; }
+    text { font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
+
+    @media (prefers-color-scheme: dark) {
+      .bx { fill: #3b1f26; stroke: #f3ddd2; }
+      .safe { fill: #1d5a5c; stroke: #f3ddd2; }
+      .vault { stroke: #f3ddd2; }
+      .lbl, .flow { fill: #f8ece1; }
+      .sub { fill: #c6a29e; }
+      .tag { fill: #f4ae52; }
+      .arw { stroke: #f4ae52; }
+      .rule { stroke: #f3ddd2; }
+    }
+  </style>
+
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#f4ae52" />
+    </marker>
+  </defs>
+
+  <text x="0" y="12" class="tag">서버형</text>
+
+  <rect x="0" y="26" width="112" height="84" rx="10" class="bx" />
+  <text x="56" y="58" text-anchor="middle" class="lbl">여러 고교</text>
+  <text x="56" y="78" text-anchor="middle" class="sub">로그인 후 조회</text>
+  <text x="56" y="95" text-anchor="middle" class="sub">A · B · C …</text>
+
+  <path d="M118 68 H176" class="arw" marker-end="url(#a)" />
+  <text x="147" y="58" text-anchor="middle" class="flow">질의</text>
+
+  <rect x="186" y="20" width="230" height="96" rx="10" class="safe" />
+  <text x="301" y="42" text-anchor="middle" class="lbl">서버</text>
+  <rect x="204" y="54" width="194" height="48" rx="8" class="vault" />
+  <text x="301" y="75" text-anchor="middle" class="lbl">원본 진학 데이터</text>
+  <text x="301" y="93" text-anchor="middle" class="sub">여기서 나가지 않음</text>
+
+  <path d="M422 68 H482" class="arw" marker-end="url(#a)" />
+  <text x="452" y="58" text-anchor="middle" class="flow">집계만</text>
+
+  <rect x="492" y="38" width="128" height="60" rx="10" class="bx" />
+  <text x="556" y="64" text-anchor="middle" class="lbl">학교 화면</text>
+  <text x="556" y="83" text-anchor="middle" class="sub">건수 · 비율 · 판정</text>
+
+  <line x1="0" y1="146" x2="620" y2="146" class="rule" />
+
+  <text x="0" y="178" class="tag">로컬형</text>
+
+  <rect x="0" y="192" width="112" height="84" rx="10" class="bx" />
+  <text x="56" y="228" text-anchor="middle" class="lbl">학교 엑셀</text>
+  <text x="56" y="248" text-anchor="middle" class="sub">내 PC 안</text>
+
+  <path d="M118 234 H176" class="arw" marker-end="url(#a)" />
+
+  <rect x="186" y="186" width="230" height="96" rx="10" class="bx" />
+  <text x="301" y="219" text-anchor="middle" class="lbl">단일 HTML 파일</text>
+  <text x="301" y="240" text-anchor="middle" class="sub">서버 없이 브라우저에서 실행</text>
+  <text x="301" y="258" text-anchor="middle" class="sub">아무것도 전송하지 않음</text>
+
+  <path d="M422 234 H482" class="arw" marker-end="url(#a)" />
+
+  <rect x="492" y="204" width="128" height="60" rx="10" class="bx" />
+  <text x="556" y="230" text-anchor="middle" class="lbl">같은 결과</text>
+  <text x="556" y="249" text-anchor="middle" class="sub">판정 로직 공유</text>
+
+  <text x="0" y="312" class="sub">두 도구는 선호도 매핑·합불 판정 로직을 공유합니다.</text>
+</svg>
