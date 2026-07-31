@@ -33,8 +33,8 @@
   <text x="88" y="128" text-anchor="middle" class="lbl">5등급 재학생</text>
   <text x="88" y="148" text-anchor="middle" class="sub">단위수 가중평균 내신</text>
 
-  <path d="M182 45 H236" class="arw" marker-end="url(#g)" />
-  <path d="M182 135 H236" class="arw" marker-end="url(#g)" />
+  <path d="M182 45 C 212 45, 212 90, 240 90" class="arw" marker-end="url(#g)" />
+  <path d="M182 135 C 212 135, 212 90, 240 90" class="arw" marker-end="url(#g)" />
 
   <rect x="246" y="52" width="148" height="76" rx="10" class="safe" />
   <text x="320" y="78" text-anchor="middle" class="lbl">같은 축으로</text>

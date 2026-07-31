@@ -44,15 +44,15 @@
 
   <path d="M414 72 H468" class="arw" marker-end="url(#s)" />
 
-  <rect x="478" y="18" width="142" height="52" rx="10" class="bx" />
-  <text x="549" y="40" text-anchor="middle" class="lbl">교사 A · B · C</text>
-  <text x="549" y="59" text-anchor="middle" class="sub">각자 평가 입력</text>
+  <rect x="478" y="46" width="142" height="52" rx="10" class="bx" />
+  <text x="549" y="68" text-anchor="middle" class="lbl">교사 A · B · C</text>
+  <text x="549" y="87" text-anchor="middle" class="sub">각자 평가 입력</text>
 
-  <path d="M549 76 V104" class="arw" marker-end="url(#s)" />
+  <path d="M549 104 V126" class="arw" marker-end="url(#s)" />
 
-  <rect x="478" y="112" width="142" height="58" rx="10" class="bx" />
-  <text x="549" y="136" text-anchor="middle" class="lbl">실시간 공유</text>
-  <text x="549" y="156" text-anchor="middle" class="sub">평가 의견 모아 보기</text>
+  <rect x="478" y="134" width="142" height="58" rx="10" class="bx" />
+  <text x="549" y="158" text-anchor="middle" class="lbl">실시간 공유</text>
+  <text x="549" y="178" text-anchor="middle" class="sub">평가 의견 모아 보기</text>
 
   <text x="0" y="164" class="tag">연수 현장</text>
   <text x="0" y="188" class="sub">같은 생기부를 여러 교사가</text>

@@ -463,9 +463,10 @@ dialog#detail-dialog {
   border: none;
   border-radius: 20px;
   padding: 0;
-  max-width: 580px;
-  width: 90vw;
-  max-height: 85vh;
+  /* 도식이 들어가면서 580px 로는 축소가 심해 글자가 안 읽혔다. */
+  max-width: 880px;
+  width: 92vw;
+  max-height: 88vh;
   overflow: hidden;
   background: var(--surface);
   color: var(--text);
@@ -629,3 +630,6 @@ dialog#contact-dialog::backdrop { background: transparent; }
   min-width: 440px;
   height: auto;
 }
+
+/* 모달이 넓어지면서 본문 줄이 너무 길어지므로 글만 폭을 묶는다 (도식·리포트는 전폭 사용) */
+.dialog-body p, .dialog-body ul { max-width: 68ch; }
