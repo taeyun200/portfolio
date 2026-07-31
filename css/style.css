@@ -518,7 +518,13 @@ dialog#detail-dialog::backdrop { background: transparent; }
 .dialog-body {
   padding: 22px 26px 40px;
   flex: 1;
+  /* flex 자식의 min-height 기본값은 auto 라 내용보다 작아지지 못한다. 그래서 본문이
+     모달 높이를 넘으면 스크롤이 생기는 대신 그냥 넘쳐서 잘려 나갔다. */
+  min-height: 0;
   overflow-y: auto;
+  /* 넘치면 스크롤 막대가 보이도록 — 잘린 건지 더 있는 건지 알 수 있어야 한다. */
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -543,12 +549,16 @@ dialog#detail-dialog::backdrop { background: transparent; }
 .dialog-body ul { padding-left: 18px; }
 .dialog-body ul li { margin-bottom: 4px; }
 
-/* 결과는 포트폴리오의 핵심이므로 문제·접근보다 눈에 띄게 */
+/* 결과는 포트폴리오의 핵심이므로 눈에 띄게 — 다만 위 도식 띠와 같은 폭·여백·모서리를
+   써서 한 덩어리로 정렬시킨다. 폭이 어긋나면 강조가 아니라 어수선함이 된다. */
 .dialog-body p.result {
-  border-left: 3px solid var(--orange);
-  padding: 10px 14px;
+  max-width: none;
+  margin: 0;
+  padding: 18px 16px;
   background: var(--band);
-  border-radius: 0 8px 8px 0;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--orange);
+  border-radius: 14px;
 }
 
 /* ── 문의 폼 ────────────────────────────────── */
@@ -671,4 +681,4 @@ dialog#contact-dialog::backdrop { background: transparent; }
 }
 
 /* 모달이 넓어지면서 본문 줄이 너무 길어지므로 글만 폭을 묶는다 (도식·리포트는 전폭 사용) */
-.dialog-body p, .dialog-body ul { max-width: 68ch; }
+.dialog-body > p:not(.result), .dialog-body > ul { max-width: 68ch; }
