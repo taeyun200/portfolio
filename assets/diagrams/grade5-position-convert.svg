@@ -5,15 +5,21 @@
     .safe { fill: #c1ebe9; stroke: #4f252e; stroke-width: 1.4; }
     .lbl { font-size: 15px; font-weight: 700; fill: #4f252e; }
     .sub { font-size: 12.5px; fill: #8b6068; }
-    .flow { font-size: 12.5px; font-weight: 700; fill: #4f252e; }
     .arw { stroke: #f4ae52; stroke-width: 2.6; fill: none; }
     .axis { stroke: #4f252e; stroke-width: 1.6; }
     .pin { fill: #f4ae52; stroke: #4f252e; stroke-width: 1.2; }
     text { font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
+
+    .s { opacity: 0; animation: in .5s ease forwards; }
+    .s1 { animation-delay: .10s } .s2 { animation-delay: .40s } .s3 { animation-delay: .70s }
+    .s4 { animation-delay: 1.00s } .s5 { animation-delay: 1.30s } .s6 { animation-delay: 1.60s }
+    @keyframes in { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { .s { opacity: 1; animation: none; } }
+
     @media (prefers-color-scheme: dark) {
       .bx { fill: #3b1f26; stroke: #f3ddd2; }
       .safe { fill: #1d5a5c; stroke: #f3ddd2; }
-      .lbl, .flow { fill: #f8ece1; }
+      .lbl { fill: #f8ece1; }
       .sub { fill: #c6a29e; }
       .axis { stroke: #f3ddd2; }
       .pin { stroke: #f3ddd2; }
@@ -25,38 +31,48 @@
     </marker>
   </defs>
 
-  <rect x="0" y="14" width="176" height="62" rx="10" class="bx" />
-  <text x="88" y="38" text-anchor="middle" class="lbl">9등급 시절 졸업생</text>
-  <text x="88" y="58" text-anchor="middle" class="sub">지원 · 합격 결과 누적</text>
+  <g class="s s1">
+    <rect x="0" y="14" width="176" height="62" rx="10" class="bx" />
+    <text x="88" y="38" text-anchor="middle" class="lbl">9등급 시절 졸업생</text>
+    <text x="88" y="58" text-anchor="middle" class="sub">지원 · 합격 결과 누적</text>
+  </g>
 
-  <rect x="0" y="104" width="176" height="62" rx="10" class="bx" />
-  <text x="88" y="128" text-anchor="middle" class="lbl">5등급 재학생</text>
-  <text x="88" y="148" text-anchor="middle" class="sub">단위수 가중평균 내신</text>
+  <g class="s s2">
+    <rect x="0" y="104" width="176" height="62" rx="10" class="bx" />
+    <text x="88" y="128" text-anchor="middle" class="lbl">5등급 재학생</text>
+    <text x="88" y="148" text-anchor="middle" class="sub">단위수 가중평균 내신</text>
+  </g>
 
-  <path d="M182 45 C 212 45, 212 90, 240 90" class="arw" marker-end="url(#g)" />
-  <path d="M182 135 C 212 135, 212 90, 240 90" class="arw" marker-end="url(#g)" />
+  <g class="s s3">
+    <path d="M182 45 C 212 45, 212 90, 240 90" class="arw" marker-end="url(#g)" />
+    <path d="M182 135 C 212 135, 212 90, 240 90" class="arw" marker-end="url(#g)" />
+    <rect x="246" y="52" width="148" height="76" rx="10" class="safe" />
+    <text x="320" y="78" text-anchor="middle" class="lbl">같은 축으로</text>
+    <text x="320" y="98" text-anchor="middle" class="sub">백분위 =</text>
+    <text x="320" y="116" text-anchor="middle" class="sub">(1 + 나보다 위) ÷ N</text>
+  </g>
 
-  <rect x="246" y="52" width="148" height="76" rx="10" class="safe" />
-  <text x="320" y="78" text-anchor="middle" class="lbl">같은 축으로</text>
-  <text x="320" y="98" text-anchor="middle" class="sub">백분위 =</text>
-  <text x="320" y="116" text-anchor="middle" class="sub">(1 + 나보다 위) ÷ N</text>
+  <g class="s s4">
+    <line x1="246" y1="176" x2="394" y2="176" class="axis" />
+    <text x="246" y="200" class="sub">상위</text>
+    <text x="394" y="200" text-anchor="end" class="sub">하위</text>
+    <circle cx="292" cy="176" r="5.5" class="pin" />
+    <circle cx="300" cy="176" r="5.5" class="pin" />
+    <circle cx="296" cy="176" r="5.5" class="pin" />
+    <text x="296" y="222" text-anchor="middle" class="sub">같은 위치에</text>
+    <text x="296" y="240" text-anchor="middle" class="sub">겹쳐 놓는다</text>
+  </g>
 
-  <line x1="246" y1="176" x2="394" y2="176" class="axis" />
-  <text x="246" y="200" class="sub">상위</text>
-  <text x="394" y="200" text-anchor="end" class="sub">하위</text>
-  <circle cx="292" cy="176" r="5.5" class="pin" />
-  <circle cx="300" cy="176" r="5.5" class="pin" />
-  <circle cx="296" cy="176" r="5.5" class="pin" />
-  <text x="296" y="222" text-anchor="middle" class="sub">같은 위치에</text>
-  <text x="296" y="240" text-anchor="middle" class="sub">겹쳐 놓는다</text>
+  <g class="s s5">
+    <path d="M400 90 H452" class="arw" marker-end="url(#g)" />
+    <rect x="462" y="40" width="158" height="100" rx="10" class="bx" />
+    <text x="541" y="66" text-anchor="middle" class="lbl">상담 자료</text>
+    <text x="541" y="88" text-anchor="middle" class="sub">“비슷한 위치의</text>
+    <text x="541" y="106" text-anchor="middle" class="sub">과거 학생이 어디에</text>
+    <text x="541" y="124" text-anchor="middle" class="sub">지원·합격했는가”</text>
+  </g>
 
-  <path d="M400 90 H452" class="arw" marker-end="url(#g)" />
-
-  <rect x="462" y="40" width="158" height="100" rx="10" class="bx" />
-  <text x="541" y="66" text-anchor="middle" class="lbl">상담 자료</text>
-  <text x="541" y="88" text-anchor="middle" class="sub">“비슷한 위치의</text>
-  <text x="541" y="106" text-anchor="middle" class="sub">과거 학생이 어디에</text>
-  <text x="541" y="124" text-anchor="middle" class="sub">지원·합격했는가”</text>
-
-  <text x="0" y="262" class="sub">등급 체계가 바뀌어 비교가 끊긴 자료를, 위치라는 공통 축으로 되살립니다.</text>
+  <g class="s s6">
+    <text x="0" y="262" class="sub">등급 체계가 바뀌어 비교가 끊긴 자료를, 위치라는 공통 축으로 되살립니다.</text>
+  </g>
 </svg>

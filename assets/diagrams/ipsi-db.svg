@@ -5,13 +5,19 @@
     .safe { fill: #c1ebe9; stroke: #4f252e; stroke-width: 1.4; }
     .lbl { font-size: 15px; font-weight: 700; fill: #4f252e; }
     .sub { font-size: 12.5px; fill: #8b6068; }
-    .flow { font-size: 12.5px; font-weight: 700; fill: #4f252e; }
     .arw { stroke: #f4ae52; stroke-width: 2.6; fill: none; }
     text { font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
+
+    .s { opacity: 0; animation: in .5s ease forwards; }
+    .s1 { animation-delay: .10s } .s2 { animation-delay: .45s } .s3 { animation-delay: .80s }
+    .s4 { animation-delay: 1.15s } .s5 { animation-delay: 1.50s }
+    @keyframes in { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { .s { opacity: 1; animation: none; } }
+
     @media (prefers-color-scheme: dark) {
       .bx { fill: #3b1f26; stroke: #f3ddd2; }
       .safe { fill: #1d5a5c; stroke: #f3ddd2; }
-      .lbl, .flow { fill: #f8ece1; }
+      .lbl { fill: #f8ece1; }
       .sub { fill: #c6a29e; }
     }
   </style>
@@ -21,39 +27,43 @@
     </marker>
   </defs>
 
-  <rect x="0" y="14" width="152" height="38" rx="8" class="bx" />
-  <text x="76" y="38" text-anchor="middle" class="sub">세부전형별 모집인원</text>
+  <g class="s s1">
+    <rect x="0" y="14" width="152" height="38" rx="8" class="bx" />
+    <text x="76" y="38" text-anchor="middle" class="sub">세부전형별 모집인원</text>
+    <rect x="0" y="60" width="152" height="38" rx="8" class="bx" />
+    <text x="76" y="84" text-anchor="middle" class="sub">경쟁률 · 충원률</text>
+    <rect x="0" y="106" width="152" height="38" rx="8" class="bx" />
+    <text x="76" y="130" text-anchor="middle" class="sub">‘어디가’ 기준점수</text>
+    <text x="0" y="166" class="sub">해마다 갱신되고</text>
+    <text x="0" y="184" class="sub">대학·전형마다 형식이 다름</text>
+  </g>
 
-  <rect x="0" y="60" width="152" height="38" rx="8" class="bx" />
-  <text x="76" y="84" text-anchor="middle" class="sub">경쟁률 · 충원률</text>
+  <g class="s s2">
+    <path d="M158 33 C 190 33, 190 79, 218 79" class="arw" marker-end="url(#i)" />
+    <path d="M158 79 H218" class="arw" marker-end="url(#i)" />
+    <path d="M158 125 C 190 125, 190 79, 218 79" class="arw" marker-end="url(#i)" />
+    <rect x="228" y="40" width="150" height="78" rx="10" class="safe" />
+    <text x="303" y="68" text-anchor="middle" class="lbl">수집 · 정제</text>
+    <text x="303" y="90" text-anchor="middle" class="sub">Python 스크립트</text>
+    <text x="303" y="108" text-anchor="middle" class="sub">형식 통일 · 대학명 정규화</text>
+  </g>
 
-  <rect x="0" y="106" width="152" height="38" rx="8" class="bx" />
-  <text x="76" y="130" text-anchor="middle" class="sub">‘어디가’ 기준점수</text>
+  <g class="s s3">
+    <path d="M384 79 H436" class="arw" marker-end="url(#i)" />
+    <rect x="446" y="49" width="174" height="60" rx="10" class="bx" />
+    <text x="533" y="73" text-anchor="middle" class="lbl">통합 데이터베이스</text>
+    <text x="533" y="93" text-anchor="middle" class="sub">전형 단위로 한 줄</text>
+  </g>
 
-  <text x="0" y="166" class="sub">해마다 갱신되고</text>
-  <text x="0" y="184" class="sub">대학·전형마다 형식이 다름</text>
+  <g class="s s4">
+    <path d="M533 115 V139" class="arw" marker-end="url(#i)" />
+    <rect x="446" y="147" width="174" height="66" rx="10" class="bx" />
+    <text x="533" y="171" text-anchor="middle" class="lbl">조회 · 대시보드</text>
+    <text x="533" y="191" text-anchor="middle" class="sub">“이 전형, 작년에</text>
+    <text x="533" y="207" text-anchor="middle" class="sub">몇 명 뽑고 컷은 얼마”</text>
+  </g>
 
-  <path d="M158 33 C 190 33, 190 79, 218 79" class="arw" marker-end="url(#i)" />
-  <path d="M158 79 H218" class="arw" marker-end="url(#i)" />
-  <path d="M158 125 C 190 125, 190 79, 218 79" class="arw" marker-end="url(#i)" />
-
-  <rect x="228" y="40" width="150" height="78" rx="10" class="safe" />
-  <text x="303" y="68" text-anchor="middle" class="lbl">수집 · 정제</text>
-  <text x="303" y="90" text-anchor="middle" class="sub">Python 스크립트</text>
-  <text x="303" y="108" text-anchor="middle" class="sub">형식 통일 · 대학명 정규화</text>
-
-  <path d="M384 79 H436" class="arw" marker-end="url(#i)" />
-
-  <rect x="446" y="49" width="174" height="60" rx="10" class="bx" />
-  <text x="533" y="73" text-anchor="middle" class="lbl">통합 데이터베이스</text>
-  <text x="533" y="93" text-anchor="middle" class="sub">전형 단위로 한 줄</text>
-
-  <path d="M533 115 V139" class="arw" marker-end="url(#i)" />
-
-  <rect x="446" y="147" width="174" height="66" rx="10" class="bx" />
-  <text x="533" y="171" text-anchor="middle" class="lbl">조회 · 대시보드</text>
-  <text x="533" y="191" text-anchor="middle" class="sub">“이 전형, 작년에</text>
-  <text x="533" y="207" text-anchor="middle" class="sub">몇 명 뽑고 컷은 얼마”</text>
-
-  <text x="0" y="234" class="sub">상담 중에 자료를 뒤지지 않고 바로 답하기 위한 데이터베이스입니다.</text>
+  <g class="s s5">
+    <text x="0" y="234" class="sub">상담 중에 자료를 뒤지지 않고 바로 답하기 위한 데이터베이스입니다.</text>
+  </g>
 </svg>

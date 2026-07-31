@@ -456,23 +456,42 @@ footer p { margin: 0; }
 /* ── 상세 모달 ──────────────────────────────── */
 /* position:relative 였을 때 모달이 문서 흐름(body 끝)에 놓여, 열릴 때 브라우저가
    거기까지 스크롤해 화면이 최상단으로 튀었다. fixed + margin:auto 가 기본 중앙 배치. */
+/* 가운데 팝업 대신 오른쪽에서 밀려 들어오는 패널. 목록이 그대로 보여 맥락이 끊기지 않는다. */
 dialog#detail-dialog {
   position: fixed;
-  inset: 0;
-  margin: auto;
-  border: none;
-  border-radius: 20px;
+  inset: 0 0 0 auto;
+  margin: 0;
+  max-width: none;
+  width: min(860px, 94vw);
+  height: 100dvh;
+  max-height: 100dvh;
   padding: 0;
-  /* 도식이 들어가면서 580px 로는 축소가 심해 글자가 안 읽혔다. */
-  max-width: 880px;
-  width: 92vw;
-  max-height: 88vh;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
   background: var(--surface);
   color: var(--text);
-  /* 뒷배경을 어둡게 덮지 않으므로, 모달 자신의 테두리와 그림자로 페이지와 분리한다. */
-  border: 1px solid var(--border);
-  box-shadow: 0 30px 70px rgba(79, 37, 46, 0.28), 0 0 0 1px rgba(79, 37, 46, 0.06);
+  border: none;
+  border-left: 1px solid var(--border);
+  border-radius: 20px 0 0 20px;
+  /* 뒷배경을 어둡게 덮지 않으므로, 패널 자신의 그림자로 페이지와 분리한다. */
+  box-shadow: -24px 0 60px rgba(79, 37, 46, 0.24);
+}
+
+/* 열릴 때만 애니메이션. 닫힘은 dialog 가 즉시 사라져 전환을 태울 수 없다. */
+dialog#detail-dialog[open] { animation: panel-in 0.3s cubic-bezier(0.22, 0.8, 0.3, 1); }
+
+@keyframes panel-in {
+  from { transform: translateX(100%); }
+  to   { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  dialog#detail-dialog[open] { animation: none; }
+}
+
+@media (max-width: 620px) {
+  dialog#detail-dialog { border-radius: 0; border-left: none; }
 }
 
 dialog#detail-dialog::backdrop { background: transparent; }
@@ -495,14 +514,17 @@ dialog#detail-dialog::backdrop { background: transparent; }
 
 .dialog-close:hover { background: rgba(79, 37, 46, 0.3); }
 
+/* 헤더는 위에 고정되고 본문만 스크롤되도록, 패널 높이를 flex 로 나눠 갖는다. */
 .dialog-body {
-  padding: 22px;
-  max-height: calc(85vh - 76px);
+  padding: 22px 26px 40px;
+  flex: 1;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
+
+#detail-dialog .card-header { flex-shrink: 0; }
 
 .dialog-body h4 {
   margin: 6px 0 2px;
