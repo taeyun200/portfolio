@@ -441,18 +441,6 @@ main { padding-bottom: 90px; }
 /* .card.reveal.in 이 .card:hover 보다 우선순위가 높아 같은 무게로 다시 선언 */
 .card:hover, .card.reveal.in:hover { transform: translateY(-4px); }
 
-/* ── 푸터 ───────────────────────────────────── */
-footer {
-  background: var(--band);
-  border-top: 1px solid var(--border);
-  color: var(--muted);
-  font-size: 0.85rem;
-  text-align: center;
-  padding: 32px 0;
-}
-
-footer p { margin: 0; }
-
 /* ── 상세 모달 ──────────────────────────────── */
 /* position:relative 였을 때 모달이 문서 흐름(body 끝)에 놓여, 열릴 때 브라우저가
    거기까지 스크롤해 화면이 최상단으로 튀었다. fixed + margin:auto 가 기본 중앙 배치. */
