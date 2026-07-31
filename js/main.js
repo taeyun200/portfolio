@@ -1,4 +1,4 @@
-const STATUS_LABEL = { "in-progress": "진행중", done: "완료" };
+const PROGRESS_LABEL = { "in-progress": "진행중", done: "완료" };
 const VISIBILITY_LABEL = { public: "🌐 공개", private: "🔒 비공개" };
 let PROJECTS = [];
 
@@ -14,11 +14,11 @@ function safeRepoHref(repo) {
   return typeof repo === "string" && repo.startsWith("https://") ? escapeHtml(repo) : null;
 }
 
-function methodHtml(method) {
-  if (Array.isArray(method)) {
-    return `<ul>${method.map((m) => `<li>${escapeHtml(m)}</li>`).join("")}</ul>`;
+function approachHtml(approach) {
+  if (Array.isArray(approach)) {
+    return `<ul>${approach.map((m) => `<li>${escapeHtml(m)}</li>`).join("")}</ul>`;
   }
-  return `<p>${escapeHtml(method)}</p>`;
+  return `<p>${escapeHtml(approach)}</p>`;
 }
 
 function screenshotHtml(p) {
@@ -31,8 +31,8 @@ function screenshotHtml(p) {
 
 function headerHtml(p) {
   return `
-    <div class="card-header ${p.status}">
-      <span class="status-pill">${STATUS_LABEL[p.status]}</span>
+    <div class="card-header ${p.progress}">
+      <span class="status-pill">${PROGRESS_LABEL[p.progress]}</span>
       <span class="visibility-pill">${VISIBILITY_LABEL[p.visibility]}</span>
       <h3>${escapeHtml(p.title)}</h3>
     </div>`;
@@ -44,7 +44,7 @@ function footerHtml(p) {
     <div class="card-footer">
       <div class="meta-group">
         ${href ? `<a class="repo-link" href="${href}" target="_blank" rel="noopener">🔗 GitHub</a>` : ""}
-        <span class="meta-item">🕒 ${escapeHtml(p.updated)}</span>
+        <span class="meta-item">🕒 ${escapeHtml(p.date)}</span>
       </div>
     </div>`;
 }
@@ -56,8 +56,7 @@ function cardHtml(p) {
       <div class="card-body">
         ${screenshotHtml(p)}
         <div class="card-content">
-          <h4>목적</h4>
-          <p>${escapeHtml(p.purpose)}</p>
+          <p>${escapeHtml(p.summary || p.problem)}</p>
         </div>
         ${footerHtml(p)}
       </div>
@@ -107,10 +106,11 @@ function detailHtml(p) {
   return `
     ${headerHtml(p)}
     <div class="dialog-body">
-      <h4>목적</h4>
-      <p>${escapeHtml(p.purpose)}</p>
-      <h4>방법</h4>
-      ${methodHtml(p.method)}
+      <h4>문제</h4>
+      <p>${escapeHtml(p.problem)}</p>
+      <h4>접근</h4>
+      ${approachHtml(p.approach)}
+      ${p.result ? `<h4>결과</h4><p class="result">${escapeHtml(p.result)}</p>` : ""}
       ${footerHtml(p)}
     </div>`;
 }

@@ -96,3 +96,16 @@ button {
   font: inherit;
   box-sizing: border-box;
 }
+
+.project-form.incomplete {
+  border-left: 3px solid #d97706;
+}
+
+.project-form.incomplete > summary {
+  color: #d97706;
+}
+
+#todo-count.warn {
+  color: #d97706;
+  font-weight: 600;
+}

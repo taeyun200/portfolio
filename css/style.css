@@ -349,3 +349,11 @@ dialog#detail-dialog::backdrop {
 .dialog-body ul li {
   margin-bottom: 3px;
 }
+
+/* 결과는 포트폴리오의 핵심이므로 문제·접근보다 눈에 띄게 */
+.dialog-body p.result {
+  border-left: 3px solid var(--accent);
+  padding: 8px 12px;
+  background: var(--bg);
+  border-radius: 0 6px 6px 0;
+}

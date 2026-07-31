@@ -3,8 +3,11 @@ const editorSection = document.getElementById("editor-section");
 const loginForm = document.getElementById("login-form");
 const loginMessage = document.getElementById("login-message");
 const saveBtn = document.getElementById("save-btn");
+const addBtn = document.getElementById("add-btn");
+const backupBtn = document.getElementById("backup-btn");
 const logoutBtn = document.getElementById("logout-btn");
 const saveMessage = document.getElementById("save-message");
+const todoCount = document.getElementById("todo-count");
 const formsRoot = document.getElementById("project-forms");
 
 let projects = [];
@@ -15,32 +18,37 @@ function escapeAttr(str) {
   })[c]);
 }
 
-function methodToText(method) {
-  return Array.isArray(method) ? method.join("\n") : method;
+function approachToText(approach) {
+  return Array.isArray(approach) ? approach.join("\n") : approach;
 }
 
-function textToMethod(text) {
+function textToApproach(text) {
   const lines = text.split("\n").map((l) => l.trim()).filter(Boolean);
   return lines.length <= 1 ? lines[0] || "" : lines;
 }
 
+function isIncomplete(p) {
+  return !p.summary?.trim() || !p.result?.trim();
+}
+
 function projectFormHtml(p, i) {
   return `
-    <details class="project-form" open>
-      <summary>${escapeAttr(p.title)}</summary>
+    <details class="project-form${isIncomplete(p) ? " incomplete" : ""}" open>
+      <summary>${escapeAttr(p.title)}${isIncomplete(p) ? " — ⚠ 요약·결과 미작성" : ""}</summary>
       <div class="form-toolbar">
         <button type="button" class="delete-btn" data-index="${i}">이 프로젝트 삭제</button>
       </div>
+      <label>ID (스크린샷 폴더명과 동일해야 함 · 영문 소문자·숫자·하이픈)<input type="text" data-field="id" data-index="${i}" value="${escapeAttr(p.id)}"></label>
       <label>제목<input type="text" data-field="title" data-index="${i}" value="${escapeAttr(p.title)}"></label>
       <label>카테고리
         <select data-field="category" data-index="${i}">
           ${CATEGORIES.map((c) => `<option value="${escapeAttr(c)}" ${c === p.category ? "selected" : ""}>${escapeAttr(c)}</option>`).join("")}
         </select>
       </label>
-      <label>상태
-        <select data-field="status" data-index="${i}">
-          <option value="in-progress" ${p.status === "in-progress" ? "selected" : ""}>진행중</option>
-          <option value="done" ${p.status === "done" ? "selected" : ""}>완료</option>
+      <label>진행 상태
+        <select data-field="progress" data-index="${i}">
+          <option value="in-progress" ${p.progress === "in-progress" ? "selected" : ""}>진행중</option>
+          <option value="done" ${p.progress === "done" ? "selected" : ""}>완료</option>
         </select>
       </label>
       <label>공개 여부
@@ -49,16 +57,21 @@ function projectFormHtml(p, i) {
           <option value="private" ${p.visibility === "private" ? "selected" : ""}>비공개</option>
         </select>
       </label>
-      <label>목적<textarea data-field="purpose" data-index="${i}" rows="2">${escapeAttr(p.purpose)}</textarea></label>
-      <label>방법 (한 줄에 하나씩)<textarea data-field="method" data-index="${i}" rows="4">${escapeAttr(methodToText(p.method))}</textarea></label>
+      <label>한 줄 요약 (60자 이내 · 카드에 표시됨)<input type="text" data-field="summary" maxlength="60" data-index="${i}" value="${escapeAttr(p.summary)}" placeholder="예) 9등급 시절 대입 결과를 5등급 학생과 같은 축으로 환산"></label>
+      <label>문제 — 어떤 문제를 해결했는가<textarea data-field="problem" data-index="${i}" rows="3">${escapeAttr(p.problem)}</textarea></label>
+      <label>접근 — 어떻게 만들었는가 (한 줄에 하나씩)<textarea data-field="approach" data-index="${i}" rows="4">${escapeAttr(approachToText(p.approach))}</textarea></label>
+      <label>결과 — 실제로 어떤 효과가 있었는가<textarea data-field="result" data-index="${i}" rows="3" placeholder="예) 학기당 성적처리 작업이 6시간에서 20분으로 줄었고, 3개 학년 부장이 함께 사용 중">${escapeAttr(p.result)}</textarea></label>
       <label>기술 태그 (쉼표로 구분)<input type="text" data-field="tags" data-index="${i}" value="${escapeAttr(p.tags.join(", "))}"></label>
       <label>GitHub 링크 (선택)<input type="text" data-field="repo" data-index="${i}" value="${escapeAttr(p.repo || "")}"></label>
-      <label>최근 업데이트<input type="text" data-field="updated" data-index="${i}" value="${escapeAttr(p.updated)}"></label>
+      <label>제작 시기<input type="date" data-field="date" data-index="${i}" value="${escapeAttr(p.date)}"></label>
     </details>`;
 }
 
 function renderForms() {
   formsRoot.innerHTML = projects.map(projectFormHtml).join("");
+  const todo = projects.filter(isIncomplete).length;
+  todoCount.textContent = todo ? `요약·결과 미작성 ${todo}건 / ${projects.length}건` : `${projects.length}건 모두 작성 완료`;
+  todoCount.classList.toggle("warn", todo > 0);
 }
 
 function collectProjects() {
@@ -67,8 +80,8 @@ function collectProjects() {
     const field = el.dataset.field;
     if (field === "tags") {
       projects[i].tags = el.value.split(",").map((t) => t.trim()).filter(Boolean);
-    } else if (field === "method") {
-      projects[i].method = textToMethod(el.value);
+    } else if (field === "approach") {
+      projects[i].approach = textToApproach(el.value);
     } else if (field === "repo") {
       const v = el.value.trim();
       if (v) projects[i].repo = v;
@@ -79,6 +92,47 @@ function collectProjects() {
   });
   return projects;
 }
+
+function todayStr() {
+  const d = new Date();
+  const pad = (n) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+}
+
+function newId() {
+  let n = projects.length + 1;
+  while (projects.some((p) => p.id === `new-project-${n}`)) n++;
+  return `new-project-${n}`;
+}
+
+addBtn.addEventListener("click", () => {
+  collectProjects(); // keep unsaved edits before re-rendering the list
+  projects.push({
+    id: newId(),
+    title: "새 프로젝트",
+    summary: "",
+    category: CATEGORIES[0],
+    tags: [],
+    date: todayStr(),
+    problem: "",
+    approach: "",
+    result: "",
+    progress: "in-progress",
+    visibility: "public",
+  });
+  renderForms();
+  formsRoot.lastElementChild.scrollIntoView({ behavior: "smooth", block: "center" });
+  saveMessage.textContent = "추가됨 — ID·제목·문제를 채우고 [전체 저장]을 누르세요.";
+});
+
+backupBtn.addEventListener("click", () => {
+  const blob = new Blob([JSON.stringify(collectProjects(), null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `portfolio-backup-${todayStr()}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
 
 formsRoot.addEventListener("click", (e) => {
   const btn = e.target.closest(".delete-btn");
@@ -127,7 +181,18 @@ saveBtn.addEventListener("click", async () => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
-  saveMessage.textContent = res.ok ? "저장됨 — 사이트에 바로 반영됩니다." : "저장 실패 — 다시 로그인해 보세요.";
+  if (res.ok) {
+    saveMessage.textContent = "저장됨 — 사이트에 바로 반영됩니다.";
+    return;
+  }
+  const err = await res.json().catch(() => ({}));
+  if (err.error === "invalid_shape") {
+    saveMessage.textContent = `${err.index + 1}번째 프로젝트의 필수 항목(ID·제목·문제·제작 시기)이 비어 있거나 형식이 잘못됐습니다.`;
+  } else if (err.error === "duplicate_id") {
+    saveMessage.textContent = `ID가 중복됩니다: ${err.id}`;
+  } else {
+    saveMessage.textContent = "저장 실패 — 다시 로그인해 보세요.";
+  }
 });
 
 logoutBtn.addEventListener("click", async () => {
