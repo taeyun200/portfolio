@@ -49,6 +49,12 @@ function footerHtml(p) {
     </div>`;
 }
 
+function tagsHtml(p) {
+  if (!p.tags.length) return "";
+  const chips = p.tags.map((t) => `<button class="tag" data-tag="${escapeHtml(t)}">${escapeHtml(t)}</button>`);
+  return `<div class="tag-row">${chips.join("")}</div>`;
+}
+
 function cardHtml(p) {
   return `
     <article class="card" data-id="${escapeHtml(p.id)}" tabindex="0" role="button" aria-haspopup="dialog">
@@ -57,6 +63,7 @@ function cardHtml(p) {
         ${screenshotHtml(p)}
         <div class="card-content">
           <p>${escapeHtml(p.summary || p.problem)}</p>
+          ${tagsHtml(p)}
         </div>
         ${footerHtml(p)}
       </div>
@@ -81,9 +88,30 @@ function renderCategories() {
     .join("");
 }
 
-function filterByCategory(cat) {
+let activeCategory = "전체";
+let activeTag = null;
+
+// Category and tag stack: a section hides when the category excludes it, or when the tag
+// filter emptied every card inside it (otherwise you get a heading over nothing).
+function applyFilters() {
   document.querySelectorAll("#categories .category").forEach((section) => {
-    section.hidden = cat !== "전체" && section.dataset.category !== cat;
+    const cards = [...section.querySelectorAll(".card")];
+    cards.forEach((card) => {
+      const p = PROJECTS.find((x) => x.id === card.dataset.id);
+      card.hidden = !!activeTag && !p.tags.includes(activeTag);
+    });
+    const catMatch = activeCategory === "전체" || section.dataset.category === activeCategory;
+    section.hidden = !catMatch || cards.every((c) => c.hidden);
+  });
+
+  const bar = document.getElementById("active-filter");
+  bar.innerHTML = activeTag
+    ? `<span>태그 <strong>${escapeHtml(activeTag)}</strong> 로 좁힘</span><button id="clear-tag">✕ 해제</button>`
+    : "";
+  bar.hidden = !activeTag;
+
+  document.querySelectorAll("#categories .tag").forEach((chip) => {
+    chip.classList.toggle("active", chip.dataset.tag === activeTag);
   });
 }
 
@@ -98,7 +126,23 @@ function renderTabs() {
     const btn = e.target.closest(".tab");
     if (!btn) return;
     tabs.querySelectorAll(".tab").forEach((t) => t.classList.toggle("active", t === btn));
-    filterByCategory(btn.dataset.category);
+    activeCategory = btn.dataset.category;
+    applyFilters();
+  });
+}
+
+function setupTagFilter() {
+  document.getElementById("categories").addEventListener("click", (e) => {
+    const chip = e.target.closest(".tag");
+    if (!chip) return;
+    activeTag = chip.dataset.tag === activeTag ? null : chip.dataset.tag;
+    applyFilters();
+  });
+
+  document.getElementById("active-filter").addEventListener("click", (e) => {
+    if (!e.target.closest("#clear-tag")) return;
+    activeTag = null;
+    applyFilters();
   });
 }
 
@@ -121,7 +165,7 @@ function setupDialog() {
   const closeBtn = dialog.querySelector(".dialog-close");
 
   document.getElementById("categories").addEventListener("click", (e) => {
-    if (e.target.closest(".repo-link")) return;
+    if (e.target.closest(".repo-link") || e.target.closest(".tag")) return;
     const card = e.target.closest(".card");
     if (!card) return;
     const project = PROJECTS.find((p) => p.id === card.dataset.id);
@@ -153,8 +197,11 @@ async function init() {
     root.textContent = "프로젝트 정보를 불러오지 못했습니다. 잠시 후 새로고침해 주세요.";
     return;
   }
+  // ISO dates sort correctly as plain strings — that is why the schema uses them.
+  PROJECTS.sort((a, b) => b.date.localeCompare(a.date));
   renderCategories();
   renderTabs();
+  setupTagFilter();
   setupDialog();
 }
 

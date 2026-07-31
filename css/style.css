@@ -357,3 +357,66 @@ dialog#detail-dialog::backdrop {
   background: var(--bg);
   border-radius: 0 6px 6px 0;
 }
+
+/* W3 — 태그 칩 + 활성 필터 바 */
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.tag {
+  font: inherit;
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.tag:hover { border-color: var(--accent); color: var(--accent); }
+
+.tag.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+#active-filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 16px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+#clear-tag {
+  font: inherit;
+  padding: 3px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+
+/* W4 — 소개 보강 + 연락 */
+.interests, .contact { font-size: 0.88rem; margin: 8px 0 0; }
+.interests strong { color: var(--muted); font-weight: 600; margin-right: 6px; }
+
+.contact a {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 7px 14px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.contact a:hover { background: var(--accent); color: #fff; }
