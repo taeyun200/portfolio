@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 252" role="img"
+     aria-label="구글시트에 있던 주간업무와 공지, 학사일정을 Apps Script를 통해 PWA 대시보드에서 바로 확인하고 입력하는 구조">
+  <style>
+    .bx { fill: #ffffff; stroke: #4f252e; stroke-width: 1.4; }
+    .safe { fill: #c1ebe9; stroke: #4f252e; stroke-width: 1.4; }
+    .panel { fill: #fff7c5; stroke: #4f252e; stroke-width: 1.2; }
+    .lbl { font-size: 15px; font-weight: 700; fill: #4f252e; }
+    .sub { font-size: 12.5px; fill: #8b6068; }
+    .mini { font-size: 11px; fill: #4f252e; }
+    .flow { font-size: 12.5px; font-weight: 700; fill: #4f252e; }
+    .arw { stroke: #f4ae52; stroke-width: 2.6; fill: none; }
+    text { font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
+    @media (prefers-color-scheme: dark) {
+      .bx { fill: #3b1f26; stroke: #f3ddd2; }
+      .safe { fill: #1d5a5c; stroke: #f3ddd2; }
+      .panel { fill: #4a3a1e; stroke: #f3ddd2; }
+      .lbl, .flow { fill: #f8ece1; }
+      .mini { fill: #f8ece1; }
+      .sub { fill: #c6a29e; }
+    }
+  </style>
+  <defs>
+    <marker id="o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#f4ae52" />
+    </marker>
+  </defs>
+
+  <rect x="0" y="34" width="150" height="94" rx="10" class="bx" />
+  <text x="75" y="60" text-anchor="middle" class="lbl">구글시트</text>
+  <text x="75" y="82" text-anchor="middle" class="sub">주간업무계획</text>
+  <text x="75" y="100" text-anchor="middle" class="sub">부서공지 · 학사일정</text>
+  <text x="75" y="120" text-anchor="middle" class="sub">기존 그대로 유지</text>
+
+  <path d="M156 72 H208" class="arw" marker-end="url(#o)" />
+  <path d="M208 96 H156" class="arw" marker-end="url(#o)" />
+  <text x="182" y="62" text-anchor="middle" class="flow">읽기</text>
+  <text x="182" y="118" text-anchor="middle" class="flow">쓰기</text>
+
+  <rect x="218" y="46" width="130" height="70" rx="10" class="safe" />
+  <text x="283" y="76" text-anchor="middle" class="lbl">Apps Script</text>
+  <text x="283" y="96" text-anchor="middle" class="sub">중계 · 서버 역할</text>
+
+  <path d="M354 81 H406" class="arw" marker-end="url(#o)" />
+
+  <rect x="416" y="14" width="204" height="134" rx="12" class="bx" />
+  <text x="518" y="38" text-anchor="middle" class="lbl">교직원 대시보드</text>
+  <rect x="432" y="50" width="84" height="38" rx="6" class="panel" />
+  <text x="474" y="73" text-anchor="middle" class="mini">일정</text>
+  <rect x="524" y="50" width="80" height="38" rx="6" class="panel" />
+  <text x="564" y="73" text-anchor="middle" class="mini">공지</text>
+  <rect x="432" y="94" width="52" height="38" rx="6" class="panel" />
+  <text x="458" y="117" text-anchor="middle" class="mini">할일</text>
+  <rect x="492" y="94" width="112" height="38" rx="6" class="panel" />
+  <text x="548" y="117" text-anchor="middle" class="mini">드래그로 재배치</text>
+
+  <text x="0" y="164" class="sub">설치 파일 없이 브라우저에서 바로 설치(PWA).</text>
+  <text x="0" y="182" class="sub">시트를 열지 않고도 확인하고 입력합니다.</text>
+
+  <rect x="0" y="198" width="264" height="46" rx="10" class="bx" />
+  <text x="132" y="220" text-anchor="middle" class="sub">행사 참여 학생 명단 캡처 이미지를</text>
+  <text x="132" y="237" text-anchor="middle" class="sub">AI 비전이 읽어 자동 입력</text>
+
+  <path d="M270 221 H340" class="arw" marker-end="url(#o)" />
+  <text x="352" y="226" class="sub">손으로 옮겨 적던 일 제거</text>
+</svg>

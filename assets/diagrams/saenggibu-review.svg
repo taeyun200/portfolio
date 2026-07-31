@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 250" role="img"
+     aria-label="원본 생기부는 로컬에서 마스킹과 검수를 마친 뒤에만 업로드되고, 연수 참가 교사들이 코드로 입장해 각자 평가한 결과가 실시간으로 모이는 구조">
+  <style>
+    .bx { fill: #ffffff; stroke: #4f252e; stroke-width: 1.4; }
+    .safe { fill: #c1ebe9; stroke: #4f252e; stroke-width: 1.4; }
+    .vault { fill: none; stroke: #4f252e; stroke-width: 1.4; stroke-dasharray: 5 4; }
+    .lbl { font-size: 15px; font-weight: 700; fill: #4f252e; }
+    .sub { font-size: 12.5px; fill: #8b6068; }
+    .flow { font-size: 12.5px; font-weight: 700; fill: #4f252e; }
+    .tag { font-size: 12px; font-weight: 700; fill: #b35c0f; letter-spacing: .1em; }
+    .arw { stroke: #f4ae52; stroke-width: 2.6; fill: none; }
+    .stop { stroke: #4f252e; stroke-width: 1.6; stroke-dasharray: 4 3; }
+    text { font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
+    @media (prefers-color-scheme: dark) {
+      .bx { fill: #3b1f26; stroke: #f3ddd2; }
+      .safe { fill: #1d5a5c; stroke: #f3ddd2; }
+      .vault, .stop { stroke: #f3ddd2; }
+      .lbl, .flow { fill: #f8ece1; }
+      .sub { fill: #c6a29e; }
+      .tag { fill: #f4ae52; }
+    }
+  </style>
+  <defs>
+    <marker id="s" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#f4ae52" />
+    </marker>
+  </defs>
+
+  <text x="0" y="12" class="tag">내 PC 안</text>
+
+  <rect x="0" y="24" width="188" height="96" rx="10" class="vault" />
+  <rect x="14" y="38" width="160" height="30" rx="7" class="bx" />
+  <text x="94" y="58" text-anchor="middle" class="sub">원본 생활기록부</text>
+  <text x="94" y="88" text-anchor="middle" class="lbl">마스킹 · 검수</text>
+  <text x="94" y="108" text-anchor="middle" class="sub">원본은 여기서 나가지 않음</text>
+
+  <path d="M194 72 H248" class="arw" marker-end="url(#s)" />
+  <text x="221" y="62" text-anchor="middle" class="flow">마스킹본만</text>
+
+  <rect x="258" y="30" width="150" height="84" rx="10" class="safe" />
+  <text x="333" y="58" text-anchor="middle" class="lbl">연수용 서버</text>
+  <text x="333" y="80" text-anchor="middle" class="sub">연수 코드 + 이름</text>
+  <text x="333" y="98" text-anchor="middle" class="sub">으로 입장</text>
+
+  <path d="M414 72 H468" class="arw" marker-end="url(#s)" />
+
+  <rect x="478" y="18" width="142" height="52" rx="10" class="bx" />
+  <text x="549" y="40" text-anchor="middle" class="lbl">교사 A · B · C</text>
+  <text x="549" y="59" text-anchor="middle" class="sub">각자 평가 입력</text>
+
+  <path d="M549 76 V104" class="arw" marker-end="url(#s)" />
+
+  <rect x="478" y="112" width="142" height="58" rx="10" class="bx" />
+  <text x="549" y="136" text-anchor="middle" class="lbl">실시간 공유</text>
+  <text x="549" y="156" text-anchor="middle" class="sub">평가 의견 모아 보기</text>
+
+  <text x="0" y="164" class="tag">연수 현장</text>
+  <text x="0" y="188" class="sub">같은 생기부를 여러 교사가</text>
+  <text x="0" y="206" class="sub">따로 평가한 뒤, 서로의</text>
+  <text x="0" y="224" class="sub">관점 차이를 바로 비교합니다.</text>
+
+  <text x="0" y="244" class="sub">평가 기준을 말로 맞추는 대신, 같은 자료로 각자 매겨 보고 차이를 확인하는 방식입니다.</text>
+</svg>
