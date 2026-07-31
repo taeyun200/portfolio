@@ -274,8 +274,10 @@ async function init() {
     root.textContent = "프로젝트 정보를 불러오지 못했습니다. 잠시 후 새로고침해 주세요.";
     return;
   }
+  // 완료된 것을 먼저, 그 안에서 최신순. 완료·진행중이 섞이면 목록이 어수선해 보인다.
   // ISO dates sort correctly as plain strings — that is why the schema uses them.
-  PROJECTS.sort((a, b) => b.date.localeCompare(a.date));
+  const rank = (p) => (p.progress === "done" ? 0 : 1);
+  PROJECTS.sort((a, b) => rank(a) - rank(b) || b.date.localeCompare(a.date));
   renderStats();
   renderCategories();
   renderTabs();
