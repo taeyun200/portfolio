@@ -1,22 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 200" role="img"
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 232" role="img"
      aria-label="학과 하나를 검색하면 함께 지원한 학과들이 대학군별 동심원 위에 배치되고, 선 굵기로 함께 지원한 건수를 보여주는 구조">
   <style>
     .bx { fill: #ffffff; stroke: #4f252e; stroke-width: 1.4; }
-    .ring { fill: none; stroke: #4f252e; stroke-width: 1; opacity: .32; }
+    .ring { fill: none; stroke: #4f252e; stroke-width: 1; opacity: .28; }
     .hub { fill: #f4ae52; stroke: #4f252e; stroke-width: 1.6; }
     .node { fill: #ffffff; stroke: #4f252e; stroke-width: 1.3; }
     .node-pass { fill: #c1ebe9; stroke: #4f252e; stroke-width: 1.3; }
-    .link { stroke: #4f252e; opacity: .38; fill: none; }
+    .link { stroke: #4f252e; opacity: .34; fill: none; stroke-linecap: round; }
     .lbl { font-size: 15px; font-weight: 700; fill: #4f252e; }
     .sub { font-size: 12.5px; fill: #8b6068; }
-    .ringlbl { font-size: 10.5px; fill: #8b6068; }
-    .flow { font-size: 12.5px; font-weight: 700; fill: #4f252e; }
+    .tier { font-size: 10.5px; font-weight: 700; fill: #b35c0f; }
     .arw { stroke: #f4ae52; stroke-width: 2.6; fill: none; }
+    .key { fill: #f4ae52; stroke: #4f252e; stroke-width: 1.2; }
     text { font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
 
     .s { opacity: 0; animation: in .5s ease forwards; }
-    .s1 { animation-delay: .10s } .s2 { animation-delay: .45s }
-    .s3 { animation-delay: .80s } .s4 { animation-delay: 1.15s }
+    .s1 { animation-delay: .10s } .s2 { animation-delay: .45s } .s3 { animation-delay: .80s }
+    .s4 { animation-delay: 1.15s } .s5 { animation-delay: 1.50s }
     @keyframes in { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: none; } }
     @media (prefers-reduced-motion: reduce) { .s { opacity: 1; animation: none; } }
 
@@ -25,8 +25,10 @@
       .node { fill: #3b1f26; stroke: #f3ddd2; }
       .node-pass { fill: #1d5a5c; stroke: #f3ddd2; }
       .ring, .link { stroke: #f3ddd2; }
-      .lbl, .flow { fill: #f8ece1; }
-      .sub, .ringlbl { fill: #c6a29e; }
+      .lbl { fill: #f8ece1; }
+      .sub { fill: #c6a29e; }
+      .tier { fill: #f4ae52; }
+      .key { stroke: #f3ddd2; }
     }
   </style>
   <defs>
@@ -36,50 +38,51 @@
   </defs>
 
   <g class="s s1">
-    <rect x="0" y="66" width="132" height="66" rx="10" class="bx" />
-    <text x="66" y="92" text-anchor="middle" class="lbl">학과 검색</text>
-    <text x="66" y="112" text-anchor="middle" class="sub">“고려대 간호대학”</text>
+    <rect x="0" y="82" width="126" height="64" rx="10" class="bx" />
+    <text x="63" y="110" text-anchor="middle" class="lbl">학과 검색</text>
+    <text x="63" y="130" text-anchor="middle" class="sub">“고려대 간호대학”</text>
   </g>
 
   <g class="s s2">
-    <path d="M138 99 H176" class="arw" marker-end="url(#n)" />
-    <rect x="186" y="30" width="164" height="140" rx="10" class="bx" />
-    <text x="268" y="56" text-anchor="middle" class="lbl">지난 진학결과</text>
-    <text x="268" y="80" text-anchor="middle" class="sub">그 학과 지원자가</text>
-    <text x="268" y="98" text-anchor="middle" class="sub">같이 쓴 학과를</text>
-    <text x="268" y="116" text-anchor="middle" class="sub">모아 셈</text>
-    <text x="268" y="146" text-anchor="middle" class="sub">‘N명 이상만’ 필터</text>
+    <path d="M132 114 H168" class="arw" marker-end="url(#n)" />
+    <rect x="178" y="54" width="152" height="120" rx="10" class="bx" />
+    <text x="254" y="82" text-anchor="middle" class="lbl">함께 쓴 학과 집계</text>
+    <text x="254" y="108" text-anchor="middle" class="sub">그 학과 지원자가</text>
+    <text x="254" y="126" text-anchor="middle" class="sub">같이 지원한 곳을 셈</text>
+    <text x="254" y="152" text-anchor="middle" class="sub">‘N명 이상만’ 필터</text>
   </g>
 
   <g class="s s3">
-    <path d="M356 99 H394" class="arw" marker-end="url(#n)" />
+    <path d="M336 114 H424" class="arw" marker-end="url(#n)" />
+    <circle cx="540" cy="118" r="96" class="ring" />
+    <circle cx="540" cy="118" r="72" class="ring" />
+    <circle cx="540" cy="118" r="48" class="ring" />
+    <circle cx="540" cy="118" r="24" class="ring" />
+    <text x="540" y="18" text-anchor="middle" class="tier">수도권 중상위권</text>
+    <text x="540" y="42" text-anchor="middle" class="tier">11 · 15개대학</text>
+    <text x="540" y="66" text-anchor="middle" class="tier">7개대</text>
+    <text x="540" y="90" text-anchor="middle" class="tier">SKY</text>
   </g>
 
   <g class="s s4">
-    <circle cx="574" cy="100" r="88" class="ring" />
-    <circle cx="574" cy="100" r="62" class="ring" />
-    <circle cx="574" cy="100" r="34" class="ring" />
+    <path d="M540 118 L517 126" class="link" stroke-width="7" />
+    <path d="M540 118 L577 149" class="link" stroke-width="5" />
+    <path d="M540 118 L515 186" class="link" stroke-width="3" />
+    <path d="M540 118 L635 101" class="link" stroke-width="2" />
 
-    <path d="M574 100 L574 38" class="link" stroke-width="7" />
-    <path d="M574 100 L512 138" class="link" stroke-width="5" />
-    <path d="M574 100 L636 66" class="link" stroke-width="3" />
-    <path d="M574 100 L662 100" class="link" stroke-width="2" />
+    <circle cx="517" cy="126" r="7" class="node" />
+    <circle cx="577" cy="149" r="7" class="node-pass" />
+    <circle cx="515" cy="186" r="7" class="node" />
+    <circle cx="635" cy="101" r="7" class="node" />
+    <circle cx="540" cy="118" r="15" class="hub" />
+  </g>
 
-    <circle cx="574" cy="100" r="16" class="hub" />
-    <circle cx="574" cy="38" r="8" class="node" />
-    <circle cx="512" cy="138" r="8" class="node-pass" />
-    <circle cx="636" cy="66" r="8" class="node" />
-    <circle cx="662" cy="100" r="8" class="node" />
-
-    <text x="574" y="128" text-anchor="middle" class="sub">검색한 학과</text>
-    <text x="574" y="24" text-anchor="middle" class="ringlbl">바깥일수록 하위 대학군</text>
-    <text x="404" y="100" class="ringlbl">SKY</text>
-    <text x="404" y="118" class="ringlbl">7개대</text>
-    <text x="404" y="136" class="ringlbl">11개대학</text>
-    <text x="404" y="154" class="ringlbl">15개대학</text>
-    <text x="404" y="172" class="ringlbl">수도권 중상위권</text>
-
-    <text x="404" y="60" class="sub">선 굵기 = 함께 지원한 수</text>
-    <text x="404" y="78" class="sub">점 색 = 합격 여부</text>
+  <g class="s s5">
+    <circle cx="7" cy="212" r="6" class="key" />
+    <text x="20" y="217" class="sub">검색한 학과</text>
+    <path d="M104 212 H122" class="link" stroke-width="6" />
+    <text x="130" y="217" class="sub">함께 지원한 건수</text>
+    <circle cx="258" cy="212" r="6" class="node-pass" />
+    <text x="271" y="217" class="sub">합격</text>
   </g>
 </svg>
