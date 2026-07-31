@@ -112,8 +112,9 @@ body {
 
 .hero h1 {
   margin: 0 0 18px;
-  font-size: clamp(1.9rem, 4.6vw, 3.1rem);
-  line-height: 1.22;
+  /* 앞줄이 15자라 3.1rem 에서는 사진 옆 폭을 넘겨 대구가 깨진다. 상한을 낮춰 두 줄을 지킨다. */
+  font-size: clamp(1.75rem, 4.1vw, 2.7rem);
+  line-height: 1.25;
   letter-spacing: -0.02em;
   font-weight: 800;
   color: var(--maroon);
