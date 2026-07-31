@@ -105,8 +105,9 @@ function renderTabs() {
   });
 }
 
-// 도식은 있으면 쓰고 없으면 만다. 목록 파일을 따로 두지 않고 404 를 그대로 신호로 쓴다 —
-// 그림을 추가할 때 파일만 넣으면 되고, 생성 스크립트를 다시 돌릴 일이 없다.
+// 도식은 있으면 쓰고 없으면 만다. 목록 파일을 두지 않아, 그림을 추가할 때 파일만 넣으면 된다.
+// 주의: Pages 는 없는 파일에 404 가 아니라 index.html(200) 을 돌려준다. 그래도 <img> 가
+// HTML 을 이미지로 디코딩하지 못해 error 가 나므로 아래 onerror 로 잡힌다.
 function diagramHtml(p) {
   return `
     <figure class="diagram">
