@@ -27,14 +27,16 @@ function textToApproach(text) {
   return lines.length <= 1 ? lines[0] || "" : lines;
 }
 
+// Only summary is nagged about: it is what the card displays, so a blank one is a visible hole.
+// result is legitimately empty for projects nobody uses yet — silence there, not a warning.
 function isIncomplete(p) {
-  return !p.summary?.trim() || !p.result?.trim();
+  return !p.summary?.trim();
 }
 
 function projectFormHtml(p, i) {
   return `
     <details class="project-form${isIncomplete(p) ? " incomplete" : ""}" open>
-      <summary>${escapeAttr(p.title)}${isIncomplete(p) ? " — ⚠ 요약·결과 미작성" : ""}</summary>
+      <summary>${escapeAttr(p.title)}${isIncomplete(p) ? " — ⚠ 한 줄 요약 미작성" : ""}</summary>
       <div class="form-toolbar">
         <button type="button" class="delete-btn" data-index="${i}">이 프로젝트 삭제</button>
       </div>
@@ -60,7 +62,7 @@ function projectFormHtml(p, i) {
       <label>한 줄 요약 (60자 이내 · 카드에 표시됨)<input type="text" data-field="summary" maxlength="60" data-index="${i}" value="${escapeAttr(p.summary)}" placeholder="예) 9등급 시절 대입 결과를 5등급 학생과 같은 축으로 환산"></label>
       <label>문제 — 어떤 문제를 해결했는가<textarea data-field="problem" data-index="${i}" rows="3">${escapeAttr(p.problem)}</textarea></label>
       <label>접근 — 어떻게 만들었는가 (한 줄에 하나씩)<textarea data-field="approach" data-index="${i}" rows="4">${escapeAttr(approachToText(p.approach))}</textarea></label>
-      <label>결과 — 실제로 어떤 효과가 있었는가<textarea data-field="result" data-index="${i}" rows="3" placeholder="예) 학기당 성적처리 작업이 6시간에서 20분으로 줄었고, 3개 학년 부장이 함께 사용 중">${escapeAttr(p.result)}</textarea></label>
+      <label>결과 — 실제로 쓰이고 있다는 근거 (선택 · 없으면 비워두세요)<textarea data-field="result" data-index="${i}" rows="3" placeholder="예) 3개 학년 부장이 학기마다 사용 중 / 작년 연수에서 40명이 실제로 돌려봄 / 성적처리 6시간→20분">${escapeAttr(p.result)}</textarea></label>
       <label>기술 태그 (쉼표로 구분)<input type="text" data-field="tags" data-index="${i}" value="${escapeAttr(p.tags.join(", "))}"></label>
       <label>GitHub 링크 (선택)<input type="text" data-field="repo" data-index="${i}" value="${escapeAttr(p.repo || "")}"></label>
       <label>제작 시기<input type="date" data-field="date" data-index="${i}" value="${escapeAttr(p.date)}"></label>
@@ -70,7 +72,7 @@ function projectFormHtml(p, i) {
 function renderForms() {
   formsRoot.innerHTML = projects.map(projectFormHtml).join("");
   const todo = projects.filter(isIncomplete).length;
-  todoCount.textContent = todo ? `요약·결과 미작성 ${todo}건 / ${projects.length}건` : `${projects.length}건 모두 작성 완료`;
+  todoCount.textContent = todo ? `한 줄 요약 미작성 ${todo}건 / ${projects.length}건` : `${projects.length}건 요약 작성 완료`;
   todoCount.classList.toggle("warn", todo > 0);
 }
 
