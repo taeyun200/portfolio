@@ -159,18 +159,27 @@ function detailHtml(p) {
     </div>`;
 }
 
+// pushState (not location.hash =) on purpose: Cloudflare Web Analytics hooks the History API
+// to count in-page navigation, so this is what makes "detail reach" measurable. It also makes
+// each project linkable and lets the back button close the dialog.
+function openProject(id, push) {
+  const project = PROJECTS.find((p) => p.id === id);
+  if (!project) return;
+  const dialog = document.getElementById("detail-dialog");
+  document.getElementById("detail-content").innerHTML = detailHtml(project);
+  if (!dialog.open) dialog.showModal();
+  if (push) history.pushState({ id }, "", `#${id}`);
+}
+
 function setupDialog() {
   const dialog = document.getElementById("detail-dialog");
-  const content = document.getElementById("detail-content");
   const closeBtn = dialog.querySelector(".dialog-close");
 
   document.getElementById("categories").addEventListener("click", (e) => {
     if (e.target.closest(".repo-link") || e.target.closest(".tag")) return;
     const card = e.target.closest(".card");
     if (!card) return;
-    const project = PROJECTS.find((p) => p.id === card.dataset.id);
-    content.innerHTML = detailHtml(project);
-    dialog.showModal();
+    openProject(card.dataset.id, true);
   });
 
   document.getElementById("categories").addEventListener("keydown", (e) => {
@@ -184,6 +193,17 @@ function setupDialog() {
   closeBtn.addEventListener("click", () => dialog.close());
   dialog.addEventListener("click", (e) => {
     if (e.target === dialog) dialog.close();
+  });
+
+  // Covers the ✕, the backdrop, and Esc in one place.
+  dialog.addEventListener("close", () => {
+    if (location.hash) history.pushState(null, "", location.pathname);
+  });
+
+  window.addEventListener("popstate", () => {
+    const id = location.hash.slice(1);
+    if (id) openProject(id, false);
+    else if (dialog.open) dialog.close();
   });
 }
 
@@ -203,6 +223,8 @@ async function init() {
   renderTabs();
   setupTagFilter();
   setupDialog();
+  // Shared link like /#hapbul lands straight on that project.
+  if (location.hash) openProject(location.hash.slice(1), false);
 }
 
 init();
