@@ -526,6 +526,11 @@ dialog#detail-dialog::backdrop { background: transparent; }
 
 #detail-dialog .card-header { flex-shrink: 0; }
 
+/* flex 세로 컨테이너의 자식은 기본값이 flex-shrink:1 이라, 내용이 모달 높이를 넘으면
+   스크롤되기 전에 먼저 눌린다. 도식 이미지가 세로로 찌그러지던 원인. */
+.dialog-body > *,
+.diagram-block > * { flex-shrink: 0; }
+
 .dialog-body h4 {
   margin: 6px 0 2px;
   font-size: 0.74rem;
