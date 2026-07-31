@@ -49,12 +49,6 @@ function footerHtml(p) {
     </div>`;
 }
 
-function tagsHtml(p) {
-  if (!p.tags.length) return "";
-  const chips = p.tags.map((t) => `<button class="tag" data-tag="${escapeHtml(t)}">${escapeHtml(t)}</button>`);
-  return `<div class="tag-row">${chips.join("")}</div>`;
-}
-
 function cardHtml(p) {
   return `
     <article class="card" data-id="${escapeHtml(p.id)}" tabindex="0" role="button" aria-haspopup="dialog">
@@ -63,7 +57,6 @@ function cardHtml(p) {
         ${screenshotHtml(p)}
         <div class="card-content">
           <p>${escapeHtml(p.summary || p.problem)}</p>
-          ${tagsHtml(p)}
         </div>
         ${footerHtml(p)}
       </div>
@@ -89,29 +82,10 @@ function renderCategories() {
 }
 
 let activeCategory = "전체";
-let activeTag = null;
 
-// Category and tag stack: a section hides when the category excludes it, or when the tag
-// filter emptied every card inside it (otherwise you get a heading over nothing).
 function applyFilters() {
   document.querySelectorAll("#categories .category").forEach((section) => {
-    const cards = [...section.querySelectorAll(".card")];
-    cards.forEach((card) => {
-      const p = PROJECTS.find((x) => x.id === card.dataset.id);
-      card.hidden = !!activeTag && !p.tags.includes(activeTag);
-    });
-    const catMatch = activeCategory === "전체" || section.dataset.category === activeCategory;
-    section.hidden = !catMatch || cards.every((c) => c.hidden);
-  });
-
-  const bar = document.getElementById("active-filter");
-  bar.innerHTML = activeTag
-    ? `<span>태그 <strong>${escapeHtml(activeTag)}</strong> 로 좁힘</span><button id="clear-tag">✕ 해제</button>`
-    : "";
-  bar.hidden = !activeTag;
-
-  document.querySelectorAll("#categories .tag").forEach((chip) => {
-    chip.classList.toggle("active", chip.dataset.tag === activeTag);
+    section.hidden = activeCategory !== "전체" && section.dataset.category !== activeCategory;
   });
 }
 
@@ -127,21 +101,6 @@ function renderTabs() {
     if (!btn) return;
     tabs.querySelectorAll(".tab").forEach((t) => t.classList.toggle("active", t === btn));
     activeCategory = btn.dataset.category;
-    applyFilters();
-  });
-}
-
-function setupTagFilter() {
-  document.getElementById("categories").addEventListener("click", (e) => {
-    const chip = e.target.closest(".tag");
-    if (!chip) return;
-    activeTag = chip.dataset.tag === activeTag ? null : chip.dataset.tag;
-    applyFilters();
-  });
-
-  document.getElementById("active-filter").addEventListener("click", (e) => {
-    if (!e.target.closest("#clear-tag")) return;
-    activeTag = null;
     applyFilters();
   });
 }
@@ -176,7 +135,7 @@ function setupDialog() {
   const closeBtn = dialog.querySelector(".dialog-close");
 
   document.getElementById("categories").addEventListener("click", (e) => {
-    if (e.target.closest(".repo-link") || e.target.closest(".tag")) return;
+    if (e.target.closest(".repo-link")) return;
     const card = e.target.closest(".card");
     if (!card) return;
     openProject(card.dataset.id, true);
@@ -207,6 +166,48 @@ function setupDialog() {
   });
 }
 
+function setupContact() {
+  const dialog = document.getElementById("contact-dialog");
+  const form = document.getElementById("contact-form");
+  const msg = document.getElementById("contact-msg");
+  const sendBtn = document.getElementById("contact-send");
+
+  document.getElementById("contact-btn").addEventListener("click", () => {
+    msg.textContent = "";
+    form.reset();
+    dialog.showModal();
+  });
+  document.getElementById("contact-cancel").addEventListener("click", () => dialog.close());
+
+  form.addEventListener("submit", async (e) => {
+    // method="dialog" 라 기본 동작은 그냥 닫기 — 전송이 끝날 때까지 막는다.
+    e.preventDefault();
+    sendBtn.disabled = true;
+    msg.textContent = "보내는 중...";
+
+    const data = Object.fromEntries(new FormData(form));
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (res.ok) {
+        msg.textContent = "보냈습니다. 확인 후 연락드리겠습니다.";
+        form.reset();
+        setTimeout(() => dialog.close(), 1500);
+      } else if (res.status === 429) {
+        msg.textContent = "잠시 후 다시 시도해 주세요.";
+      } else {
+        msg.textContent = "전송에 실패했습니다. 모든 칸을 채웠는지 확인해 주세요.";
+      }
+    } catch {
+      msg.textContent = "전송에 실패했습니다. 네트워크를 확인해 주세요.";
+    }
+    sendBtn.disabled = false;
+  });
+}
+
 async function init() {
   const root = document.getElementById("categories");
   try {
@@ -221,8 +222,8 @@ async function init() {
   PROJECTS.sort((a, b) => b.date.localeCompare(a.date));
   renderCategories();
   renderTabs();
-  setupTagFilter();
   setupDialog();
+  setupContact();
   // Shared link like /#hapbul lands straight on that project.
   if (location.hash) openProject(location.hash.slice(1), false);
 }

@@ -284,7 +284,11 @@ footer {
 }
 
 dialog#detail-dialog {
-  position: relative;
+  /* position:relative 였을 때 모달이 문서 흐름(body 끝)에 놓여, 열릴 때 브라우저가
+     거기까지 스크롤해 화면이 최상단으로 튀었다. fixed + margin:auto 가 기본 중앙 배치. */
+  position: fixed;
+  inset: 0;
+  margin: auto;
   border: none;
   border-radius: 16px;
   padding: 0;
@@ -358,52 +362,6 @@ dialog#detail-dialog::backdrop {
   border-radius: 0 6px 6px 0;
 }
 
-/* W3 — 태그 칩 + 활성 필터 바 */
-.tag-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  margin-top: 8px;
-}
-
-.tag {
-  font: inherit;
-  font-size: 0.72rem;
-  padding: 2px 8px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: var(--bg);
-  color: var(--muted);
-  cursor: pointer;
-}
-
-.tag:hover { border-color: var(--accent); color: var(--accent); }
-
-.tag.active {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
-}
-
-#active-filter {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0 0 16px;
-  font-size: 0.85rem;
-  color: var(--muted);
-}
-
-#clear-tag {
-  font: inherit;
-  padding: 3px 10px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: var(--surface);
-  color: var(--text);
-  cursor: pointer;
-}
-
 /* W4 — 소개 보강 + 연락 */
 .interests, .contact { font-size: 0.88rem; margin: 8px 0 0; }
 .interests strong { color: var(--muted); font-weight: 600; margin-right: 6px; }
@@ -420,3 +378,87 @@ dialog#detail-dialog::backdrop {
 }
 
 .contact a:hover { background: var(--accent); color: #fff; }
+
+/* 문의 폼 */
+.contact button#contact-btn {
+  font: inherit;
+  font-weight: 600;
+  margin-top: 4px;
+  padding: 7px 14px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  background: none;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.contact button#contact-btn:hover { background: var(--accent); color: #fff; }
+
+dialog#contact-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  border: none;
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 460px;
+  width: 90vw;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+dialog#contact-dialog::backdrop { background: rgba(0, 0, 0, 0.5); }
+
+#contact-form { display: flex; flex-direction: column; gap: 12px; }
+#contact-form h3 { margin: 0; font-size: 1.1rem; }
+
+#contact-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+#contact-form input, #contact-form textarea {
+  font: inherit;
+  font-size: 0.92rem;
+  padding: 9px 11px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--bg);
+  color: var(--text);
+  resize: vertical;
+}
+
+/* 봇 감지용 칸 — 사람에게는 보이지 않되 스크린리더 흐름에서도 빠지도록 */
+#contact-form input[name="website"] {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+}
+
+.contact-actions { display: flex; justify-content: flex-end; gap: 8px; }
+
+.contact-actions button {
+  font: inherit;
+  padding: 8px 16px;
+  border-radius: 9px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+
+#contact-send {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+#contact-send:disabled { opacity: 0.6; cursor: default; }
+
+#contact-msg { margin: 0; font-size: 0.85rem; color: var(--muted); min-height: 1.2em; }

@@ -36,12 +36,11 @@
       <strong>관심 분야</strong> 진학 데이터 분석 · 학교 업무 자동화 · 개인정보를 지키는 교육용 도구 설계
     </p>
     <p class="contact">
-      <a href="mailto:kimtae200@gmail.com?subject=%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A4%20%EB%AC%B8%EC%9D%98">✉ 연수 · 강의 · 협업 문의</a>
+      <button id="contact-btn" type="button">✉ 연수 · 강의 · 협업 문의</button>
     </p>
   </header>
 
   <nav class="tabs" id="tabs"></nav>
-  <div id="active-filter" hidden></div>
 
   <div id="categories"></div>
 
@@ -54,6 +53,26 @@
 <dialog id="detail-dialog">
   <button class="dialog-close" aria-label="닫기">×</button>
   <div id="detail-content"></div>
+</dialog>
+
+<dialog id="contact-dialog">
+  <form id="contact-form" method="dialog">
+    <h3>연수 · 강의 · 협업 문의</h3>
+    <label>성함 <input type="text" name="name" maxlength="40" required></label>
+    <label>연락받으실 곳 (이메일 또는 전화)
+      <input type="text" name="contact" maxlength="120" required placeholder="hong@school.kr">
+    </label>
+    <label>내용
+      <textarea name="message" rows="6" maxlength="2000" required placeholder="소속과 문의 내용을 적어 주세요."></textarea>
+    </label>
+    <!-- 봇 감지용. 사람 눈에는 보이지 않으므로 채워져 오면 자동 제출로 본다. -->
+    <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <p id="contact-msg" class="message"></p>
+    <div class="contact-actions">
+      <button type="button" id="contact-cancel">취소</button>
+      <button type="submit" id="contact-send">보내기</button>
+    </div>
+  </form>
 </dialog>
 
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "56148f77f2cb4b55838418b6b94746f0"}'></script>

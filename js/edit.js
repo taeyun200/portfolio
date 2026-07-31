@@ -147,11 +147,45 @@ formsRoot.addEventListener("click", (e) => {
   renderForms();
 });
 
+const messagesList = document.getElementById("messages-list");
+const messagesCount = document.getElementById("messages-count");
+
+function messageHtml(m) {
+  const where = [m.region, m.country].filter(Boolean).join(" · ");
+  return `
+    <article class="message-item">
+      <div class="message-head">
+        <strong>${escapeAttr(m.name)}</strong>
+        <span>${escapeAttr(m.contact)}</span>
+        <span class="message-meta">${escapeAttr(m.at.slice(0, 16).replace("T", " "))}${where ? " · " + escapeAttr(where) : ""}</span>
+        <button type="button" class="message-del" data-at="${escapeAttr(m.at)}">삭제</button>
+      </div>
+      <p>${escapeAttr(m.message)}</p>
+    </article>`;
+}
+
+async function loadMessages() {
+  const res = await fetch("/api/admin/messages");
+  if (!res.ok) return;
+  const items = await res.json();
+  messagesCount.textContent = items.length ? `${items.length}건` : "없음";
+  messagesList.innerHTML = items.length ? items.map(messageHtml).join("") : "<p>받은 문의가 없습니다.</p>";
+}
+
+messagesList.addEventListener("click", async (e) => {
+  const btn = e.target.closest(".message-del");
+  if (!btn) return;
+  if (!confirm("이 문의를 삭제할까요?")) return;
+  await fetch(`/api/admin/messages?at=${encodeURIComponent(btn.dataset.at)}`, { method: "DELETE" });
+  loadMessages();
+});
+
 async function tryLoadEditor() {
   const res = await fetch("/api/admin/data");
   if (res.status === 401) return false;
   projects = await res.json();
   renderForms();
+  loadMessages();
   loginSection.hidden = true;
   editorSection.hidden = false;
   return true;

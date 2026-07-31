@@ -109,3 +109,43 @@ button {
   color: #d97706;
   font-weight: 600;
 }
+
+#messages-box {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  background: var(--surface);
+}
+
+#messages-box > summary { cursor: pointer; font-weight: 600; }
+
+.message-item {
+  border-top: 1px solid var(--border);
+  padding: 12px 0 4px;
+}
+
+.message-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+}
+
+.message-meta { color: var(--muted); font-size: 0.78rem; }
+
+.message-del {
+  font: inherit;
+  font-size: 0.75rem;
+  margin-left: auto;
+  padding: 3px 9px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.message-item p { margin: 0; font-size: 0.9rem; white-space: pre-wrap; }
