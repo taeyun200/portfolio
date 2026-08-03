@@ -502,6 +502,36 @@ dialog#detail-dialog::backdrop { background: transparent; }
 
 .dialog-close:hover { background: rgba(79, 37, 46, 0.3); }
 
+/* 스크린샷 원본 보기. 상세 모달 위에 겹쳐 뜨지만 둘 다 top layer 라 z-index 가 필요 없다.
+   패널 자체는 배경 없이 그림만 남기고, 여백 아무 곳이나 누르면 닫힌다. */
+#shot-dialog {
+  max-width: 96vw;
+  max-height: 94dvh;
+  padding: 0;
+  border: none;
+  background: transparent;
+  overflow: visible;
+}
+
+#shot-dialog img {
+  display: block;
+  max-width: 96vw;
+  max-height: 94dvh;
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+/* 마룬(#4f252e)을 깔면 갈색으로 떠 보인다. 채도를 거의 뺀 중성 회색에 온기만 아주 조금
+   남겨 크림색 배경과 부딪히지 않게 한다. 투명으로 두면 뒤 모달 글이 그림과 겹쳐 읽힌다. */
+#shot-dialog::backdrop { background: rgba(26, 22, 24, 0.72); }
+
+/* .dialog-body 가 flex column 이라, 두지 않으면 본문이 길 때 그림만 납작해진다
+   (.diagram-block 이 같은 이유로 flex-shrink:0 을 받고 있다). */
+.shot-zoom { flex-shrink: 0; }
+
+.shot-zoom img { cursor: zoom-in; }
+.shot-zoom img:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
 /* 헤더는 위에 고정되고 본문만 스크롤되도록, 패널 높이를 flex 로 나눠 갖는다. */
 .dialog-body {
   padding: 22px 26px 40px;

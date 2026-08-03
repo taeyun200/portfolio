@@ -121,10 +121,25 @@ function diagramHtml(p) {
     </div>`;
 }
 
+// 겉면의 124px 칸에서는 잘려 보인다. 열었을 때는 잘림 없이 전체를 보여주고,
+// 누르면 원본 크기로 띄운다. 도식과 같은 .diagram 밴드를 그대로 쓴다.
+function shotHtml(p) {
+  const src = SCREENSHOTS[p.id];
+  if (!src) return "";
+  const label = `${escapeHtml(p.title)} 스크린샷`;
+  return `
+    <h4>화면</h4>
+    <figure class="diagram shot-zoom">
+      <img src="${src}" alt="${label}" tabindex="0" role="button"
+           aria-label="${label} — 눌러서 크게 보기">
+    </figure>`;
+}
+
 function detailHtml(p) {
   return `
     ${headerHtml(p)}
     <div class="dialog-body">
+      ${shotHtml(p)}
       <h4>문제</h4>
       <p>${escapeHtml(p.problem)}</p>
       <h4>접근</h4>
@@ -180,6 +195,39 @@ function setupDialog() {
     const id = location.hash.slice(1);
     if (id) openProject(id, false);
     else if (dialog.open) dialog.close();
+  });
+
+  setupShotZoom();
+}
+
+// 원본 보기는 <dialog> 하나로 끝난다 — Esc·포커스 복귀·바깥 클릭을 브라우저가 맡는다.
+// 상세 모달 위에 겹쳐 뜨며(top layer), 닫혀도 상세 모달은 그대로 남는다.
+function setupShotZoom() {
+  const shotDialog = document.getElementById("shot-dialog");
+  const big = shotDialog.querySelector("img");
+
+  const open = (img) => {
+    big.src = img.src;
+    big.alt = img.alt;
+    shotDialog.showModal();
+  };
+
+  const content = document.getElementById("detail-content");
+  content.addEventListener("click", (e) => {
+    const img = e.target.closest(".shot-zoom img");
+    if (img) open(img);
+  });
+  content.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const img = e.target.closest(".shot-zoom img");
+    if (!img) return;
+    e.preventDefault();
+    open(img);
+  });
+
+  // 그림 자체가 아닌 곳(바깥 여백·✕)을 누르면 닫는다 — 닫기 버튼도 이 한 줄이 겸한다.
+  shotDialog.addEventListener("click", (e) => {
+    if (e.target !== big) shotDialog.close();
   });
 }
 
