@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 292" role="img"
-     aria-label="슬랙에 올린 파일의 이름을 날짜·제목·생산자 세 조각으로 조립해 하나의 구글 드라이브 폴더에 올리고, 원본 스레드에 링크를 회신하는 구조. 날짜와 제목은 슬랙이 이미 아는 값이라 자동으로 채워지고, 생산자는 알려줄 때만 괄호로 붙는다">
+     aria-label="카카오톡으로 받은 자료를 슬랙 채널에 넘기면, 파일명을 날짜·제목·생산자 세 조각으로 조립해 구글 공유 드라이브 폴더 하나에 올리고 원본 스레드에 링크를 회신하는 구조. 날짜와 제목은 슬랙이 이미 아는 값이라 자동으로 채워지고, 생산자는 알려줄 때만 괄호로 붙는다">
   <style>
     .bx { fill: #ffffff; stroke: #4f252e; stroke-width: 1.4; }
     .safe { fill: #c1ebe9; stroke: #4f252e; stroke-width: 1.4; }
@@ -32,14 +32,20 @@
   </defs>
 
   <g class="s s1">
-    <rect x="0" y="64" width="126" height="92" rx="10" class="bx" />
-    <text x="63" y="92" text-anchor="middle" class="lbl">슬랙 채널</text>
-    <text x="63" y="115" text-anchor="middle" class="sub">파일만 던진다</text>
-    <text x="63" y="134" text-anchor="middle" class="sub">5분 기다린다</text>
+    <rect x="0" y="6" width="126" height="46" rx="9" class="bx" />
+    <text x="63" y="27" text-anchor="middle" class="lbl">카카오톡</text>
+    <text x="63" y="44" text-anchor="middle" class="sub">유효기간 지나면 만료</text>
+
+    <path d="M63 52 V64" class="arw" marker-end="url(#d)" />
+
+    <rect x="0" y="70" width="126" height="92" rx="10" class="bx" />
+    <text x="63" y="98" text-anchor="middle" class="lbl">슬랙 채널</text>
+    <text x="63" y="121" text-anchor="middle" class="sub">파일만 넘긴다</text>
+    <text x="63" y="140" text-anchor="middle" class="sub">5분 기다린다</text>
   </g>
 
   <g class="s s2">
-    <path d="M132 110 H162" class="arw" marker-end="url(#d)" />
+    <path d="M132 116 H162" class="arw" marker-end="url(#d)" />
 
     <rect x="170" y="40" width="150" height="48" rx="9" class="bx" />
     <text x="245" y="62" text-anchor="middle" class="lbl">날짜</text>
@@ -67,13 +73,13 @@
 
   <g class="s s4">
     <path d="M572 160 V186" class="arw" marker-end="url(#d)" />
-    <rect x="472" y="196" width="200" height="60" rx="10" class="bx" />
-    <text x="572" y="221" text-anchor="middle" class="lbl">드라이브 폴더 하나</text>
+    <rect x="452" y="196" width="240" height="60" rx="10" class="bx" />
+    <text x="572" y="221" text-anchor="middle" class="lbl">구글 공유 드라이브 · 폴더 하나</text>
     <text x="572" y="241" text-anchor="middle" class="sub">이름순 정렬이 곧 시간순</text>
   </g>
 
   <g class="s s5">
-    <path d="M512 260 V276 H63 V162" class="back" marker-end="url(#d)" />
+    <path d="M512 260 V276 H63 V168" class="back" marker-end="url(#d)" />
     <text x="290" y="270" text-anchor="middle" class="flow">스레드에 링크 회신</text>
     <text x="0" y="290" class="sub">생산자는 올린 사람으로 짐작하지 않는다 — 안 알려주면 괄호째 빠진다</text>
   </g>
