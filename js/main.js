@@ -29,8 +29,15 @@ const ICON = {
   repo: `<svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M6.6 12.4c-2.8.9-2.8-1.4-4-1.7m8 3.3v-2.2c0-.6-.1-1 .3-1.4 1.8-.2 3.5-.9 3.5-3.9a3 3 0 0 0-.8-2.1 2.8 2.8 0 0 0-.1-2.1s-.7-.2-2.3.9a7.8 7.8 0 0 0-4 0C5.6 2.1 4.9 2.3 4.9 2.3a2.8 2.8 0 0 0-.1 2.1 3 3 0 0 0-.8 2.1c0 3 1.7 3.7 3.5 3.9-.3.3-.4.7-.3 1.1v2.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
 };
 
+// SCREENSHOTS 는 프로젝트당 배열이다. 첫 장이 카드 겉면, 전부가 모달에 실린다.
+// 예전 형식(문자열 하나)도 그대로 읽히도록 감싸 준다.
+function shotsOf(p) {
+  const v = SCREENSHOTS[p.id];
+  return !v ? [] : Array.isArray(v) ? v : [v];
+}
+
 function screenshotHtml(p) {
-  const src = SCREENSHOTS[p.id];
+  const src = shotsOf(p)[0];
   if (src) {
     const shot = ["top", "bottom", "fit"].includes(p.shot) ? ` shot-${p.shot}` : "";
     return `<img class="screenshot${shot}" src="${src}" alt="${escapeHtml(p.title)} 스크린샷">`;
@@ -148,15 +155,19 @@ function diagramHtml(p) {
 // 겉면의 124px 칸에서는 잘려 보인다. 열었을 때는 잘림 없이 전체를 보여주고,
 // 누르면 원본 크기로 띄운다. 도식과 같은 .diagram 밴드를 그대로 쓴다.
 function shotHtml(p) {
-  const src = SCREENSHOTS[p.id];
-  if (!src) return "";
-  const label = `${escapeHtml(p.title)} 스크린샷`;
-  return `
-    <h4>화면</h4>
-    <figure class="diagram shot-zoom">
-      <img src="${src}" alt="${label}" tabindex="0" role="button"
-           aria-label="${label} — 눌러서 크게 보기">
-    </figure>`;
+  const list = shotsOf(p);
+  if (!list.length) return "";
+  const figures = list
+    .map((src, i) => {
+      const label = `${escapeHtml(p.title)} 스크린샷${list.length > 1 ? ` ${i + 1}` : ""}`;
+      return `
+      <figure class="diagram shot-zoom">
+        <img src="${src}" alt="${label}" tabindex="0" role="button"
+             aria-label="${label} — 눌러서 크게 보기">
+      </figure>`;
+    })
+    .join("");
+  return `<h4>화면${list.length > 1 ? ` <span class="count">${list.length}장</span>` : ""}</h4>${figures}`;
 }
 
 function detailHtml(p) {

@@ -613,6 +613,9 @@ dialog#detail-dialog::backdrop { background: transparent; }
    (.diagram-block 이 같은 이유로 flex-shrink:0 을 받고 있다). */
 .shot-zoom { flex-shrink: 0; }
 
+/* 여러 장일 때 몇 장인지 먼저 알려 준다 — 아래로 더 있는 줄 모르면 스크롤하지 않는다. */
+.dialog-body h4 .count { font-weight: 700; color: var(--muted); letter-spacing: 0; }
+
 .shot-zoom img { cursor: zoom-in; }
 .shot-zoom img:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
