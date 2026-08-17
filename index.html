@@ -45,12 +45,14 @@
 <main id="works">
   <div class="container">
     <div id="stats" class="stats"></div>
-    <nav class="tabs" id="tabs"></nav>
+    <!-- 링크가 아니라 목록을 거르는 버튼들이라 nav 랜드마크가 아니다. -->
+    <div class="tabs" id="tabs" role="group" aria-label="분야로 거르기"></div>
     <div id="categories"></div>
   </div>
 </main>
 
-<dialog id="detail-dialog">
+<!-- 제목은 열 때마다 detail-title 로 다시 그려진다 — 대화상자 이름이 프로젝트 이름이 되도록. -->
+<dialog id="detail-dialog" aria-labelledby="detail-title">
   <button class="dialog-close" aria-label="닫기">×</button>
   <div id="detail-content"></div>
 </dialog>
@@ -72,7 +74,8 @@
     </label>
     <!-- 봇 감지용. 사람 눈에는 보이지 않으므로 채워져 오면 자동 제출로 본다. -->
     <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-    <p id="contact-msg" class="message"></p>
+    <!-- 전송 결과는 화면에만 뜨면 안 된다 — 비어 있는 채로 먼저 두고 글자만 갈아 끼운다. -->
+    <p id="contact-msg" class="message" role="status"></p>
     <div class="contact-actions">
       <button type="button" id="contact-cancel">취소</button>
       <button type="submit" id="contact-send">보내기</button>

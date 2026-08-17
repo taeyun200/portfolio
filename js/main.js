@@ -1,5 +1,5 @@
 const PROGRESS_LABEL = { "in-progress": "진행중", done: "완료" };
-const VISIBILITY_LABEL = { public: "🌐 공개", private: "🔒 비공개" };
+const VISIBILITY_LABEL = { public: "공개", private: "비공개" };
 let PROJECTS = [];
 
 // Project content now comes through an authenticated write API (see functions/api/admin/save.js),
@@ -21,6 +21,14 @@ function approachHtml(approach) {
   return `<p>${escapeHtml(approach)}</p>`;
 }
 
+// 이모지는 OS마다 모양·크기가 달라 통일된 인상을 못 만들고 글자색을 따라오지 않는다.
+// 획 굵기 1.5 로 맞춘 한 벌만 두고 색은 currentColor 로 받는다.
+const ICON = {
+  lock: `<svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><rect x="3.2" y="7" width="9.6" height="6.6" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5.6 7V5.2a2.4 2.4 0 0 1 4.8 0V7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>`,
+  globe: `<svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M2.4 8h11.2M8 2.4c1.5 1.6 2.2 3.5 2.2 5.6S9.5 12 8 13.6C6.5 12 5.8 10.1 5.8 8S6.5 4 8 2.4Z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>`,
+  repo: `<svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M6.6 12.4c-2.8.9-2.8-1.4-4-1.7m8 3.3v-2.2c0-.6-.1-1 .3-1.4 1.8-.2 3.5-.9 3.5-3.9a3 3 0 0 0-.8-2.1 2.8 2.8 0 0 0-.1-2.1s-.7-.2-2.3.9a7.8 7.8 0 0 0-4 0C5.6 2.1 4.9 2.3 4.9 2.3a2.8 2.8 0 0 0-.1 2.1 3 3 0 0 0-.8 2.1c0 3 1.7 3.7 3.5 3.9-.3.3-.4.7-.3 1.1v2.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+};
+
 function screenshotHtml(p) {
   const src = SCREENSHOTS[p.id];
   if (src) {
@@ -30,36 +38,44 @@ function screenshotHtml(p) {
   return `<div class="screenshot-placeholder" data-project="${escapeHtml(p.id)}">스크린샷 준비 중</div>`;
 }
 
-function headerHtml(p) {
+// 상태를 색면이 아니라 칩으로 옮긴다. 점 + 글자라 색을 못 봐도 읽히고,
+// 오렌지를 상태에서 빼내 '누를 수 있는 것' 한 뜻만 지게 한다.
+function chipsHtml(p) {
+  const vis = p.visibility === "private" ? ICON.lock : ICON.globe;
   return `
-    <div class="card-header ${p.progress}">
-      <span class="status-pill">${PROGRESS_LABEL[p.progress]}</span>
-      <span class="visibility-pill">${VISIBILITY_LABEL[p.visibility]}</span>
-      <h3>${escapeHtml(p.title)}</h3>
+    <div class="chips">
+      <span class="chip chip-${p.progress}"><span class="dot"></span>${PROGRESS_LABEL[p.progress]}</span>
+      <span class="chip">${vis}${VISIBILITY_LABEL[p.visibility]}</span>
     </div>`;
 }
 
-function footerHtml(p) {
+// trailing 은 카드에서만 쓰는 '자세히 보기' 힌트 — 모달에서는 뜻이 없어 비워 둔다.
+function footerHtml(p, trailing = "") {
   const href = safeRepoHref(p.repo);
   return `
     <div class="card-footer">
       <div class="meta-group">
-        ${href ? `<a class="repo-link" href="${href}" target="_blank" rel="noopener">🔗 GitHub</a>` : ""}
-        <span class="meta-item">🕒 ${escapeHtml(p.date)}</span>
+        ${href ? `<a class="repo-link" href="${href}" target="_blank" rel="noopener">${ICON.repo}GitHub</a>` : ""}
+        <span class="meta-item">${escapeHtml(p.date)}</span>
       </div>
+      ${trailing}
     </div>`;
 }
 
+// 카드 전체를 role="button" 으로 두면 안의 GitHub 링크가 버튼 속에 갇히고,
+// 제목이 버튼 이름에 흡수돼 제목 목록에서 사라진다. 제목만 진짜 버튼으로 만들고
+// 카드 전체 클릭은 편의로 남긴다 — 스크린샷이 맨 위로 올라와 카드의 얼굴이 된다.
 function cardHtml(p) {
   return `
-    <article class="card" data-id="${escapeHtml(p.id)}" tabindex="0" role="button" aria-haspopup="dialog">
-      ${headerHtml(p)}
+    <article class="card" data-id="${escapeHtml(p.id)}">
+      <div class="card-shot">${screenshotHtml(p)}</div>
       <div class="card-body">
-        ${screenshotHtml(p)}
-        <div class="card-content">
-          <p>${escapeHtml(p.summary || p.problem)}</p>
-        </div>
-        ${footerHtml(p)}
+        ${chipsHtml(p)}
+        <h3 class="card-title">
+          <button class="card-open" type="button" aria-haspopup="dialog">${escapeHtml(p.title)}</button>
+        </h3>
+        <p class="card-summary">${escapeHtml(p.summary || p.problem)}</p>
+        ${footerHtml(p, `<span class="more" aria-hidden="true">자세히 보기 →</span>`)}
       </div>
     </article>`;
 }
@@ -93,14 +109,22 @@ function applyFilters() {
 function renderTabs() {
   const tabs = document.getElementById("tabs");
   const labels = ["전체", ...activeCategories()];
+  // 선택 상태를 .active 클래스(=색)에만 싣지 않는다. aria-pressed 로 눌린 상태를 함께 알린다.
   tabs.innerHTML = labels
-    .map((cat, i) => `<button class="tab${i === 0 ? " active" : ""}" data-category="${cat}">${cat}</button>`)
+    .map(
+      (cat, i) =>
+        `<button class="tab${i === 0 ? " active" : ""}" type="button" aria-pressed="${i === 0}" data-category="${cat}">${cat}</button>`
+    )
     .join("");
 
   tabs.addEventListener("click", (e) => {
     const btn = e.target.closest(".tab");
     if (!btn) return;
-    tabs.querySelectorAll(".tab").forEach((t) => t.classList.toggle("active", t === btn));
+    tabs.querySelectorAll(".tab").forEach((t) => {
+      const on = t === btn;
+      t.classList.toggle("active", on);
+      t.setAttribute("aria-pressed", String(on));
+    });
     activeCategory = btn.dataset.category;
     applyFilters();
   });
@@ -137,7 +161,10 @@ function shotHtml(p) {
 
 function detailHtml(p) {
   return `
-    ${headerHtml(p)}
+    <div class="dialog-head">
+      ${chipsHtml(p)}
+      <h3 id="detail-title">${escapeHtml(p.title)}</h3>
+    </div>
     <div class="dialog-body">
       ${shotHtml(p)}
       <h4>문제</h4>
@@ -166,19 +193,12 @@ function setupDialog() {
   const dialog = document.getElementById("detail-dialog");
   const closeBtn = dialog.querySelector(".dialog-close");
 
+  // 제목 버튼의 Enter·Space 도 click 으로 올라오므로 별도의 keydown 처리가 필요 없다.
   document.getElementById("categories").addEventListener("click", (e) => {
     if (e.target.closest(".repo-link")) return;
     const card = e.target.closest(".card");
     if (!card) return;
     openProject(card.dataset.id, true);
-  });
-
-  document.getElementById("categories").addEventListener("keydown", (e) => {
-    if (e.key !== "Enter" && e.key !== " ") return;
-    if (e.target.classList.contains("card")) {
-      e.preventDefault();
-      e.target.click();
-    }
   });
 
   closeBtn.addEventListener("click", () => dialog.close());
@@ -235,10 +255,12 @@ function setupShotZoom() {
 function renderStats() {
   const done = PROJECTS.filter((p) => p.progress === "done").length;
   const latest = PROJECTS[0] ? PROJECTS[0].date.slice(5).replace("-", ".") : "-";
+  // '진행중 N' 은 포트폴리오 첫 화면에서 굳이 세어 내놓을 숫자가 아니다 — 아직 안 끝난 것이
+  // 몇 개인지보다, 다루는 분야가 몇 갈래인지가 훑는 사람에게 쓸모 있다.
   const cells = [
     ["산출물", PROJECTS.length],
     ["완료", done],
-    ["진행중", PROJECTS.length - done],
+    ["분야", activeCategories().length],
     ["최근 갱신", latest],
   ];
   document.getElementById("stats").innerHTML = cells
@@ -300,7 +322,8 @@ function setupContact() {
       if (res.ok) {
         msg.textContent = "보냈습니다. 확인 후 연락드리겠습니다.";
         form.reset();
-        setTimeout(() => dialog.close(), 1500);
+        // 1.5초는 "보냈습니다"를 읽기도 전에 사라지는 길이다. 스크린리더가 다 읽을 시간을 준다.
+        setTimeout(() => dialog.close(), 3200);
       } else if (res.status === 429) {
         msg.textContent = "잠시 후 다시 시도해 주세요.";
       } else {

@@ -20,6 +20,10 @@
   --hero-a: #c1ebe9;
   --hero-b: #fff7c5;
   --band: #fdf4e4;
+
+  /* 완료 상태 전용. 민트(#c1ebe9)는 점·글자로 쓰기엔 너무 밝아, 같은 계열에서 명도만 낮춘 값. */
+  --done: #1d6b5c;
+  --done-bg: #ddf1ec;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -35,6 +39,9 @@
     --hero-a: #123b3d;
     --hero-b: #3d2119;
     --band: #2c151a;
+
+    --done: #8fdcc7;
+    --done-bg: #14352f;
   }
 }
 
@@ -47,6 +54,9 @@ body {
   color: var(--text);
   line-height: 1.6;
   -webkit-text-size-adjust: 100%;
+  /* 맥에서 글자가 의도보다 무겁게 렌더된다. 루트에서 한 번만 선언한다. */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .container {
@@ -70,7 +80,9 @@ body {
   overflow: hidden;
 }
 
-/* 배경에 크게 깔리는 원 — 색면만으로 깊이를 만든다 */
+/* 배경에 크게 깔리는 원 — 색면만으로 깊이를 만든다.
+   오렌지였을 때는 바로 아래 문의 버튼과 같은 색이라, 장식인지 누를 것인지 헷갈렸다.
+   오렌지는 '누를 수 있는 것' 한 뜻만 지도록 장식은 민트로 물러난다. */
 .hero::after {
   content: "";
   position: absolute;
@@ -79,9 +91,14 @@ body {
   width: 460px;
   height: 460px;
   border-radius: 50%;
-  background: var(--orange);
-  opacity: 0.18;
+  background: var(--mint);
+  /* 0.5 에서는 크림 바탕에 묻혀 얼룩으로 읽혔다. 형태가 보여야 장식으로서 제 몫을 한다. */
+  opacity: 0.75;
   pointer-events: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .hero::after { opacity: 0.14; }
 }
 
 .hero-inner {
@@ -253,15 +270,14 @@ body {
 }
 
 /* ── 탭 ─────────────────────────────────────── */
+/* 가로 스크롤을 숨겨 두면 좁은 화면에서 가려진 분야는 없는 것과 같아진다.
+   분야가 셋뿐이라 접으면 두 줄이면 다 보인다 — 숨기는 대신 접는다. */
 .tabs {
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
   margin: 52px 0 26px;
-  overflow-x: auto;
-  scrollbar-width: none;
 }
-
-.tabs::-webkit-scrollbar { display: none; }
 
 .tab {
   appearance: none;
@@ -308,9 +324,11 @@ main { padding-bottom: 90px; }
   background: var(--border);
 }
 
+/* min() 이 없으면 320px 화면에서 트랙이 290px 로 잡혀 컨테이너(280px)를 넘어
+   페이지 전체가 가로로 밀린다. */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(290px, 100%), 1fr));
   gap: 22px;
 }
 
@@ -329,85 +347,106 @@ main { padding-bottom: 90px; }
 
 .card:hover { box-shadow: 0 14px 30px rgba(79, 37, 46, 0.16); }
 
-.card:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+/* 제목 버튼이 포커스를 받으면 카드 전체가 함께 서도록 — 어디에 있는지 카드 단위로 보인다. */
+.card:has(.card-open:focus-visible) { box-shadow: 0 14px 30px rgba(79, 37, 46, 0.16); }
 
-.card-header {
-  position: relative;
-  padding: 32px 18px 16px;
-  color: var(--maroon);
-}
-
-.card-header.done { background: var(--mint); }
-.card-header.in-progress { background: var(--orange); }
-
-.card-header h3 {
-  margin: 0;
-  font-size: 1.12rem;
-  font-weight: 800;
-  letter-spacing: -0.01em;
-}
-
-.card-header .status-pill,
-.card-header .visibility-pill {
-  position: absolute;
-  top: 10px;
-  font-size: 0.66rem;
-  font-weight: 700;
-  background: rgba(79, 37, 46, 0.14);
-  color: var(--maroon);
-  padding: 3px 9px;
-  border-radius: 999px;
-  white-space: nowrap;
-}
-
-.card-header .status-pill { left: 14px; }
-.card-header .visibility-pill { right: 14px; }
-
-.card-body {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  flex: 1;
-}
+/* 스크린샷이 카드의 얼굴이다 — 가장 강한 자리인 맨 위를 상태값이 아니라 증거가 갖는다.
+   카드가 overflow:hidden 이라 이미지는 위쪽 모서리를 따라 잘린다. */
+.card-shot { position: relative; line-height: 0; }
 
 .screenshot-placeholder {
-  height: 124px;
-  border: 1px dashed var(--border);
-  border-radius: 12px;
+  height: 138px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--muted);
   font-size: 0.85rem;
+  line-height: 1.6;
+  border-bottom: 1px solid var(--border);
   background: repeating-linear-gradient(
     45deg,
     transparent,
     transparent 8px,
-    rgba(244, 174, 82, 0.1) 8px,
-    rgba(244, 174, 82, 0.1) 16px
+    rgba(139, 96, 104, 0.09) 8px,
+    rgba(139, 96, 104, 0.09) 16px
   );
 }
 
 .screenshot {
+  display: block;
   width: 100%;
-  height: 124px;
+  height: 138px;
   object-fit: cover;
-  border-radius: 12px;
+  /* 흰 배경으로 끝나는 화면(노션·드라이브)이 흰 카드에 녹지 않도록. 순수 검정/흰색이라야
+     이미지 색을 안 물고 테두리처럼 읽힌다. */
+  outline: 1px solid rgb(0 0 0 / 0.1);
+  outline-offset: -1px;
 }
 
-.card-content { display: flex; flex-direction: column; gap: 8px; }
+@media (prefers-color-scheme: dark) {
+  .screenshot { outline-color: rgb(255 255 255 / 0.12); }
+}
 
-.card-content p {
+.card-body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  flex: 1;
+}
+
+/* 상태는 색면이 아니라 점+글자로. 색을 못 봐도 읽히고, 카드마다 소리치지 않는다. */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.chip .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+.chip-done { color: var(--done); background: var(--done-bg); border-color: transparent; }
+
+.ico { width: 12px; height: 12px; flex-shrink: 0; }
+
+.card-title { margin: 0; }
+
+/* 제목이 곧 여는 버튼 — 카드 전체를 버튼으로 만들면 제목이 이름에 흡수돼 사라진다. */
+.card-open {
+  font: inherit;
+  font-size: 1.12rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: start;
+  cursor: pointer;
+}
+
+.card:hover .card-open { text-decoration: underline; text-underline-offset: 3px; }
+.card-open:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+.card-summary {
   margin: 0;
   font-size: 0.92rem;
-  color: var(--text);
+  color: var(--muted);
 }
 
 .card-footer {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: 8px;
   font-size: 0.78rem;
   color: var(--muted);
@@ -416,7 +455,10 @@ main { padding-bottom: 90px; }
   border-top: 1px solid var(--border);
 }
 
-.card-footer .meta-group { display: flex; gap: 12px; }
+.card-footer .meta-group { display: flex; align-items: center; gap: 12px; }
+
+/* 터치 기기에는 hover 가 없다 — 카드가 눌린다는 것을 가만히 있을 때도 알려야 한다. */
+.more { font-weight: 700; color: var(--accent); white-space: nowrap; }
 
 .card-footer .meta-item {
   display: flex;
@@ -425,8 +467,17 @@ main { padding-bottom: 90px; }
   white-space: nowrap;
 }
 
-.card-footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
+.card-footer a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
 .card-footer a:hover { text-decoration: underline; }
+.card-footer a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 
 /* ── 등장 애니메이션 ─────────────────────────── */
 /* .reveal 은 JS에서만 붙인다. 스크립트가 죽으면 클래스가 안 붙어 카드는 그냥 보인다. */
@@ -500,7 +551,40 @@ dialog#detail-dialog::backdrop { background: transparent; }
   cursor: pointer;
 }
 
+/* 보이는 크기는 30px 그대로 두고 눌리는 영역만 40px 로 넓힌다 — 모서리에 붙어 있어 더 어렵다. */
+.dialog-close::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+}
+
 .dialog-close:hover { background: rgba(79, 37, 46, 0.3); }
+.dialog-close:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+@media (prefers-color-scheme: dark) {
+  .dialog-close { background: rgba(248, 236, 225, 0.18); color: var(--text); }
+  .dialog-close:hover { background: rgba(248, 236, 225, 0.32); }
+}
+
+/* 상태는 칩이 지므로 머리 띠는 색으로 말하지 않는다 — 완료·진행중 모두 같은 밴드. */
+.dialog-head {
+  padding: 30px 26px 18px;
+  background: var(--band);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  flex-shrink: 0;
+}
+
+.dialog-head h3 {
+  margin: 0;
+  font-size: 1.24rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
 
 /* 스크린샷 원본 보기. 상세 모달 위에 겹쳐 뜨지만 둘 다 top layer 라 z-index 가 필요 없다.
    패널 자체는 배경 없이 그림만 남기고, 여백 아무 곳이나 누르면 닫힌다. */
@@ -558,7 +642,6 @@ dialog#detail-dialog::backdrop { background: transparent; }
   min-height: 0;
 }
 
-#detail-dialog .card-header { flex-shrink: 0; }
 
 /* flex 세로 컨테이너의 자식은 기본값이 flex-shrink:1 이라, 내용이 모달 높이를 넘으면
    스크롤되기 전에 먼저 눌린다. 도식 이미지가 세로로 찌그러지던 원인. */
@@ -573,7 +656,10 @@ dialog#detail-dialog::backdrop { background: transparent; }
   letter-spacing: 0.06em;
 }
 
-.dialog-body p, .dialog-body ul { margin: 0; font-size: 0.93rem; }
+/* 한글은 글자 하나가 라틴 두 자 폭이라, 880px 를 다 쓰면 한 줄에 55자쯤 들어간다.
+   눈이 다음 줄 머리를 놓치기 시작하는 길이다. 글 문단에만 상한을 두고
+   도식·스크린샷 띠는 아래 규칙 밖이라 모달 폭을 그대로 쓴다. */
+.dialog-body p, .dialog-body ul { margin: 0; font-size: 0.93rem; max-width: 46em; }
 .dialog-body ul { padding-left: 18px; }
 .dialog-body ul li { margin-bottom: 4px; }
 
@@ -585,7 +671,8 @@ dialog#detail-dialog::backdrop { background: transparent; }
   padding: 18px 16px;
   background: var(--band);
   border: 1px solid var(--border);
-  border-left: 3px solid var(--orange);
+  /* 오렌지는 누를 수 있는 것에만 쓴다. 결과는 읽는 것이지 누르는 것이 아니다. */
+  border-left: 3px solid var(--done);
   border-radius: 14px;
 }
 
@@ -631,8 +718,9 @@ dialog#contact-dialog::backdrop { background: transparent; }
   resize: vertical;
 }
 
-#contact-form input:focus, #contact-form textarea:focus {
-  outline: 2px solid var(--orange);
+/* 포커스 링은 사이트 전체가 --accent 를 쓴다. 여기만 --orange 라 색이 어긋나 있었다. */
+#contact-form input:focus-visible, #contact-form textarea:focus-visible {
+  outline: 2px solid var(--accent);
   outline-offset: 1px;
 }
 
