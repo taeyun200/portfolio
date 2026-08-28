@@ -22,7 +22,13 @@ const SCREENSHOTS = {
     "assets/screenshots/mock-exam-analysis/%EA%B7%B8%EB%A6%BC1.jpg"
   ],
   "ocg-dashboard": [
-    "assets/screenshots/ocg-dashboard/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-07-31%20144620.png"
+    "assets/screenshots/ocg-dashboard/01-today.jpg",
+    "assets/screenshots/ocg-dashboard/02-month.jpg",
+    "assets/screenshots/ocg-dashboard/03-stat.jpg",
+    "assets/screenshots/ocg-dashboard/04-leave.jpg",
+    "assets/screenshots/ocg-dashboard/05-mobile-today.jpg",
+    "assets/screenshots/ocg-dashboard/06-mobile-drawer.jpg",
+    "assets/screenshots/ocg-dashboard/07-mobile-menu.jpg"
   ],
   "saenggibu-review": [
     "assets/screenshots/saenggibu-review/01-seongjeok.png",
