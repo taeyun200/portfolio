@@ -54,6 +54,10 @@ node scripts/gen-screenshots.js
 
 **이미지는 넣기 전에 줄인다.** 폭 1200px 이하 권장. 프로필 사진이 1.1MB로 올라가 있던 적이 있고, 방문자마다 그걸 내려받았다.
 
+### 구조 도식 고치기
+
+카드를 열면 나오는 '구조' 그림은 `assets/diagrams/<프로젝트ID>.svg` 다. **SVG를 직접 고치지 말고** `scripts/gen-diagrams.js` 안의 해당 항목을 고친 뒤 `node scripts/gen-diagrams.js` → 배포. 틀은 두 가지뿐이다 — 자료가 머무는 구역을 나누는 C, 구역이 하나뿐일 때 쓰는 흐름 한 줄 A. 글자가 칸을 넘으면 스크립트가 경고한다.
+
 ---
 
 ## 3. 배포
@@ -94,7 +98,7 @@ functions/          Cloudflare Pages Functions (서버)
                     default-projects.js  KV가 비었을 때만 쓰이는 씨앗 데이터
   api/              projects(공개 조회) login logout contact
   api/admin/        data save messages — 전부 세션 필요
-scripts/            gen-screenshots.js  save.test.mjs
+scripts/            gen-screenshots.js  gen-diagrams.js  save.test.mjs
 docs/PRD.md         기획 문서
 ```
 

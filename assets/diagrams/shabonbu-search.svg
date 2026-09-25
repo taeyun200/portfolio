@@ -1,77 +1,58 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 272" role="img"
-     aria-label="브라우저는 검색어만 서버로 보내고, 서버가 909건 중 가장 가까운 40건의 텍스트만 돌려주는 구조">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 236" role="img"
+     aria-label="해마다 형식이 다른 4년치 문서와, 잠겨 있어 그림으로 뽑아 옮겨 적은 한 해 244건을 모아 서버에 질의응답 909건으로 둔다. 방문자 화면은 검색어만 보내고 비슷한 결과만 받는다.">
   <style>
-    .bx { fill: #ffffff; stroke: #4f252e; stroke-width: 1.4; }
-    .safe { fill: #c1ebe9; stroke: #4f252e; stroke-width: 1.4; }
-    .vault { fill: none; stroke: #4f252e; stroke-width: 1.4; stroke-dasharray: 5 4; }
-    .lbl { font-size: 15px; font-weight: 700; fill: #4f252e; }
-    .sub { font-size: 12.5px; fill: #8b6068; }
-    .step { font-size: 12.5px; fill: #4f252e; }
-    .flow { font-size: 12.5px; font-weight: 700; fill: #4f252e; }
-    .arw { stroke: #f4ae52; stroke-width: 2.6; fill: none; }
     text { font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
-
-    .s { opacity: 0; animation: in .5s ease forwards; }
-    .s1 { animation-delay: .10s } .s2 { animation-delay: .40s } .s3 { animation-delay: .70s }
-    .s4 { animation-delay: 1.00s } .s5 { animation-delay: 1.30s } .s6 { animation-delay: 1.60s }
-    .s7 { animation-delay: 1.90s }
-    @keyframes in { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: none; } }
-    @media (prefers-reduced-motion: reduce) { .s { opacity: 1; animation: none; } }
-
+    .box  { fill: #ffffff; stroke: #4f252e; stroke-width: 1.3; }
+    .key  { fill: #fff7c5; stroke: #f4ae52; stroke-width: 2.4; }
+    .ghost { fill: none; stroke: #8b6068; stroke-width: 1.3; stroke-dasharray: 4 4; }
+    .chip { fill: #c1ebe9; }
+    .zone { fill: #fffaf0; stroke: #8b6068; stroke-width: 1.2; stroke-dasharray: 5 4; }
+    .ring { fill: none; stroke: #8b6068; stroke-width: 1; stroke-dasharray: 2 4; }
+    .ln   { stroke: #4f252e; stroke-width: 1.4; fill: none; }
+    .arw  { stroke: #f4ae52; stroke-width: 2.4; fill: none; }
+    .no   { stroke: #8b6068; stroke-width: 1.6; fill: none; stroke-dasharray: 4 4; }
+    .x    { stroke: #b35c0f; stroke-width: 2.4; stroke-linecap: round; }
+    .dot  { fill: #f4ae52; }
+    .node { fill: #4f252e; }
+    .t  { fill: #4f252e; font-size: 14px; font-weight: 700; }
+    .tb { fill: #4f252e; font-size: 16px; font-weight: 700; }
+    .s  { fill: #8b6068; font-size: 12px; }
+    .c  { fill: #4f252e; font-size: 12.5px; font-weight: 600; }
+    .zl { fill: #8b6068; font-size: 11.5px; font-weight: 700; letter-spacing: .04em; }
+    .rl { fill: #8b6068; font-size: 10.5px; }
+    .al { fill: #b35c0f; font-size: 12px; font-weight: 600;
+          paint-order: stroke; stroke: #fdf4e4; stroke-width: 4px; stroke-linejoin: round; }
     @media (prefers-color-scheme: dark) {
-      .bx { fill: #3b1f26; stroke: #f3ddd2; }
-      .safe { fill: #1d5a5c; stroke: #f3ddd2; }
-      .vault { stroke: #f3ddd2; }
-      .lbl, .flow, .step { fill: #f8ece1; }
-      .sub { fill: #c6a29e; }
+      .box  { fill: #32191f; stroke: #f8ece1; }
+      .key  { fill: #4a3a1e; }
+      .ghost, .zone, .ring, .no { stroke: #c6a29e; }
+      .chip { fill: #1d5a5c; }
+      .zone { fill: #2f171c; }
+      .ln   { stroke: #f8ece1; }
+      .x    { stroke: #f4ae52; }
+      .node { fill: #f8ece1; }
+      .t, .tb, .c { fill: #f8ece1; }
+      .s, .zl, .rl { fill: #c6a29e; }
+      .al { fill: #f4ae52; stroke: #2c151a; }
     }
   </style>
   <defs>
-    <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
-      <path d="M0 0 L10 5 L0 10 z" fill="#f4ae52" />
+    <marker id="h" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" class="dot"/>
     </marker>
   </defs>
-
-  <g class="s s1">
-    <rect x="0" y="58" width="132" height="92" rx="10" class="bx" />
-    <text x="66" y="86" text-anchor="middle" class="lbl">브라우저</text>
-    <text x="66" y="110" text-anchor="middle" class="sub">“세특은 어떻게</text>
-    <text x="66" y="127" text-anchor="middle" class="sub">써야 하나요?”</text>
-  </g>
-
-  <g class="s s2">
-    <path d="M138 104 H186" class="arw" marker-end="url(#b)" />
-    <text x="162" y="94" text-anchor="middle" class="flow">검색어만</text>
-    <rect x="196" y="10" width="250" height="252" rx="12" class="safe" />
-    <text x="321" y="34" text-anchor="middle" class="lbl">서버</text>
-  </g>
-
-  <g class="s s3">
-    <rect x="214" y="48" width="214" height="34" rx="7" class="bx" />
-    <text x="321" y="70" text-anchor="middle" class="step">① 검색어를 숫자 벡터로</text>
-  </g>
-
-  <g class="s s4">
-    <rect x="214" y="90" width="214" height="34" rx="7" class="bx" />
-    <text x="321" y="112" text-anchor="middle" class="step">② 909건과 유사도 비교</text>
-  </g>
-
-  <g class="s s5">
-    <rect x="214" y="132" width="214" height="34" rx="7" class="bx" />
-    <text x="321" y="154" text-anchor="middle" class="step">③ 가장 가까운 40건만</text>
-  </g>
-
-  <g class="s s6">
-    <rect x="214" y="184" width="214" height="58" rx="8" class="vault" />
-    <text x="321" y="208" text-anchor="middle" class="lbl">질의응답 909건 원문</text>
-    <text x="321" y="228" text-anchor="middle" class="sub">서버 밖으로 나가지 않음</text>
-  </g>
-
-  <g class="s s7">
-    <path d="M452 104 H500" class="arw" marker-end="url(#b)" />
-    <text x="476" y="94" text-anchor="middle" class="flow">40건만</text>
-    <rect x="510" y="72" width="110" height="64" rx="10" class="bx" />
-    <text x="565" y="99" text-anchor="middle" class="lbl">읽을 답변</text>
-    <text x="565" y="119" text-anchor="middle" class="sub">질문 + 답변</text>
-  </g>
+  <rect x="8" y="22" width="214" height="206" rx="14" class="zone"/><text x="22" y="41" text-anchor="start" class="zl">준비 · 내 PC</text>
+  <rect x="246" y="22" width="230" height="206" rx="14" class="zone"/><text x="260" y="41" text-anchor="start" class="zl">서버</text>
+  <rect x="500" y="22" width="212" height="206" rx="14" class="zone"/><text x="514" y="41" text-anchor="start" class="zl">방문자 화면</text>
+  <rect x="24" y="56" width="182" height="62" rx="12" class="box"/><text x="115" y="83" text-anchor="middle" class="t">4년치 문서</text><text x="115" y="104" text-anchor="middle" class="s">해마다 형식이 다름</text>
+  <rect x="24" y="134" width="182" height="76" rx="12" class="box"/><text x="115" y="159" text-anchor="middle" class="t">잠긴 한 해</text><text x="115" y="180" text-anchor="middle" class="s">그림으로 뽑아 옮겨 적음</text><text x="115" y="198" text-anchor="middle" class="s">244건</text>
+  <path d="M208 87 C 234 87, 236 100, 260 102" class="arw" marker-end="url(#h)"/>
+  <path d="M208 172 C 234 172, 236 158, 260 156" class="arw" marker-end="url(#h)"/>
+  <rect x="262" y="56" width="198" height="152" rx="14" class="key"/><text x="361" y="110" text-anchor="middle" class="tb">질의응답 909건</text><text x="361" y="131" text-anchor="middle" class="s">분류 이름은 하나로</text><text x="361" y="149" text-anchor="middle" class="s">원래 표기도 함께</text><text x="361" y="167" text-anchor="middle" class="s">뜻이 비슷하면 찾음</text>
+  <rect x="516" y="56" width="180" height="72" rx="12" class="box"/><text x="606" y="88" text-anchor="middle" class="t">검색</text><text x="606" y="109" text-anchor="middle" class="s">'면접 준비'</text>
+  <rect x="516" y="146" width="180" height="62" rx="12" class="box"/><text x="606" y="173" text-anchor="middle" class="t">비슷한 질문들</text><text x="606" y="194" text-anchor="middle" class="s">통째로는 못 가져감</text>
+  <path d="M514 92 H462" class="arw" marker-end="url(#h)"/>
+  <text x="488" y="80" text-anchor="middle" class="al">검색어만</text>
+  <path d="M462 177 H514" class="arw" marker-end="url(#h)"/>
+  <text x="488" y="200" text-anchor="middle" class="al">결과만</text>
 </svg>

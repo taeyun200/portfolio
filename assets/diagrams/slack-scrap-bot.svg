@@ -1,71 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 250" role="img"
-     aria-label="슬랙 채널에 던진 링크를 1분마다 도는 스케줄러가 집어 Gemini로 분석하고 노션 페이지로 만든 뒤, 원본 스레드에 요약을 회신하는 구조. 처리 상태는 별도 DB 없이 슬랙 리액션에 저장한다">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 236" role="img"
+     aria-label="대화방에 던진 링크와 파일을 내 컴퓨터의 심부름꾼이 1분마다 집어, 종류를 가리고 분량에 맞춰 정리해 노트에 쌓는다. 처리 여부는 대화방 표시로 남기고, 노트의 항목 목록은 그때그때 읽어 온다.">
   <style>
-    .bx { fill: #ffffff; stroke: #4f252e; stroke-width: 1.4; }
-    .safe { fill: #c1ebe9; stroke: #4f252e; stroke-width: 1.4; }
-    .lbl { font-size: 15px; font-weight: 700; fill: #4f252e; }
-    .sub { font-size: 12.5px; fill: #8b6068; }
-    .flow { font-size: 12.5px; font-weight: 700; fill: #4f252e; }
-    .arw { stroke: #f4ae52; stroke-width: 2.6; fill: none; }
-    .back { stroke: #f4ae52; stroke-width: 2.6; fill: none; stroke-dasharray: 6 5; }
     text { font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
-
-    .s { opacity: 0; animation: in .5s ease forwards; }
-    .s1 { animation-delay: .10s } .s2 { animation-delay: .45s } .s3 { animation-delay: .80s }
-    .s4 { animation-delay: 1.15s } .s5 { animation-delay: 1.50s }
-    @keyframes in { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: none; } }
-    @media (prefers-reduced-motion: reduce) { .s { opacity: 1; animation: none; } }
-
+    .box  { fill: #ffffff; stroke: #4f252e; stroke-width: 1.3; }
+    .key  { fill: #fff7c5; stroke: #f4ae52; stroke-width: 2.4; }
+    .ghost { fill: none; stroke: #8b6068; stroke-width: 1.3; stroke-dasharray: 4 4; }
+    .chip { fill: #c1ebe9; }
+    .zone { fill: #fffaf0; stroke: #8b6068; stroke-width: 1.2; stroke-dasharray: 5 4; }
+    .ring { fill: none; stroke: #8b6068; stroke-width: 1; stroke-dasharray: 2 4; }
+    .ln   { stroke: #4f252e; stroke-width: 1.4; fill: none; }
+    .arw  { stroke: #f4ae52; stroke-width: 2.4; fill: none; }
+    .no   { stroke: #8b6068; stroke-width: 1.6; fill: none; stroke-dasharray: 4 4; }
+    .x    { stroke: #b35c0f; stroke-width: 2.4; stroke-linecap: round; }
+    .dot  { fill: #f4ae52; }
+    .node { fill: #4f252e; }
+    .t  { fill: #4f252e; font-size: 14px; font-weight: 700; }
+    .tb { fill: #4f252e; font-size: 16px; font-weight: 700; }
+    .s  { fill: #8b6068; font-size: 12px; }
+    .c  { fill: #4f252e; font-size: 12.5px; font-weight: 600; }
+    .zl { fill: #8b6068; font-size: 11.5px; font-weight: 700; letter-spacing: .04em; }
+    .rl { fill: #8b6068; font-size: 10.5px; }
+    .al { fill: #b35c0f; font-size: 12px; font-weight: 600;
+          paint-order: stroke; stroke: #fdf4e4; stroke-width: 4px; stroke-linejoin: round; }
     @media (prefers-color-scheme: dark) {
-      .bx { fill: #3b1f26; stroke: #f3ddd2; }
-      .safe { fill: #1d5a5c; stroke: #f3ddd2; }
-      .lbl { fill: #f8ece1; }
-      .sub { fill: #c6a29e; }
-      .flow { fill: #f4ae52; }
+      .box  { fill: #32191f; stroke: #f8ece1; }
+      .key  { fill: #4a3a1e; }
+      .ghost, .zone, .ring, .no { stroke: #c6a29e; }
+      .chip { fill: #1d5a5c; }
+      .zone { fill: #2f171c; }
+      .ln   { stroke: #f8ece1; }
+      .x    { stroke: #f4ae52; }
+      .node { fill: #f8ece1; }
+      .t, .tb, .c { fill: #f8ece1; }
+      .s, .zl, .rl { fill: #c6a29e; }
+      .al { fill: #f4ae52; stroke: #2c151a; }
     }
   </style>
   <defs>
-    <marker id="n" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
-      <path d="M0 0 L10 5 L0 10 z" fill="#f4ae52" />
+    <marker id="h" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" class="dot"/>
     </marker>
   </defs>
-
-  <g class="s s1">
-    <rect x="0" y="54" width="134" height="92" rx="10" class="bx" />
-    <text x="67" y="80" text-anchor="middle" class="lbl">슬랙 채널</text>
-    <text x="67" y="104" text-anchor="middle" class="sub">유튜브 · 인스타</text>
-    <text x="67" y="122" text-anchor="middle" class="sub">웹문서 · PDF</text>
-  </g>
-
-  <g class="s s2">
-    <path d="M140 100 H166" class="arw" marker-end="url(#n)" />
-    <rect x="172" y="54" width="164" height="92" rx="10" class="bx" />
-    <text x="254" y="80" text-anchor="middle" class="lbl">1분마다 스캔</text>
-    <text x="254" y="104" text-anchor="middle" class="sub">리액션 없는 메시지만</text>
-    <text x="254" y="122" text-anchor="middle" class="sub">👀 로 선점하고 처리</text>
-  </g>
-
-  <g class="s s3">
-    <path d="M342 100 H368" class="arw" marker-end="url(#n)" />
-    <rect x="374" y="54" width="176" height="92" rx="10" class="bx" />
-    <text x="462" y="78" text-anchor="middle" class="lbl">AI 분석</text>
-    <text x="462" y="100" text-anchor="middle" class="sub">자료유형 먼저 분류</text>
-    <text x="462" y="118" text-anchor="middle" class="sub">유형별 항목만 채움</text>
-    <text x="462" y="136" text-anchor="middle" class="sub">분량 따라 깊이 조절</text>
-  </g>
-
-  <g class="s s4">
-    <path d="M556 100 H582" class="arw" marker-end="url(#n)" />
-    <rect x="588" y="54" width="172" height="92" rx="10" class="safe" />
-    <text x="674" y="78" text-anchor="middle" class="lbl">노션 페이지</text>
-    <text x="674" y="100" text-anchor="middle" class="sub">핵심 · 인용 · 타임라인</text>
-    <text x="674" y="118" text-anchor="middle" class="sub">비판적으로 볼 지점</text>
-    <text x="674" y="136" text-anchor="middle" class="sub">선택지는 노션에서 읽음</text>
-  </g>
-
-  <g class="s s5">
-    <path d="M674 152 V194 H67 V152" class="back" marker-end="url(#n)" />
-    <text x="370" y="188" text-anchor="middle" class="flow">원본 스레드에 요약 회신</text>
-    <text x="0" y="234" class="sub">처리 상태는 DB 없이 슬랙 리액션에 —  ✅ 완료  ·  ⚠️ 영구 실패  ·  👀 처리 중</text>
-  </g>
+  <rect x="8" y="22" width="196" height="206" rx="14" class="zone"/><text x="22" y="41" text-anchor="start" class="zl">대화방</text>
+  <rect x="226" y="22" width="268" height="206" rx="14" class="zone"/><text x="240" y="41" text-anchor="start" class="zl">내 컴퓨터 · 1분마다</text>
+  <rect x="516" y="22" width="196" height="206" rx="14" class="zone"/><text x="530" y="41" text-anchor="start" class="zl">노트</text>
+  <rect x="24" y="56" width="164" height="64" rx="12" class="box"/><text x="106" y="84" text-anchor="middle" class="t">링크 · 파일</text><text x="106" y="105" text-anchor="middle" class="s">던져 두기만</text>
+  <rect x="24" y="140" width="164" height="68" rx="12" class="box"/><text x="106" y="170" text-anchor="middle" class="t">처리 표시</text><text x="106" y="191" text-anchor="middle" class="s">완료 · 실패 · 집는 중</text>
+  <rect x="244" y="56" width="232" height="152" rx="14" class="key"/><text x="360" y="101" text-anchor="middle" class="tb">심부름꾼</text><text x="360" y="122" text-anchor="middle" class="s">종류부터 가리기</text><text x="360" y="140" text-anchor="middle" class="s">분량 맞춰 깊이 조절</text><text x="360" y="158" text-anchor="middle" class="s">비판적으로 볼 지점</text><text x="360" y="176" text-anchor="middle" class="s">그대로 옮긴 문장</text>
+  <rect x="532" y="56" width="164" height="78" rx="12" class="box"/><text x="614" y="91" text-anchor="middle" class="t">정리된 요약</text><text x="614" y="112" text-anchor="middle" class="s">핵심 · 인용 · 비판</text>
+  <rect x="532" y="150" width="164" height="58" rx="12" class="box"/><text x="614" y="175" text-anchor="middle" class="t">항목 목록</text><text x="614" y="196" text-anchor="middle" class="s">노트에서 늘리면 끝</text>
+  <path d="M190 88 H242" class="arw" marker-end="url(#h)"/>
+  <text x="216" y="78" text-anchor="middle" class="al">안 한 것만</text>
+  <path d="M242 174 H190" class="arw" marker-end="url(#h)"/>
+  <text x="216" y="198" text-anchor="middle" class="al">표시 남김</text>
+  <path d="M478 95 H530" class="arw" marker-end="url(#h)"/>
+  <text x="504" y="85" text-anchor="middle" class="al">쌓기</text>
+  <path d="M530 179 H478" class="arw" marker-end="url(#h)"/>
+  <text x="504" y="202" text-anchor="middle" class="al">읽어 옴</text>
 </svg>

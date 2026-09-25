@@ -1,68 +1,59 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 156" role="img"
-     aria-label="원점수와 OMR을 입력하면 대시보드에서 회차와 채점모드를 고르는 것만으로 종합분석과 개인성적표, 인쇄물까지 자동 생성되는 구조">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 236" role="img"
+     aria-label="원점수·답안·정답표 등 여섯 장의 표를 채우고 회차와 채점 방식을 고르면 문항별 정답률, 수능최저 충족과 유리한 조합, 학생 상담 리포트, 개인 성적표가 버튼 한 번으로 나온다. 다른 학교용으로 가짜 학생 틀과 설명서를 따로 둔다.">
   <style>
-    .bx { fill: #ffffff; stroke: #4f252e; stroke-width: 1.4; }
-    .safe { fill: #c1ebe9; stroke: #4f252e; stroke-width: 1.4; }
-    .lbl { font-size: 15px; font-weight: 700; fill: #4f252e; }
-    .sub { font-size: 12.5px; fill: #8b6068; }
-    .tag { font-size: 12px; font-weight: 700; fill: #b35c0f; letter-spacing: .1em; }
-    .arw { stroke: #f4ae52; stroke-width: 2.6; fill: none; }
     text { font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
-
-    .s { opacity: 0; animation: in .5s ease forwards; }
-    .s1 { animation-delay: .10s } .s2 { animation-delay: .45s }
-    .s3 { animation-delay: .80s } .s4 { animation-delay: 1.15s }
-    @keyframes in { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: none; } }
-    @media (prefers-reduced-motion: reduce) { .s { opacity: 1; animation: none; } }
-
+    .box  { fill: #ffffff; stroke: #4f252e; stroke-width: 1.3; }
+    .key  { fill: #fff7c5; stroke: #f4ae52; stroke-width: 2.4; }
+    .ghost { fill: none; stroke: #8b6068; stroke-width: 1.3; stroke-dasharray: 4 4; }
+    .chip { fill: #c1ebe9; }
+    .zone { fill: #fffaf0; stroke: #8b6068; stroke-width: 1.2; stroke-dasharray: 5 4; }
+    .ring { fill: none; stroke: #8b6068; stroke-width: 1; stroke-dasharray: 2 4; }
+    .ln   { stroke: #4f252e; stroke-width: 1.4; fill: none; }
+    .arw  { stroke: #f4ae52; stroke-width: 2.4; fill: none; }
+    .no   { stroke: #8b6068; stroke-width: 1.6; fill: none; stroke-dasharray: 4 4; }
+    .x    { stroke: #b35c0f; stroke-width: 2.4; stroke-linecap: round; }
+    .dot  { fill: #f4ae52; }
+    .node { fill: #4f252e; }
+    .t  { fill: #4f252e; font-size: 14px; font-weight: 700; }
+    .tb { fill: #4f252e; font-size: 16px; font-weight: 700; }
+    .s  { fill: #8b6068; font-size: 12px; }
+    .c  { fill: #4f252e; font-size: 12.5px; font-weight: 600; }
+    .zl { fill: #8b6068; font-size: 11.5px; font-weight: 700; letter-spacing: .04em; }
+    .rl { fill: #8b6068; font-size: 10.5px; }
+    .al { fill: #b35c0f; font-size: 12px; font-weight: 600;
+          paint-order: stroke; stroke: #fdf4e4; stroke-width: 4px; stroke-linejoin: round; }
     @media (prefers-color-scheme: dark) {
-      .bx { fill: #3b1f26; stroke: #f3ddd2; }
-      .safe { fill: #1d5a5c; stroke: #f3ddd2; }
-      .lbl { fill: #f8ece1; }
-      .sub { fill: #c6a29e; }
-      .tag { fill: #f4ae52; }
+      .box  { fill: #32191f; stroke: #f8ece1; }
+      .key  { fill: #4a3a1e; }
+      .ghost, .zone, .ring, .no { stroke: #c6a29e; }
+      .chip { fill: #1d5a5c; }
+      .zone { fill: #2f171c; }
+      .ln   { stroke: #f8ece1; }
+      .x    { stroke: #f4ae52; }
+      .node { fill: #f8ece1; }
+      .t, .tb, .c { fill: #f8ece1; }
+      .s, .zl, .rl { fill: #c6a29e; }
+      .al { fill: #f4ae52; stroke: #2c151a; }
     }
   </style>
   <defs>
-    <marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
-      <path d="M0 0 L10 5 L0 10 z" fill="#f4ae52" />
+    <marker id="h" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" class="dot"/>
     </marker>
   </defs>
-
-  <g class="s s1">
-    <text x="0" y="12" class="tag">교사가 하는 일</text>
-    <rect x="0" y="26" width="140" height="118" rx="10" class="bx" />
-    <text x="70" y="50" text-anchor="middle" class="lbl">원점수 입력</text>
-    <text x="70" y="72" text-anchor="middle" class="sub">가채점 · 실채점</text>
-    <text x="70" y="90" text-anchor="middle" class="sub">OMR · 정답표</text>
-    <text x="70" y="108" text-anchor="middle" class="sub">배점 · 도수분포</text>
-    <text x="70" y="130" text-anchor="middle" class="sub">6개 시트</text>
-  </g>
-
-  <g class="s s2">
-    <path d="M146 85 H186" class="arw" marker-end="url(#m)" />
-    <rect x="196" y="36" width="156" height="98" rx="10" class="safe" />
-    <text x="274" y="62" text-anchor="middle" class="lbl">대시보드</text>
-    <text x="274" y="84" text-anchor="middle" class="sub">회차 + 채점모드</text>
-    <text x="274" y="101" text-anchor="middle" class="sub">선택 후</text>
-    <text x="274" y="123" text-anchor="middle" class="lbl">버튼 한 번</text>
-  </g>
-
-  <g class="s s3">
-    <path d="M358 85 C 374 85, 374 51, 390 51" class="arw" marker-end="url(#m)" />
-    <path d="M358 85 C 374 85, 374 119, 390 119" class="arw" marker-end="url(#m)" />
-    <rect x="398" y="22" width="186" height="58" rx="10" class="bx" />
-    <text x="491" y="46" text-anchor="middle" class="lbl">종합분석</text>
-    <text x="491" y="66" text-anchor="middle" class="sub">문항 히트맵 · 수능최저</text>
-    <rect x="398" y="90" width="186" height="58" rx="10" class="bx" />
-    <text x="491" y="114" text-anchor="middle" class="lbl">개인 성적표</text>
-    <text x="491" y="134" text-anchor="middle" class="sub">문항 O/X · 누적 추이</text>
-  </g>
-
-  <g class="s s4">
-    <path d="M590 51 C 604 51, 604 85, 618 85" class="arw" marker-end="url(#m)" />
-    <path d="M590 119 C 604 119, 604 85, 618 85" class="arw" marker-end="url(#m)" />
-    <rect x="626" y="56" width="134" height="58" rx="10" class="bx" />
-    <text x="693" y="90" text-anchor="middle" class="lbl">인쇄 · PDF</text>
-  </g>
+  <rect x="10" y="56" width="170" height="128" rx="12" class="box"/><text x="95" y="98" text-anchor="middle" class="t">여섯 장의 표</text><text x="95" y="119" text-anchor="middle" class="s">원점수 · 답안</text><text x="95" y="137" text-anchor="middle" class="s">정답표 · 배점</text><text x="95" y="155" text-anchor="middle" class="s">전국 성적 분포</text>
+  <path d="M182 120 H222" class="arw" marker-end="url(#h)"/>
+  <text x="202" y="110" text-anchor="middle" class="al">채우기만</text>
+  <rect x="226" y="66" width="196" height="108" rx="14" class="key"/><text x="324" y="107" text-anchor="middle" class="tb">회차 · 채점 방식</text><text x="324" y="128" text-anchor="middle" class="s">고르면 전부 새로 그림</text><text x="324" y="146" text-anchor="middle" class="s">시험 직후 · 공식 답 둘 다</text>
+  <text x="600" y="26" text-anchor="middle" class="zl">버튼 한 번으로</text>
+  <path d="M424 120 C 460 120, 460 55, 490 55" class="ln"/>
+  <path d="M424 120 C 460 120, 460 101, 490 101" class="ln"/>
+  <path d="M424 120 C 460 120, 460 147, 490 147" class="ln"/>
+  <path d="M424 120 C 460 120, 460 193, 490 193" class="ln"/>
+  <rect x="490" y="40" width="220" height="30" rx="15" class="chip"/><text x="600" y="59.5" text-anchor="middle" class="c">문항별 정답률 색 표</text>
+  <rect x="490" y="86" width="220" height="30" rx="15" class="chip"/><text x="600" y="105.5" text-anchor="middle" class="c">수능최저 충족 · 유리한 조합</text>
+  <rect x="490" y="132" width="220" height="30" rx="15" class="chip"/><text x="600" y="151.5" text-anchor="middle" class="c">학생 상담 리포트</text>
+  <rect x="490" y="178" width="220" height="30" rx="15" class="chip"/><text x="600" y="197.5" text-anchor="middle" class="c">개인 성적표</text>
+  <path d="M324 176 V194" class="no"/>
+  <rect x="216" y="196" width="216" height="30" rx="12" class="ghost"/><text x="324" y="216" text-anchor="middle" class="t">다른 학교용 빈 틀 · 설명서</text>
 </svg>

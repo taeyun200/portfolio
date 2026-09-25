@@ -1,53 +1,51 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 132" role="img"
-     aria-label="대교협 학과별 권장과목 자료를 학생이 찾아보기 쉬운 형태로 재정리해 서버 없이 단일 HTML로 배포한 구조">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 236" role="img"
+     aria-label="대학들이 낸 학과별 권장 과목 자료를 학과 기준으로 다시 묶어, 학생이 설치 없이 주소만 열고 자기 학과가 권하는 과목을 찾는다.">
   <style>
-    .bx { fill: #ffffff; stroke: #4f252e; stroke-width: 1.4; }
-    .safe { fill: #c1ebe9; stroke: #4f252e; stroke-width: 1.4; }
-    .lbl { font-size: 15px; font-weight: 700; fill: #4f252e; }
-    .sub { font-size: 12.5px; fill: #8b6068; }
-    .arw { stroke: #f4ae52; stroke-width: 2.6; fill: none; }
     text { font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
-
-    .s { opacity: 0; animation: in .5s ease forwards; }
-    .s1 { animation-delay: .10s } .s2 { animation-delay: .45s } .s3 { animation-delay: .80s }
-    .s4 { animation-delay: 1.15s }
-    @keyframes in { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: none; } }
-    @media (prefers-reduced-motion: reduce) { .s { opacity: 1; animation: none; } }
-
+    .box  { fill: #ffffff; stroke: #4f252e; stroke-width: 1.3; }
+    .key  { fill: #fff7c5; stroke: #f4ae52; stroke-width: 2.4; }
+    .ghost { fill: none; stroke: #8b6068; stroke-width: 1.3; stroke-dasharray: 4 4; }
+    .chip { fill: #c1ebe9; }
+    .zone { fill: #fffaf0; stroke: #8b6068; stroke-width: 1.2; stroke-dasharray: 5 4; }
+    .ring { fill: none; stroke: #8b6068; stroke-width: 1; stroke-dasharray: 2 4; }
+    .ln   { stroke: #4f252e; stroke-width: 1.4; fill: none; }
+    .arw  { stroke: #f4ae52; stroke-width: 2.4; fill: none; }
+    .no   { stroke: #8b6068; stroke-width: 1.6; fill: none; stroke-dasharray: 4 4; }
+    .x    { stroke: #b35c0f; stroke-width: 2.4; stroke-linecap: round; }
+    .dot  { fill: #f4ae52; }
+    .node { fill: #4f252e; }
+    .t  { fill: #4f252e; font-size: 14px; font-weight: 700; }
+    .tb { fill: #4f252e; font-size: 16px; font-weight: 700; }
+    .s  { fill: #8b6068; font-size: 12px; }
+    .c  { fill: #4f252e; font-size: 12.5px; font-weight: 600; }
+    .zl { fill: #8b6068; font-size: 11.5px; font-weight: 700; letter-spacing: .04em; }
+    .rl { fill: #8b6068; font-size: 10.5px; }
+    .al { fill: #b35c0f; font-size: 12px; font-weight: 600;
+          paint-order: stroke; stroke: #fdf4e4; stroke-width: 4px; stroke-linejoin: round; }
     @media (prefers-color-scheme: dark) {
-      .bx { fill: #3b1f26; stroke: #f3ddd2; }
-      .safe { fill: #1d5a5c; stroke: #f3ddd2; }
-      .lbl { fill: #f8ece1; }
-      .sub { fill: #c6a29e; }
+      .box  { fill: #32191f; stroke: #f8ece1; }
+      .key  { fill: #4a3a1e; }
+      .ghost, .zone, .ring, .no { stroke: #c6a29e; }
+      .chip { fill: #1d5a5c; }
+      .zone { fill: #2f171c; }
+      .ln   { stroke: #f8ece1; }
+      .x    { stroke: #f4ae52; }
+      .node { fill: #f8ece1; }
+      .t, .tb, .c { fill: #f8ece1; }
+      .s, .zl, .rl { fill: #c6a29e; }
+      .al { fill: #f4ae52; stroke: #2c151a; }
     }
   </style>
   <defs>
-    <marker id="t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
-      <path d="M0 0 L10 5 L0 10 z" fill="#f4ae52" />
+    <marker id="h" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" class="dot"/>
     </marker>
   </defs>
-
-  <g class="s s1">
-    <rect x="0" y="34" width="158" height="76" rx="10" class="bx" />
-    <text x="79" y="60" text-anchor="middle" class="lbl">대교협 자료</text>
-    <text x="79" y="82" text-anchor="middle" class="sub">학과별 권장 선택과목</text>
-    <text x="79" y="100" text-anchor="middle" class="sub">문서로 배포됨</text>
-  </g>
-
-  <g class="s s2">
-    <path d="M164 72 H216" class="arw" marker-end="url(#t)" />
-    <rect x="226" y="34" width="158" height="76" rx="10" class="safe" />
-    <text x="305" y="60" text-anchor="middle" class="lbl">2차 가공</text>
-    <text x="305" y="82" text-anchor="middle" class="sub">학과 이름으로</text>
-    <text x="305" y="100" text-anchor="middle" class="sub">찾을 수 있게 재정리</text>
-  </g>
-
-  <g class="s s3">
-    <path d="M390 72 H442" class="arw" marker-end="url(#t)" />
-    <rect x="452" y="24" width="168" height="96" rx="10" class="bx" />
-    <text x="536" y="50" text-anchor="middle" class="lbl">단일 HTML</text>
-    <text x="536" y="72" text-anchor="middle" class="sub">서버 없이 정적 배포</text>
-    <text x="536" y="92" text-anchor="middle" class="sub">학생이 직접 검색</text>
-    <text x="536" y="112" text-anchor="middle" class="sub">주소만 알려주면 끝</text>
-  </g>
+  <rect x="10" y="70" width="170" height="96" rx="12" class="box"/><text x="95" y="105" text-anchor="middle" class="t">대학들이 낸 자료</text><text x="95" y="126" text-anchor="middle" class="s">학과별 권장 과목</text><text x="95" y="144" text-anchor="middle" class="s">대학 순서로 정리됨</text>
+  <path d="M182 118 H246" class="arw" marker-end="url(#h)"/>
+  <text x="214" y="108" text-anchor="middle" class="al">다시 묶기</text>
+  <rect x="250" y="64" width="220" height="108" rx="14" class="key"/><text x="360" y="105" text-anchor="middle" class="tb">학과로 찾기</text><text x="360" y="126" text-anchor="middle" class="s">검색하면 바로</text><text x="360" y="144" text-anchor="middle" class="s">화면 파일 하나</text>
+  <path d="M472 118 H530" class="arw" marker-end="url(#h)"/>
+  <text x="501" y="108" text-anchor="middle" class="al">주소만 열면</text>
+  <rect x="534" y="70" width="176" height="96" rx="12" class="box"/><text x="622" y="105" text-anchor="middle" class="t">학생</text><text x="622" y="126" text-anchor="middle" class="s">내 학과가 권하는 과목</text><text x="622" y="144" text-anchor="middle" class="s">설치 없이 확인</text>
 </svg>

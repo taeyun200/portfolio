@@ -1,86 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 292" role="img"
-     aria-label="카카오톡으로 받은 자료를 슬랙 채널에 넘기면, 파일명을 날짜·제목·생산자 세 조각으로 조립해 구글 공유 드라이브 폴더 하나에 올리고 원본 스레드에 링크를 회신하는 구조. 날짜와 제목은 슬랙이 이미 아는 값이라 자동으로 채워지고, 생산자는 알려줄 때만 괄호로 붙는다">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 236" role="img"
+     aria-label="카톡으로 받은 파일을 대화방에 넘기면 심부름꾼이 1분마다 집어 5분 기다린 뒤 이름을 [날짜] 제목 (만든 곳)으로 통일해 공유 드라이브 폴더 하나에 올리고 링크로 답한다. 드라이브는 이 프로그램이 만든 파일만 다룬다.">
   <style>
-    .bx { fill: #ffffff; stroke: #4f252e; stroke-width: 1.4; }
-    .safe { fill: #c1ebe9; stroke: #4f252e; stroke-width: 1.4; }
-    .lbl { font-size: 15px; font-weight: 700; fill: #4f252e; }
-    .name { font-size: 14px; font-weight: 700; fill: #4f252e; }
-    .sub { font-size: 12.5px; fill: #8b6068; }
-    .flow { font-size: 12.5px; font-weight: 700; fill: #4f252e; }
-    .arw { stroke: #f4ae52; stroke-width: 2.6; fill: none; }
-    .back { stroke: #f4ae52; stroke-width: 2.6; fill: none; stroke-dasharray: 6 5; }
     text { font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
-
-    .s { opacity: 0; animation: in .5s ease forwards; }
-    .s1 { animation-delay: .10s } .s2 { animation-delay: .45s } .s3 { animation-delay: .80s }
-    .s4 { animation-delay: 1.15s } .s5 { animation-delay: 1.50s }
-    @keyframes in { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: none; } }
-    @media (prefers-reduced-motion: reduce) { .s { opacity: 1; animation: none; } }
-
+    .box  { fill: #ffffff; stroke: #4f252e; stroke-width: 1.3; }
+    .key  { fill: #fff7c5; stroke: #f4ae52; stroke-width: 2.4; }
+    .ghost { fill: none; stroke: #8b6068; stroke-width: 1.3; stroke-dasharray: 4 4; }
+    .chip { fill: #c1ebe9; }
+    .zone { fill: #fffaf0; stroke: #8b6068; stroke-width: 1.2; stroke-dasharray: 5 4; }
+    .ring { fill: none; stroke: #8b6068; stroke-width: 1; stroke-dasharray: 2 4; }
+    .ln   { stroke: #4f252e; stroke-width: 1.4; fill: none; }
+    .arw  { stroke: #f4ae52; stroke-width: 2.4; fill: none; }
+    .no   { stroke: #8b6068; stroke-width: 1.6; fill: none; stroke-dasharray: 4 4; }
+    .x    { stroke: #b35c0f; stroke-width: 2.4; stroke-linecap: round; }
+    .dot  { fill: #f4ae52; }
+    .node { fill: #4f252e; }
+    .t  { fill: #4f252e; font-size: 14px; font-weight: 700; }
+    .tb { fill: #4f252e; font-size: 16px; font-weight: 700; }
+    .s  { fill: #8b6068; font-size: 12px; }
+    .c  { fill: #4f252e; font-size: 12.5px; font-weight: 600; }
+    .zl { fill: #8b6068; font-size: 11.5px; font-weight: 700; letter-spacing: .04em; }
+    .rl { fill: #8b6068; font-size: 10.5px; }
+    .al { fill: #b35c0f; font-size: 12px; font-weight: 600;
+          paint-order: stroke; stroke: #fdf4e4; stroke-width: 4px; stroke-linejoin: round; }
     @media (prefers-color-scheme: dark) {
-      .bx { fill: #3b1f26; stroke: #f3ddd2; }
-      .safe { fill: #1d5a5c; stroke: #f3ddd2; }
-      .lbl, .name { fill: #f8ece1; }
-      .sub { fill: #c6a29e; }
-      .flow { fill: #f4ae52; }
+      .box  { fill: #32191f; stroke: #f8ece1; }
+      .key  { fill: #4a3a1e; }
+      .ghost, .zone, .ring, .no { stroke: #c6a29e; }
+      .chip { fill: #1d5a5c; }
+      .zone { fill: #2f171c; }
+      .ln   { stroke: #f8ece1; }
+      .x    { stroke: #f4ae52; }
+      .node { fill: #f8ece1; }
+      .t, .tb, .c { fill: #f8ece1; }
+      .s, .zl, .rl { fill: #c6a29e; }
+      .al { fill: #f4ae52; stroke: #2c151a; }
     }
   </style>
   <defs>
-    <marker id="d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
-      <path d="M0 0 L10 5 L0 10 z" fill="#f4ae52" />
+    <marker id="h" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" class="dot"/>
     </marker>
   </defs>
-
-  <g class="s s1">
-    <rect x="0" y="6" width="126" height="46" rx="9" class="bx" />
-    <text x="63" y="27" text-anchor="middle" class="lbl">카카오톡</text>
-    <text x="63" y="44" text-anchor="middle" class="sub">유효기간 지나면 만료</text>
-
-    <path d="M63 52 V64" class="arw" marker-end="url(#d)" />
-
-    <rect x="0" y="70" width="126" height="92" rx="10" class="bx" />
-    <text x="63" y="98" text-anchor="middle" class="lbl">슬랙 채널</text>
-    <text x="63" y="121" text-anchor="middle" class="sub">파일만 넘긴다</text>
-    <text x="63" y="140" text-anchor="middle" class="sub">5분 기다린다</text>
-  </g>
-
-  <g class="s s2">
-    <path d="M132 116 H162" class="arw" marker-end="url(#d)" />
-
-    <rect x="170" y="40" width="150" height="48" rx="9" class="bx" />
-    <text x="245" y="62" text-anchor="middle" class="lbl">날짜</text>
-    <text x="245" y="80" text-anchor="middle" class="sub">올라온 시각</text>
-
-    <rect x="170" y="96" width="150" height="48" rx="9" class="bx" />
-    <text x="245" y="118" text-anchor="middle" class="lbl">제목</text>
-    <text x="245" y="136" text-anchor="middle" class="sub">메시지 본문</text>
-
-    <rect x="170" y="152" width="150" height="48" rx="9" class="bx" />
-    <text x="245" y="174" text-anchor="middle" class="lbl">(생산자)</text>
-    <text x="245" y="192" text-anchor="middle" class="sub">알려줄 때만</text>
-  </g>
-
-  <g class="s s3">
-    <path d="M326 64 C352 64 350 120 366 120" class="arw" />
-    <path d="M326 120 H366" class="arw" />
-    <path d="M326 176 C352 176 350 120 366 120" class="arw" />
-    <path d="M360 120 H374" class="arw" marker-end="url(#d)" />
-
-    <rect x="384" y="86" width="376" height="68" rx="10" class="safe" />
-    <text x="572" y="116" text-anchor="middle" class="name">[2026-08-09] 하계워크숍기획 (박지원).pdf</text>
-    <text x="572" y="138" text-anchor="middle" class="sub">윈도우에서 깨지는 문자 제거 · 180자에서 자름</text>
-  </g>
-
-  <g class="s s4">
-    <path d="M572 160 V186" class="arw" marker-end="url(#d)" />
-    <rect x="452" y="196" width="240" height="60" rx="10" class="bx" />
-    <text x="572" y="221" text-anchor="middle" class="lbl">구글 공유 드라이브 · 폴더 하나</text>
-    <text x="572" y="241" text-anchor="middle" class="sub">이름순 정렬이 곧 시간순</text>
-  </g>
-
-  <g class="s s5">
-    <path d="M512 260 V276 H63 V168" class="back" marker-end="url(#d)" />
-    <text x="290" y="270" text-anchor="middle" class="flow">스레드에 링크 회신</text>
-    <text x="0" y="290" class="sub">생산자는 올린 사람으로 짐작하지 않는다 — 안 알려주면 괄호째 빠진다</text>
-  </g>
+  <rect x="8" y="22" width="176" height="206" rx="14" class="zone"/><text x="22" y="41" text-anchor="start" class="zl">카톡 단체방</text>
+  <rect x="206" y="22" width="290" height="206" rx="14" class="zone"/><text x="220" y="41" text-anchor="start" class="zl">대화방</text>
+  <rect x="518" y="22" width="194" height="206" rx="14" class="zone"/><text x="532" y="41" text-anchor="start" class="zl">공유 드라이브</text>
+  <rect x="24" y="70" width="144" height="96" rx="12" class="box"/><text x="96" y="105" text-anchor="middle" class="t">받은 파일</text><text x="96" y="126" text-anchor="middle" class="s">기한 지나면</text><text x="96" y="144" text-anchor="middle" class="s">사라짐</text>
+  <rect x="222" y="56" width="258" height="96" rx="14" class="key"/><text x="351" y="91" text-anchor="middle" class="tb">심부름꾼 · 1분마다</text><text x="351" y="112" text-anchor="middle" class="s">5분 기다렸다가 올림</text><text x="351" y="130" text-anchor="middle" class="s">같은 이름 있으면 건너뜀</text>
+  <path d="M351 154 V166" class="ln"/>
+  <rect x="222" y="168" width="258" height="44" rx="12" class="box"/><text x="351" y="195" text-anchor="middle" class="t">만든 곳은 알려줄 때만</text>
+  <rect x="534" y="56" width="162" height="96" rx="12" class="box"/><text x="615" y="91" text-anchor="middle" class="t">폴더 하나</text><text x="615" y="112" text-anchor="middle" class="s">[날짜] 제목 (만든 곳)</text><text x="615" y="130" text-anchor="middle" class="s">이름순 = 시간순</text>
+  <text x="615" y="184" text-anchor="middle" class="s">이 프로그램이 만든</text>
+  <text x="615" y="202" text-anchor="middle" class="s">파일만 다룸</text>
+  <path d="M170 118 H220" class="arw" marker-end="url(#h)"/>
+  <text x="195" y="108" text-anchor="middle" class="al">바로 넘김</text>
+  <path d="M482 88 H532" class="arw" marker-end="url(#h)"/>
+  <text x="507" y="78" text-anchor="middle" class="al">이름 통일</text>
+  <path d="M532 122 H482" class="arw" marker-end="url(#h)"/>
+  <text x="507" y="142" text-anchor="middle" class="al">링크 회신</text>
 </svg>

@@ -1,81 +1,56 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 178" role="img"
-     aria-label="대입상담프로그램에서 내려받은 수시 진학결과 엑셀을 브라우저에 끌어다 놓으면, 학생 한 명이 한 줄 카드가 되어 내신순으로 정렬되는 구조">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 236" role="img"
+     aria-label="지난 진학결과 파일을 브라우저에 끌어다 놓으면 학생 한 명이 한 줄 카드가 되어 내신 순서로 줄을 선다. 올린 파일은 밖으로 나가지 않고, 표를 읽는 도구만 처음 한 번 들어온다.">
   <style>
-    .bx { fill: #ffffff; stroke: #4f252e; stroke-width: 1.4; }
-    .safe { fill: #c1ebe9; stroke: #4f252e; stroke-width: 1.4; }
-    .card { fill: #fff7c5; stroke: #4f252e; stroke-width: 1.1; }
-    .badge { fill: #f4ae52; stroke: #4f252e; stroke-width: 1.1; }
-    .lbl { font-size: 15px; font-weight: 700; fill: #4f252e; }
-    .sub { font-size: 12.5px; fill: #8b6068; }
-    .mini { font-size: 10.5px; fill: #4f252e; }
-    .flow { font-size: 12.5px; font-weight: 700; fill: #4f252e; }
-    .arw { stroke: #f4ae52; stroke-width: 2.6; fill: none; }
     text { font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
-
-    .s { opacity: 0; animation: in .5s ease forwards; }
-    .s1 { animation-delay: .10s } .s2 { animation-delay: .45s }
-    .s3 { animation-delay: .80s } .s4 { animation-delay: 1.15s }
-    @keyframes in { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: none; } }
-    @media (prefers-reduced-motion: reduce) { .s { opacity: 1; animation: none; } }
-
+    .box  { fill: #ffffff; stroke: #4f252e; stroke-width: 1.3; }
+    .key  { fill: #fff7c5; stroke: #f4ae52; stroke-width: 2.4; }
+    .ghost { fill: none; stroke: #8b6068; stroke-width: 1.3; stroke-dasharray: 4 4; }
+    .chip { fill: #c1ebe9; }
+    .zone { fill: #fffaf0; stroke: #8b6068; stroke-width: 1.2; stroke-dasharray: 5 4; }
+    .ring { fill: none; stroke: #8b6068; stroke-width: 1; stroke-dasharray: 2 4; }
+    .ln   { stroke: #4f252e; stroke-width: 1.4; fill: none; }
+    .arw  { stroke: #f4ae52; stroke-width: 2.4; fill: none; }
+    .no   { stroke: #8b6068; stroke-width: 1.6; fill: none; stroke-dasharray: 4 4; }
+    .x    { stroke: #b35c0f; stroke-width: 2.4; stroke-linecap: round; }
+    .dot  { fill: #f4ae52; }
+    .node { fill: #4f252e; }
+    .t  { fill: #4f252e; font-size: 14px; font-weight: 700; }
+    .tb { fill: #4f252e; font-size: 16px; font-weight: 700; }
+    .s  { fill: #8b6068; font-size: 12px; }
+    .c  { fill: #4f252e; font-size: 12.5px; font-weight: 600; }
+    .zl { fill: #8b6068; font-size: 11.5px; font-weight: 700; letter-spacing: .04em; }
+    .rl { fill: #8b6068; font-size: 10.5px; }
+    .al { fill: #b35c0f; font-size: 12px; font-weight: 600;
+          paint-order: stroke; stroke: #fdf4e4; stroke-width: 4px; stroke-linejoin: round; }
     @media (prefers-color-scheme: dark) {
-      .bx { fill: #3b1f26; stroke: #f3ddd2; }
-      .safe { fill: #1d5a5c; stroke: #f3ddd2; }
-      .card { fill: #4a3a1e; stroke: #f3ddd2; }
-      .lbl, .flow, .mini { fill: #f8ece1; }
-      .sub { fill: #c6a29e; }
+      .box  { fill: #32191f; stroke: #f8ece1; }
+      .key  { fill: #4a3a1e; }
+      .ghost, .zone, .ring, .no { stroke: #c6a29e; }
+      .chip { fill: #1d5a5c; }
+      .zone { fill: #2f171c; }
+      .ln   { stroke: #f8ece1; }
+      .x    { stroke: #f4ae52; }
+      .node { fill: #f8ece1; }
+      .t, .tb, .c { fill: #f8ece1; }
+      .s, .zl, .rl { fill: #c6a29e; }
+      .al { fill: #f4ae52; stroke: #2c151a; }
     }
   </style>
   <defs>
-    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
-      <path d="M0 0 L10 5 L0 10 z" fill="#f4ae52" />
+    <marker id="h" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" class="dot"/>
     </marker>
   </defs>
-
-  <g class="s s1">
-    <rect x="0" y="44" width="118" height="68" rx="10" class="bx" />
-    <text x="59" y="72" text-anchor="middle" class="lbl">대입상담</text>
-    <text x="59" y="90" text-anchor="middle" class="lbl">프로그램</text>
-    <text x="59" y="106" text-anchor="middle" class="sub">수시 진학결과</text>
-  </g>
-
-  <g class="s s2">
-    <path d="M124 78 H160" class="arw" marker-end="url(#a)" />
-    <rect x="170" y="52" width="96" height="52" rx="9" class="bx" />
-    <text x="218" y="76" text-anchor="middle" class="lbl">엑셀</text>
-    <text x="218" y="94" text-anchor="middle" class="sub">여러 개</text>
-  </g>
-
-  <g class="s s3">
-    <path d="M272 78 H308" class="arw" marker-end="url(#a)" />
-    <text x="290" y="68" text-anchor="middle" class="flow">드래그</text>
-    <rect x="318" y="24" width="166" height="108" rx="10" class="safe" />
-    <text x="401" y="52" text-anchor="middle" class="lbl">단일 HTML</text>
-    <text x="401" y="74" text-anchor="middle" class="sub">브라우저 안에서 처리</text>
-    <text x="401" y="92" text-anchor="middle" class="sub">올린 엑셀은</text>
-    <text x="401" y="110" text-anchor="middle" class="sub">서버로 가지 않음</text>
-    <text x="318" y="160" class="sub">표를 읽는 라이브러리만 최초 실행 때 CDN에서 받아옵니다.</text>
-  </g>
-
-  <g class="s s4">
-    <path d="M490 78 H526" class="arw" marker-end="url(#a)" />
-    <rect x="536" y="12" width="224" height="132" rx="10" class="bx" />
-    <text x="648" y="34" text-anchor="middle" class="lbl">학생 1명 = 한 줄</text>
-
-    <rect x="564" y="48" width="54" height="26" rx="5" class="card" />
-    <text x="591" y="65" text-anchor="middle" class="mini">교과</text>
-    <rect x="628" y="44" width="40" height="34" rx="8" class="badge" />
-    <text x="648" y="66" text-anchor="middle" class="mini">2.11</text>
-    <rect x="678" y="48" width="54" height="26" rx="5" class="card" />
-    <text x="705" y="65" text-anchor="middle" class="mini">종합</text>
-
-    <rect x="564" y="82" width="54" height="26" rx="5" class="card" />
-    <text x="591" y="99" text-anchor="middle" class="mini">논술</text>
-    <rect x="628" y="78" width="40" height="34" rx="8" class="badge" />
-    <text x="648" y="100" text-anchor="middle" class="mini">2.37</text>
-    <rect x="678" y="82" width="54" height="26" rx="5" class="card" />
-    <text x="705" y="99" text-anchor="middle" class="mini">실기</text>
-
-    <text x="648" y="132" text-anchor="middle" class="sub">내신순 · 합불은 색과 리본으로</text>
-  </g>
+  <rect x="8" y="22" width="440" height="206" rx="14" class="zone"/><text x="22" y="41" text-anchor="start" class="zl">이 컴퓨터의 브라우저</text>
+  <rect x="478" y="22" width="234" height="206" rx="14" class="zone"/><text x="492" y="41" text-anchor="start" class="zl">바깥</text>
+  <rect x="26" y="84" width="150" height="92" rx="12" class="box"/><text x="101" y="117" text-anchor="middle" class="t">진학결과 파일</text><text x="101" y="138" text-anchor="middle" class="s">지난해 · 그 전 해</text><text x="101" y="156" text-anchor="middle" class="s">끌어다 놓기</text>
+  <path d="M178 130 H206" class="arw" marker-end="url(#h)"/>
+  <rect x="210" y="60" width="198" height="140" rx="14" class="key"/><text x="309" y="99" text-anchor="middle" class="tb">한 줄 카드</text><text x="309" y="120" text-anchor="middle" class="s">학생 한 명 = 한 줄</text><text x="309" y="138" text-anchor="middle" class="s">내신 순서로 줄 섬</text><text x="309" y="156" text-anchor="middle" class="s">붙음·떨어짐은 색으로</text><text x="309" y="174" text-anchor="middle" class="s">연도별 탭은 저절로</text>
+  <path d="M410 96 H552" class="no"/>
+  <path d="M457 90 L469 102 M469 90 L457 102" class="x"/>
+  <text x="632" y="90" text-anchor="middle" class="s">올린 파일은</text>
+  <text x="632" y="108" text-anchor="middle" class="s">밖으로 나가지 않음</text>
+  <rect x="496" y="146" width="198" height="62" rx="12" class="box"/><text x="595" y="173" text-anchor="middle" class="t">표 읽는 도구</text><text x="595" y="194" text-anchor="middle" class="s">처음 한 번만</text>
+  <path d="M494 177 C 452 177, 444 168, 410 168" class="arw" marker-end="url(#h)"/>
+  <text x="452" y="204" text-anchor="middle" class="al">도구만 들어옴</text>
 </svg>

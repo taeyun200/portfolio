@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 236" role="img"
+     aria-label="폰은 위치를 읍·면·동까지만 잘라 서버로 보낸다. 서버는 날씨와 미세먼지를 받고, 노션 할 일은 읽기만, 음악 서비스에서는 곡을 찾기만 해서 원고·선곡·목소리를 만든다. 열쇠는 서버에만 있고, 폰은 녹음을 받아 튼다.">
+  <style>
+    text { font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
+    .box  { fill: #ffffff; stroke: #4f252e; stroke-width: 1.3; }
+    .key  { fill: #fff7c5; stroke: #f4ae52; stroke-width: 2.4; }
+    .ghost { fill: none; stroke: #8b6068; stroke-width: 1.3; stroke-dasharray: 4 4; }
+    .chip { fill: #c1ebe9; }
+    .zone { fill: #fffaf0; stroke: #8b6068; stroke-width: 1.2; stroke-dasharray: 5 4; }
+    .ring { fill: none; stroke: #8b6068; stroke-width: 1; stroke-dasharray: 2 4; }
+    .ln   { stroke: #4f252e; stroke-width: 1.4; fill: none; }
+    .arw  { stroke: #f4ae52; stroke-width: 2.4; fill: none; }
+    .no   { stroke: #8b6068; stroke-width: 1.6; fill: none; stroke-dasharray: 4 4; }
+    .x    { stroke: #b35c0f; stroke-width: 2.4; stroke-linecap: round; }
+    .dot  { fill: #f4ae52; }
+    .node { fill: #4f252e; }
+    .t  { fill: #4f252e; font-size: 14px; font-weight: 700; }
+    .tb { fill: #4f252e; font-size: 16px; font-weight: 700; }
+    .s  { fill: #8b6068; font-size: 12px; }
+    .c  { fill: #4f252e; font-size: 12.5px; font-weight: 600; }
+    .zl { fill: #8b6068; font-size: 11.5px; font-weight: 700; letter-spacing: .04em; }
+    .rl { fill: #8b6068; font-size: 10.5px; }
+    .al { fill: #b35c0f; font-size: 12px; font-weight: 600;
+          paint-order: stroke; stroke: #fdf4e4; stroke-width: 4px; stroke-linejoin: round; }
+    @media (prefers-color-scheme: dark) {
+      .box  { fill: #32191f; stroke: #f8ece1; }
+      .key  { fill: #4a3a1e; }
+      .ghost, .zone, .ring, .no { stroke: #c6a29e; }
+      .chip { fill: #1d5a5c; }
+      .zone { fill: #2f171c; }
+      .ln   { stroke: #f8ece1; }
+      .x    { stroke: #f4ae52; }
+      .node { fill: #f8ece1; }
+      .t, .tb, .c { fill: #f8ece1; }
+      .s, .zl, .rl { fill: #c6a29e; }
+      .al { fill: #f4ae52; stroke: #2c151a; }
+    }
+  </style>
+  <defs>
+    <marker id="h" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" class="dot"/>
+    </marker>
+  </defs>
+  <rect x="8" y="22" width="196" height="206" rx="14" class="zone"/><text x="22" y="41" text-anchor="start" class="zl">폰 안</text>
+  <rect x="234" y="22" width="232" height="206" rx="14" class="zone"/><text x="248" y="41" text-anchor="start" class="zl">내 서버</text>
+  <rect x="496" y="22" width="216" height="206" rx="14" class="zone"/><text x="510" y="41" text-anchor="start" class="zl">바깥 서비스</text>
+  <rect x="24" y="56" width="164" height="60" rx="12" class="box"/><text x="106" y="82" text-anchor="middle" class="t">위치</text><text x="106" y="103" text-anchor="middle" class="s">번지수는 여기 남음</text>
+  <rect x="24" y="142" width="164" height="68" rx="14" class="key"/><text x="106" y="172" text-anchor="middle" class="tb">아침 방송</text><text x="106" y="193" text-anchor="middle" class="s">음악 + 브리핑</text>
+  <rect x="252" y="56" width="196" height="72" rx="12" class="box"/><text x="350" y="88" text-anchor="middle" class="t">원고 · 선곡 · 목소리</text><text x="350" y="109" text-anchor="middle" class="s">새벽에 미리 만듦</text>
+  <rect x="252" y="150" width="196" height="56" rx="12" class="box"/><text x="350" y="174" text-anchor="middle" class="t">열쇠 보관</text><text x="350" y="195" text-anchor="middle" class="s">코드·기록에 안 남김</text>
+  <rect x="516" y="56" width="178" height="32" rx="16" class="chip"/><text x="605" y="76.5" text-anchor="middle" class="c">날씨 · 미세먼지</text>
+  <rect x="516" y="102" width="178" height="32" rx="16" class="chip"/><text x="605" y="122.5" text-anchor="middle" class="c">노션 할 일</text>
+  <rect x="516" y="148" width="178" height="32" rx="16" class="chip"/><text x="605" y="168.5" text-anchor="middle" class="c">음악 서비스</text>
+  <path d="M190 80 H250" class="arw" marker-end="url(#h)"/>
+  <text x="220" y="70" text-anchor="middle" class="al">읍·면·동만</text>
+  <path d="M252 116 C 222 120, 222 168, 190 172" class="arw" marker-end="url(#h)"/>
+  <text x="220" y="140" text-anchor="middle" class="al">녹음</text>
+  <path d="M514 72 H450" class="arw" marker-end="url(#h)"/>
+  <path d="M514 118 C 486 118, 478 104, 450 102" class="arw" marker-end="url(#h)"/>
+  <text x="482" y="137" text-anchor="middle" class="al">읽기만</text>
+  <path d="M514 164 C 482 164, 476 120, 450 114" class="arw" marker-end="url(#h)"/>
+  <text x="482" y="196" text-anchor="middle" class="al">찾기만</text>
+</svg>
