@@ -2,6 +2,14 @@ const SCREENSHOTS = {
   "2028-subject-guide": [
     "assets/screenshots/2028-subject-guide/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-07-30%20150513.png"
   ],
+  "edufine-notion": [
+    "assets/screenshots/edufine-notion/01-page.jpg"
+  ],
+  "ewsa-essay": [
+    "assets/screenshots/ewsa-essay/01-overview.jpg",
+    "assets/screenshots/ewsa-essay/02-student.jpg",
+    "assets/screenshots/ewsa-essay/03-teacher.jpg"
+  ],
   "finance-study": [
     "assets/screenshots/finance-study/01-dashboard.jpg",
     "assets/screenshots/finance-study/02-report.jpg",
@@ -19,7 +27,14 @@ const SCREENSHOTS = {
     "assets/screenshots/jonghap-network/Snipaste_2026-07-31_15-57-26.png"
   ],
   "mock-exam-analysis": [
-    "assets/screenshots/mock-exam-analysis/%EA%B7%B8%EB%A6%BC1.jpg"
+    "assets/screenshots/mock-exam-analysis/01-dashboard.jpg",
+    "assets/screenshots/mock-exam-analysis/02-heatmap.jpg",
+    "assets/screenshots/mock-exam-analysis/03-report.jpg"
+  ],
+  "morning-air": [
+    "assets/screenshots/morning-air/01-poster.jpg",
+    "assets/screenshots/morning-air/02-today.jpg",
+    "assets/screenshots/morning-air/03-night.jpg"
   ],
   "ocg-dashboard": [
     "assets/screenshots/ocg-dashboard/01-today.jpg",
@@ -29,6 +44,10 @@ const SCREENSHOTS = {
     "assets/screenshots/ocg-dashboard/05-mobile-today.jpg",
     "assets/screenshots/ocg-dashboard/06-mobile-drawer.jpg",
     "assets/screenshots/ocg-dashboard/07-mobile-menu.jpg"
+  ],
+  "practicum-kiosk": [
+    "assets/screenshots/practicum-kiosk/01-board.jpg",
+    "assets/screenshots/practicum-kiosk/02-kiosk.jpg"
   ],
   "saenggibu-review": [
     "assets/screenshots/saenggibu-review/01-seongjeok.png",
