@@ -29,7 +29,8 @@ const SCREENSHOTS = {
   "mock-exam-analysis": [
     "assets/screenshots/mock-exam-analysis/01-dashboard.jpg",
     "assets/screenshots/mock-exam-analysis/02-heatmap.jpg",
-    "assets/screenshots/mock-exam-analysis/03-report.jpg"
+    "assets/screenshots/mock-exam-analysis/03-counsel.jpg",
+    "assets/screenshots/mock-exam-analysis/04-report.jpg"
   ],
   "morning-air": [
     "assets/screenshots/morning-air/01-poster.jpg",
