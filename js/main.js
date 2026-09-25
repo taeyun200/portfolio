@@ -59,9 +59,11 @@ function chipsHtml(p) {
 // trailing 은 카드에서만 쓰는 '자세히 보기' 힌트 — 모달에서는 뜻이 없어 비워 둔다.
 function footerHtml(p, trailing = "") {
   const href = safeRepoHref(p.repo);
+  const site = safeRepoHref(p.site);
   return `
     <div class="card-footer">
       <div class="meta-group">
+        ${site ? `<a class="repo-link" href="${site}" target="_blank" rel="noopener">${ICON.globe}사이트</a>` : ""}
         ${href ? `<a class="repo-link" href="${href}" target="_blank" rel="noopener">${ICON.repo}GitHub</a>` : ""}
         <span class="meta-item">${escapeHtml(p.date)}</span>
       </div>

@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 236" role="img"
-     aria-label="원점수·답안·정답표 등 여섯 장의 표를 채우고 회차와 채점 방식을 고르면 문항별 정답률, 수능최저 충족과 유리한 조합, 학생 상담 리포트, 개인 성적표가 버튼 한 번으로 나온다. 다른 학교용으로 가짜 학생 틀과 설명서를 따로 둔다.">
+     aria-label="관리자가 EBS·평가원 공개 자료를 서버에 올려 두면, 각 학교 엑셀 파일이 [자료 받기]로 정답·배점·단원·등급컷·전국 분포를 받아 온다. 교사는 원점수와 답안만 넣고 회차와 채점 방식을 고르면 문항별 정답률, 수능최저 조합, 상담 리포트, 개인 성적표가 나온다.">
   <style>
     text { font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
     .box  { fill: #ffffff; stroke: #4f252e; stroke-width: 1.3; }
@@ -41,19 +41,26 @@
       <path d="M0 0 L10 5 L0 10 z" class="dot"/>
     </marker>
   </defs>
-  <rect x="10" y="56" width="170" height="128" rx="12" class="box"/><text x="95" y="98" text-anchor="middle" class="t">여섯 장의 표</text><text x="95" y="119" text-anchor="middle" class="s">원점수 · 답안</text><text x="95" y="137" text-anchor="middle" class="s">정답표 · 배점</text><text x="95" y="155" text-anchor="middle" class="s">전국 성적 분포</text>
-  <path d="M182 120 H222" class="arw" marker-end="url(#h)"/>
-  <text x="202" y="110" text-anchor="middle" class="al">채우기만</text>
-  <rect x="226" y="66" width="196" height="108" rx="14" class="key"/><text x="324" y="107" text-anchor="middle" class="tb">회차 · 채점 방식</text><text x="324" y="128" text-anchor="middle" class="s">고르면 전부 새로 그림</text><text x="324" y="146" text-anchor="middle" class="s">시험 직후 · 공식 답 둘 다</text>
-  <text x="600" y="26" text-anchor="middle" class="zl">버튼 한 번으로</text>
-  <path d="M424 120 C 460 120, 460 55, 490 55" class="ln"/>
-  <path d="M424 120 C 460 120, 460 101, 490 101" class="ln"/>
-  <path d="M424 120 C 460 120, 460 147, 490 147" class="ln"/>
-  <path d="M424 120 C 460 120, 460 193, 490 193" class="ln"/>
-  <rect x="490" y="40" width="220" height="30" rx="15" class="chip"/><text x="600" y="59.5" text-anchor="middle" class="c">문항별 정답률 색 표</text>
-  <rect x="490" y="86" width="220" height="30" rx="15" class="chip"/><text x="600" y="105.5" text-anchor="middle" class="c">수능최저 충족 · 유리한 조합</text>
-  <rect x="490" y="132" width="220" height="30" rx="15" class="chip"/><text x="600" y="151.5" text-anchor="middle" class="c">학생 상담 리포트</text>
-  <rect x="490" y="178" width="220" height="30" rx="15" class="chip"/><text x="600" y="197.5" text-anchor="middle" class="c">개인 성적표</text>
-  <path d="M324 176 V194" class="no"/>
-  <rect x="216" y="196" width="216" height="30" rx="12" class="ghost"/><text x="324" y="216" text-anchor="middle" class="t">다른 학교용 빈 틀 · 설명서</text>
+  <rect x="8" y="22" width="196" height="206" rx="14" class="zone"/><text x="22" y="41" text-anchor="start" class="zl">공개 자료 → 서버</text>
+  <rect x="226" y="22" width="486" height="206" rx="14" class="zone"/><text x="240" y="41" text-anchor="start" class="zl">각 학교 엑셀 파일</text>
+  <rect x="24" y="56" width="164" height="58" rx="12" class="box"/><text x="106" y="81" text-anchor="middle" class="t">EBS · 평가원</text><text x="106" y="102" text-anchor="middle" class="s">정답 · 오답률 · 등급컷</text>
+  <path d="M106 116 V138" class="arw" marker-end="url(#h)"/>
+  <text x="114" y="131" text-anchor="start" class="al">관리자가 올림</text>
+  <rect x="24" y="140" width="164" height="72" rx="12" class="box"/><text x="106" y="163" text-anchor="middle" class="t">서버</text><text x="106" y="184" text-anchor="middle" class="s">학교는 읽기만</text><text x="106" y="202" text-anchor="middle" class="s">다른 학교도 같이</text>
+  <rect x="242" y="56" width="150" height="60" rx="12" class="box"/><text x="317" y="82" text-anchor="middle" class="t">교사 입력</text><text x="317" y="103" text-anchor="middle" class="s">원점수 · 답안</text>
+  <rect x="242" y="138" width="150" height="74" rx="12" class="box"/><text x="317" y="162" text-anchor="middle" class="t">기준 자료</text><text x="317" y="183" text-anchor="middle" class="s">정답 · 배점 · 단원</text><text x="317" y="201" text-anchor="middle" class="s">등급컷 · 전국 분포</text>
+  <path d="M190 175 H240" class="arw" marker-end="url(#h)"/>
+  <text x="215" y="165" text-anchor="middle" class="al">[자료 받기]</text>
+  <path d="M394 86 C 402 86, 402 108, 410 108" class="arw" marker-end="url(#h)"/>
+  <path d="M394 175 C 402 175, 402 132, 410 132" class="arw" marker-end="url(#h)"/>
+  <rect x="410" y="64" width="128" height="116" rx="14" class="key"/><text x="474" y="100" text-anchor="middle" class="tb">회차 · 채점</text><text x="474" y="121" text-anchor="middle" class="s">방식을 고르면</text><text x="474" y="139" text-anchor="middle" class="s">전부 새로 그림</text><text x="474" y="157" text-anchor="middle" class="s">가채점 · 실채점</text>
+  <text x="637" y="50" text-anchor="middle" class="zl">버튼 한 번으로</text>
+  <path d="M540 122 C 552 122, 552 71, 562 71" class="ln"/>
+  <path d="M540 122 C 552 122, 552 113, 562 113" class="ln"/>
+  <path d="M540 122 C 552 122, 552 155, 562 155" class="ln"/>
+  <path d="M540 122 C 552 122, 552 197, 562 197" class="ln"/>
+  <rect x="562" y="56" width="142" height="30" rx="15" class="chip"/><text x="633" y="75.5" text-anchor="middle" class="c">문항별 정답률</text>
+  <rect x="562" y="98" width="142" height="30" rx="15" class="chip"/><text x="633" y="117.5" text-anchor="middle" class="c">수능최저 조합</text>
+  <rect x="562" y="140" width="142" height="30" rx="15" class="chip"/><text x="633" y="159.5" text-anchor="middle" class="c">상담 리포트</text>
+  <rect x="562" y="182" width="142" height="30" rx="15" class="chip"/><text x="633" y="201.5" text-anchor="middle" class="c">개인 성적표</text>
 </svg>
