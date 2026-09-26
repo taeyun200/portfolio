@@ -306,6 +306,19 @@ function shotHtml(p) {
   return `<h4>화면${list.length > 1 ? ` <span class="count">${list.length}장</span>` : ""}</h4>${figures}`;
 }
 
+// 소개 영상. 누르기 전에는 받지 않고(preload="none") 포스터만 보인다 — 상세를 여는 것만으로 4MB 를 쓰지 않게.
+function videoHtml(p) {
+  if (!p.video) return "";
+  const src = escapeHtml(p.video);
+  return `
+      <h4>영상</h4>
+      <figure class="diagram video">
+        <video controls preload="none" playsinline poster="${src.replace(/\.mp4$/, ".jpg")}" aria-label="${escapeHtml(p.title)} 소개 영상">
+          <source src="${src}" type="video/mp4">
+        </video>
+      </figure>`;
+}
+
 function detailHtml(p) {
   return `
     <div class="dialog-head">
@@ -315,6 +328,7 @@ function detailHtml(p) {
     </div>
     <div class="dialog-body">
       ${p.result ? `<h4>결과</h4><p class="result">${escapeHtml(p.result)}</p>` : ""}
+      ${videoHtml(p)}
       ${shotHtml(p)}
       <h4>문제</h4>
       <p>${escapeHtml(p.problem)}</p>

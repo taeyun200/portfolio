@@ -310,6 +310,7 @@ function renderEditor(p) {
           ? `<div class="e-shots">${shots.map((src) => `<a href="../${src}" target="_blank" rel="noopener"><img src="../${src}" alt="" loading="lazy"></a>`).join("")}</div>`
           : `<p class="e-hint">아직 스크린샷이 없습니다. <code>assets/screenshots/${esc(p.id)}/</code> 에 넣고 배포하세요.</p>`}
         ${field("대표작 카드에서 보여 줄 부분", seg("shot", [["center", "가운데"], ["top", "위쪽"], ["bottom", "아래쪽"], ["fit", "전체"]], p.shot || "center"))}
+        ${field("소개 영상", `<input name="video" value="${esc(p.video || "")}" placeholder="assets/videos/${esc(p.id)}.mp4" pattern="assets/videos/[a-z0-9-]+\.mp4">`, `<i>선택 · 파일은 저장소에 넣고 배포 · 같은 이름 .jpg 가 포스터</i>`)}
       </fieldset>
 
       <fieldset id="sec-dates" class="e-fs"><legend>날짜와 링크</legend>
@@ -374,7 +375,7 @@ function applyField(p, el) {
     else delete p.shot;
   } else if (name === "approach") {
     p.approach = textToApproach(v);
-  } else if (["repo", "site", "start", "featureNote"].includes(name)) {
+  } else if (["repo", "site", "start", "featureNote", "video"].includes(name)) {
     const t = v.trim();
     if (t) p[name] = t;
     else delete p[name];

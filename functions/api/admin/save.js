@@ -31,6 +31,8 @@ export function isValidProject(p) {
   if ("start" in p && !/^\d{4}-\d{2}-\d{2}$/.test(p.start)) return false;
   if ("feature" in p && !(Number.isInteger(p.feature) && p.feature >= 1 && p.feature <= 9)) return false;
   if ("featureNote" in p && typeof p.featureNote !== "string") return false;
+  // 저장소에 둔 영상만 — 임의 주소를 <video> 에 넣지 않는다.
+  if ("video" in p && !/^assets\/videos\/[a-z0-9-]+\.mp4$/.test(p.video)) return false;
   return true;
 }
 

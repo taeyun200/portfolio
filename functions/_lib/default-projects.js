@@ -114,10 +114,10 @@ export const DEFAULT_PROJECTS = [
     "result": "3월·6월·9월 세 회차에 정규 업무로 썼다. 학생 160명·6과목 한 회차 분석이 1분 36초에 끝난다 — 예전에는 담당자에 따라 20분에서 420분까지 걸렸다. 동료 교사 9명 설문에서 6명이 결과물 대부분을 \"예전엔 없던 자료\"로 답했고, 아낀 시간을 어디에 쓰느냐는 물음에 9명 모두 \"학생 개별 상담\"을 골랐다. 다른 학교에서 쓰다 알려 준 문제(10반이 넘으면 분석이 빠지던 것)도 고쳤고, 이 과정을 정리해 10월 연구대회에 낸다.",
     "progress": "done",
     "visibility": "private",
-    "shot": "top",
     "start": "2026-06-09",
     "feature": 1,
-    "featureNote": "3·6·9월 정규 업무로 사용 · 10월 연구대회 출품"
+    "featureNote": "3·6·9월 정규 업무로 사용 · 10월 연구대회 출품",
+    "shot": "top"
   },
   {
     "id": "2028-subject-guide",
@@ -137,8 +137,8 @@ export const DEFAULT_PROJECTS = [
     "progress": "done",
     "visibility": "public",
     "repo": "https://github.com/taeyun200/2028-subject-guide",
-    "shot": "top",
-    "start": "2026-06-23"
+    "start": "2026-06-23",
+    "shot": "top"
   },
   {
     "id": "ocg-dashboard",
@@ -163,7 +163,7 @@ export const DEFAULT_PROJECTS = [
       "글자 크기를 네 단계로 바꿀 수 있다. 영역마다 기본 크기가 달라서, 한 값으로 맞추지 않고 각자의 크기에 같은 배율을 곱한다"
     ],
     "result": "교직원이 로그인해서 매일 쓰는 학교 화면이 됐다. 선생님들의 건의를 받아 7월부터 9월까지 360번 넘게 고쳤고, 왜 그렇게 정했는지는 따로 적어 두어 같은 고민을 되풀이하지 않게 했다.",
-    "progress": "in-progress",
+    "progress": "done",
     "visibility": "private",
     "start": "2026-07-11",
     "feature": 2,
@@ -389,6 +389,7 @@ export const DEFAULT_PROJECTS = [
     "visibility": "private",
     "start": "2026-09-22",
     "feature": 3,
-    "featureNote": "매일 아침 실제로 사용 · 소개 페이지와 영상까지"
+    "featureNote": "매일 아침 실제로 사용 · 소개 페이지와 영상까지",
+    "video": "assets/videos/morning-air.mp4"
   }
 ];

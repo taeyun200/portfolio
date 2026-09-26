@@ -25,6 +25,8 @@ export function normalize(p) {
   // 대표작: 첫 화면 위쪽에 크게 놓는 순서(1~)와 카드 아래 한 줄.
   if (p.feature) out.feature = p.feature;
   if (p.featureNote) out.featureNote = p.featureNote;
+  // 소개 영상: assets/videos/<이름>.mp4 (같은 이름의 .jpg 가 포스터)
+  if (p.video) out.video = p.video;
   // 스크린샷을 카드 칸에 맞춰 자를 때 어디를 남길지. 기본(가운데)이면 아예 두지 않는다.
   if (p.shot) out.shot = p.shot;
   return out;

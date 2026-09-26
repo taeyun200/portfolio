@@ -47,6 +47,12 @@ assert(!isValidProject({ ...ok, feature: "1" }), "순서는 숫자");
 assert(!isValidProject({ ...ok, feature: 0 }), "1부터");
 assert.equal(normalize({ ...ok, feature: 2 }).feature, 2, "normalize 가 feature 를 보존");
 
+// 소개 영상 — 저장소 안의 mp4 만
+assert(isValidProject({ ...ok, video: "assets/videos/morning-air.mp4" }));
+assert(!isValidProject({ ...ok, video: "https://evil.example/x.mp4" }), "바깥 주소 거부");
+assert(!isValidProject({ ...ok, video: "assets/videos/../index.html" }), "경로 벗어나기 거부");
+assert.equal(normalize({ ...ok, video: "assets/videos/a.mp4" }).video, "assets/videos/a.mp4");
+
 assert.equal(findDuplicateId([ok, { ...ok, id: "other" }]), null);
 assert.equal(findDuplicateId([ok, { ...ok, title: "다른 제목" }]), "my-tool");
 
