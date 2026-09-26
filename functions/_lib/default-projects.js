@@ -166,7 +166,7 @@ export const DEFAULT_PROJECTS = [
     "progress": "in-progress",
     "visibility": "private",
     "start": "2026-07-11",
-    "feature": 3,
+    "feature": 2,
     "featureNote": "교직원 건의를 받아 7월부터 계속 고쳐 옴"
   },
   {
@@ -314,9 +314,7 @@ export const DEFAULT_PROJECTS = [
     ],
     "result": "2학년 84명의 2학기 수행평가에 쓰고 있고, 9월 공개수업용 안내 자료도 만들었다. 기성 프로그램에 수업을 맞추지 않고 평가 계획을 먼저 세운 뒤 필요한 칸만 화면으로 옮겼다 — 수업을 준비하는 동안에도 필수 항목과 쓰기 틀이 그 자리에서 더해졌다.",
     "progress": "in-progress",
-    "visibility": "private",
-    "feature": 2,
-    "featureNote": "2학년 84명 수행평가 · 9월 공개수업 자료"
+    "visibility": "private"
   },
   {
     "id": "practicum-kiosk",
@@ -389,6 +387,8 @@ export const DEFAULT_PROJECTS = [
     "result": "매일 아침 실제로 쓰고 있고, 소개 페이지와 48초 소개 영상까지 만들었다. 다른 사람도 쓸 수 있게 여는 걸 준비하면서, 음악 서비스 약관이 막는 것(청취 기록을 인공지능에 넣지 말 것, 재생을 직접 명령하지 말 것)을 하나씩 확인해 설계를 맞췄다.",
     "progress": "in-progress",
     "visibility": "private",
-    "start": "2026-09-22"
+    "start": "2026-09-22",
+    "feature": 3,
+    "featureNote": "매일 아침 실제로 사용 · 소개 페이지와 영상까지"
   }
 ];

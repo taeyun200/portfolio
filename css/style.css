@@ -129,6 +129,11 @@ button { font: inherit; color: inherit; }
 }
 
 .side-foot { margin-top: auto; font-size: 0.75rem; color: var(--muted); display: grid; gap: 4px; }
+.foot-row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+/* 방문자에게는 눈에 띌 필요가 없는 본인용 입구 — 작고 흐리게. 편집 화면은 비밀번호로 막혀 있다. */
+.edit-link { color: var(--muted); font-size: 0.75rem; font-weight: 700; text-decoration: none; }
+.edit-link:hover { color: var(--acc-text); text-decoration: underline; text-underline-offset: 3px; }
+.edit-link-bottom { display: none; }
 
 /* ── 본문 ───────────────────────────────────── */
 .main {
@@ -337,6 +342,7 @@ button { font: inherit; color: inherit; }
     gap: 14px;
   }
   .me, .side > .cta, .side-foot, .nav-h { display: none; }
+  .edit-link-bottom { display: block; align-self: center; padding: 8px; }
   .say { font-size: 1.3rem; font-weight: 900; }
   .lead { margin-top: -4px; }
 
