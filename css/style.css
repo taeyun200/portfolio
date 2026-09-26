@@ -83,9 +83,9 @@ button { font: inherit; color: inherit; }
 
 .me { display: flex; align-items: center; gap: 14px; }
 .me img { width: 64px; height: 64px; border-radius: 14px; object-fit: cover; flex-shrink: 0; }
-.me div { display: grid; gap: 2px; }
-.me b { font-size: 1.45rem; font-weight: 900; letter-spacing: -0.01em; line-height: 1.2; }
-.me span { font-size: 0.8rem; color: var(--muted); line-height: 1.4; }
+.me div { display: grid; gap: 1px; }
+.me b { font-size: 1.45rem; font-weight: 900; letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 2px; }
+.me span { font-size: 0.8rem; color: var(--muted); line-height: 1.4; white-space: nowrap; }
 
 .say { margin: 0; font-size: 1.2rem; font-weight: 800; line-height: 1.45; letter-spacing: -0.01em; text-wrap: balance; }
 .lead { margin: -8px 0 0; font-size: 0.86rem; color: var(--muted); line-height: 1.65; }
@@ -136,8 +136,10 @@ button { font: inherit; color: inherit; }
   display: flex;
   flex-direction: column;
   gap: 30px;
-  max-width: 1080px;
+  /* 넓은 화면에서 본문이 왼쪽에 붙고 오른쪽이 텅 비던 것 — 폭을 넓히고 가운데에 둔다. */
+  max-width: 1440px;
   width: 100%;
+  justify-self: center;
 }
 
 .works-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
@@ -161,7 +163,8 @@ button { font: inherit; color: inherit; }
    한 화면에 가능한 한 많이. 칸마다 미리보기 · 분야와 상태 · 제목 · 두 줄 요약만 둔다. */
 .rows {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* 칸 폭이 400px 아래로 줄지 않는 선에서 열 수가 정해진다 — 노트북 2열, 넓은 화면 3열, 좁으면 1열. */
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   column-gap: 32px;
   border-top: 1px solid var(--line);
 }
@@ -174,11 +177,11 @@ button { font: inherit; color: inherit; }
   padding: 14px 10px;
   margin: 0 -10px;
   border-bottom: 1px solid var(--line);
-  border-radius: 10px;
   cursor: pointer;
-  transition: background 0.15s;
 }
-.row:hover { background: var(--surface); }
+/* 둥근 배경을 깔면 직선 구분선과 어긋났다. 제목 색과 미리보기 테두리로만 반응한다. */
+.row:hover h3 { color: var(--acc-text); }
+.row:hover .thumb { border-color: var(--muted); }
 
 .thumb {
   width: 112px;
@@ -196,7 +199,8 @@ button { font: inherit; color: inherit; }
 .row-main { display: grid; gap: 2px; min-width: 0; }
 .row-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
 .cat { font-size: 0.75rem; color: var(--muted); }
-.row h3 { margin: 0; font-size: 0.98rem; font-weight: 700; line-height: 1.4; }
+.row h3 { margin: 0; font-size: 1.04rem; font-weight: 800; line-height: 1.4; letter-spacing: -0.01em; transition: color 0.15s; }
+.rows.filtered .cat { display: none; }
 /* 행 전체를 버튼으로 두면 안의 링크가 버튼 속에 갇힌다. 제목만 진짜 버튼. */
 .row-open { border: none; background: none; padding: 0; text-align: left; font-weight: inherit; cursor: pointer; }
 .one {
@@ -313,10 +317,6 @@ button { font: inherit; color: inherit; }
 .mitem em { font-style: normal; font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
 .mitem.ing em { color: var(--acc-text); font-weight: 700; }
 
-@media (max-width: 1180px) and (min-width: 901px) {
-  .rows { grid-template-columns: 1fr; }
-}
-
 /* ── 좁은 화면: 사이드바를 위쪽 머리말로 접는다 ── */
 @media (max-width: 900px) {
   .topbar {
@@ -372,6 +372,7 @@ button { font: inherit; color: inherit; }
 
   .rows { grid-template-columns: 1fr; }
   .row { grid-template-columns: 88px minmax(0, 1fr); gap: 12px; padding: 12px 0; margin: 0; }
+  .me span { white-space: normal; }
   .thumb { width: 88px; height: 58px; }
 
   .cal, .legend { display: none; }
@@ -443,6 +444,7 @@ dialog#detail-dialog::backdrop { background: rgba(20, 17, 15, 0.35); }
   flex-shrink: 0;
 }
 .dialog-head .cat { font-size: 0.78rem; }
+#detail-title:focus { outline: none; }
 .dialog-head h3 { margin: 0; padding-right: 36px; font-size: 1.35rem; font-weight: 900; letter-spacing: -0.01em; text-wrap: balance; }
 
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }

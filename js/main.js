@@ -1,5 +1,4 @@
 const PROGRESS_LABEL = { "in-progress": "진행 중", done: "완료" };
-const VISIBILITY_LABEL = { public: "공개", private: "비공개" };
 let PROJECTS = [];
 
 // Project content now comes through an authenticated write API (see functions/api/admin/save.js),
@@ -32,7 +31,6 @@ const startOf = (p) => p.start || p.date;
 // 이모지는 OS마다 모양·크기가 달라 통일된 인상을 못 만들고 글자색을 따라오지 않는다.
 // 획 굵기 1.5 로 맞춘 한 벌만 두고 색은 currentColor 로 받는다.
 const ICON = {
-  lock: `<svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><rect x="3.2" y="7" width="9.6" height="6.6" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5.6 7V5.2a2.4 2.4 0 0 1 4.8 0V7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>`,
   globe: `<svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M2.4 8h11.2M8 2.4c1.5 1.6 2.2 3.5 2.2 5.6S9.5 12 8 13.6C6.5 12 5.8 10.1 5.8 8S6.5 4 8 2.4Z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>`,
   repo: `<svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M6.6 12.4c-2.8.9-2.8-1.4-4-1.7m8 3.3v-2.2c0-.6-.1-1 .3-1.4 1.8-.2 3.5-.9 3.5-3.9a3 3 0 0 0-.8-2.1 2.8 2.8 0 0 0-.1-2.1s-.7-.2-2.3.9a7.8 7.8 0 0 0-4 0C5.6 2.1 4.9 2.3 4.9 2.3a2.8 2.8 0 0 0-.1 2.1 3 3 0 0 0-.8 2.1c0 3 1.7 3.7 3.5 3.9-.3.3-.4.7-.3 1.1v2.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
 };
@@ -54,8 +52,9 @@ function thumbHtml(p) {
   return `<img class="is-diagram" src="assets/diagrams/${escapeHtml(p.id)}.svg" alt="" loading="lazy" onerror="this.remove()">`;
 }
 
+// '완료'는 16개 중 11개라 반복되면 잡음이다. 알려 줄 가치가 있는 '진행 중'만 표시한다.
 function statusHtml(p) {
-  return `<span class="st${p.progress === "done" ? "" : " ing"}">${PROGRESS_LABEL[p.progress]}</span>`;
+  return p.progress === "done" ? "" : `<span class="st ing">${PROGRESS_LABEL[p.progress]}</span>`;
 }
 
 // 한 칸에는 알아보는 데 필요한 것만 둔다 — 미리보기, 분야·상태, 제목, 두 줄 요약.
@@ -106,6 +105,8 @@ function applyFilter() {
   document.querySelectorAll("#list .row").forEach((row) => {
     row.hidden = activeCategory !== "전체" && row.dataset.category !== activeCategory;
   });
+  // 한 분야만 보고 있으면 칸마다 붙은 분야 이름은 전부 같은 글자다 — 숨긴다.
+  document.getElementById("list").classList.toggle("filtered", activeCategory !== "전체");
   const n = PROJECTS.filter(visible).length;
   document.getElementById("works-count").textContent = `${n}건`;
   if (currentView === "timeline") renderTimeline();
@@ -236,12 +237,12 @@ function setupViews() {
 }
 
 // ── 상세 ────────────────────────────────────────────
+// '비공개' 칩은 원래 '코드 저장소가 비공개'라는 뜻인데 방문자에게는 '숨긴 작업'으로 읽혔다.
+// 코드가 공개된 작업은 아래 GitHub 링크가 그 사실을 말하므로 상태만 남긴다.
 function chipsHtml(p) {
-  const vis = p.visibility === "private" ? ICON.lock : ICON.globe;
   return `
     <div class="chips">
       <span class="chip chip-${p.progress}"><span class="dot"></span>${PROGRESS_LABEL[p.progress]}</span>
-      <span class="chip">${vis}${VISIBILITY_LABEL[p.visibility]}</span>
     </div>`;
 }
 
@@ -292,7 +293,7 @@ function detailHtml(p) {
   return `
     <div class="dialog-head">
       <span class="cat">${escapeHtml(p.category)}</span>
-      <h3 id="detail-title">${escapeHtml(p.title)}</h3>
+      <h3 id="detail-title" tabindex="-1">${escapeHtml(p.title)}</h3>
       ${chipsHtml(p)}
     </div>
     <div class="dialog-body">
@@ -316,6 +317,9 @@ function openProject(id, push) {
   const dialog = document.getElementById("detail-dialog");
   document.getElementById("detail-content").innerHTML = detailHtml(project);
   if (!dialog.open) dialog.showModal();
+  // showModal 은 첫 버튼(✕)에 포커스를 줘서 열자마자 테두리가 켜져 보였다.
+  // 제목으로 옮기면 화면이 조용하고, 스크린리더는 무엇이 열렸는지 제목부터 읽는다.
+  document.getElementById("detail-title").focus({ preventScroll: true });
   if (push) history.pushState({ id }, "", `#${id}`);
 }
 
