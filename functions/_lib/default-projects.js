@@ -1,5 +1,5 @@
 // Seed data used only if KV has never been written to (fresh namespace / fallback).
-// This is a copy of the live KV "projects" key as of 2026-09-26 (16 projects, with start), so a KV reset
+// This is a copy of the live KV "projects" key as of 2026-09-26 (16 projects, with start and feature), so a KV reset
 // does not lose the writing. After large edits through /edit, refresh it the same way:
 //   npx wrangler kv key get projects --namespace-id 3b5682746008416ab131dab3c2f59f21 --remote
 // and paste the array below.
@@ -115,7 +115,9 @@ export const DEFAULT_PROJECTS = [
     "progress": "done",
     "visibility": "private",
     "shot": "top",
-    "start": "2026-06-09"
+    "start": "2026-06-09",
+    "feature": 1,
+    "featureNote": "3·6·9월 정규 업무로 사용 · 10월 연구대회 출품"
   },
   {
     "id": "2028-subject-guide",
@@ -163,7 +165,9 @@ export const DEFAULT_PROJECTS = [
     "result": "교직원이 로그인해서 매일 쓰는 학교 화면이 됐다. 선생님들의 건의를 받아 7월부터 9월까지 360번 넘게 고쳤고, 왜 그렇게 정했는지는 따로 적어 두어 같은 고민을 되풀이하지 않게 했다.",
     "progress": "in-progress",
     "visibility": "private",
-    "start": "2026-07-11"
+    "start": "2026-07-11",
+    "feature": 3,
+    "featureNote": "교직원 건의를 받아 7월부터 계속 고쳐 옴"
   },
   {
     "id": "shabonbu-search",
@@ -310,7 +314,9 @@ export const DEFAULT_PROJECTS = [
     ],
     "result": "2학년 84명의 2학기 수행평가에 쓰고 있고, 9월 공개수업용 안내 자료도 만들었다. 기성 프로그램에 수업을 맞추지 않고 평가 계획을 먼저 세운 뒤 필요한 칸만 화면으로 옮겼다 — 수업을 준비하는 동안에도 필수 항목과 쓰기 틀이 그 자리에서 더해졌다.",
     "progress": "in-progress",
-    "visibility": "private"
+    "visibility": "private",
+    "feature": 2,
+    "featureNote": "2학년 84명 수행평가 · 9월 공개수업 자료"
   },
   {
     "id": "practicum-kiosk",

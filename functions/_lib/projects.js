@@ -22,6 +22,9 @@ export function normalize(p) {
   if (p.site) out.site = p.site;
   // 타임라인 칸 자리. 없으면 date 를 쓴다.
   if (p.start) out.start = p.start;
+  // 대표작: 첫 화면 위쪽에 크게 놓는 순서(1~)와 카드 아래 한 줄.
+  if (p.feature) out.feature = p.feature;
+  if (p.featureNote) out.featureNote = p.featureNote;
   // 스크린샷을 카드 칸에 맞춰 자를 때 어디를 남길지. 기본(가운데)이면 아예 두지 않는다.
   if (p.shot) out.shot = p.shot;
   return out;

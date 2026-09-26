@@ -42,14 +42,13 @@ function shotsOf(p) {
   return !v ? [] : Array.isArray(v) ? v : [v];
 }
 
-// 스크린샷이 없으면 구조 도식을 미리보기로 쓴다. 도식도 없으면 빈 칸이 남는다.
-function thumbHtml(p) {
+// 대표작 카드의 그림. 스크린샷이 없으면 구조 도식을 쓴다.
+function matHtml(p) {
   const src = shotsOf(p)[0];
-  if (src) {
-    const cls = ["bottom", "fit"].includes(p.shot) ? `shot-${p.shot}` : "";
-    return `<img class="${cls}" src="${src}" alt="" loading="lazy">`;
-  }
-  return `<img class="is-diagram" src="assets/diagrams/${escapeHtml(p.id)}.svg" alt="" loading="lazy" onerror="this.remove()">`;
+  const img = src
+    ? `<img src="${src}" alt="" loading="lazy">`
+    : `<img class="is-diagram" src="assets/diagrams/${escapeHtml(p.id)}.svg" alt="" loading="lazy" onerror="this.remove()">`;
+  return `<div class="mat">${img}</div>`;
 }
 
 // '완료'는 16개 중 11개라 반복되면 잡음이다. 알려 줄 가치가 있는 '진행 중'만 표시한다.
@@ -57,22 +56,45 @@ function statusHtml(p) {
   return p.progress === "done" ? "" : `<span class="st ing">${PROGRESS_LABEL[p.progress]}</span>`;
 }
 
-// 한 칸에는 알아보는 데 필요한 것만 둔다 — 미리보기, 분야·상태, 제목, 두 줄 요약.
-// 성과 숫자는 도구마다 단위가 달라 나란히 놓으면 뜻이 없다. 상세의 '결과'에서 읽는다.
-function rowHtml(p) {
+// 대표작: 큰 그림 · 분야 · 제목 · 요약 · 한 줄. 성과 숫자는 도구마다 단위가 달라 늘어놓지 않는다.
+function featureHtml(p) {
   return `
-    <article class="row" data-id="${escapeHtml(p.id)}" data-category="${escapeHtml(p.category)}">
-      <div class="thumb">${thumbHtml(p)}</div>
-      <div class="row-main">
-        <div class="row-top"><span class="cat">${escapeHtml(p.category)}</span>${statusHtml(p)}</div>
-        <h3><button class="row-open" type="button" aria-haspopup="dialog">${escapeHtml(p.title)}</button></h3>
-        <p class="one">${escapeHtml(p.summary || p.problem)}</p>
-      </div>
+    <article class="fcard" data-id="${escapeHtml(p.id)}">
+      ${matHtml(p)}
+      <div class="fcat"><span>${escapeHtml(p.category)}</span>${statusHtml(p)}</div>
+      <h4><button class="row-open" type="button" aria-haspopup="dialog">${escapeHtml(p.title)}</button></h4>
+      <p class="fs">${escapeHtml(p.summary || p.problem)}</p>
+      ${p.featureNote ? `<p class="ff">${escapeHtml(p.featureNote)}</p>` : ""}
     </article>`;
 }
 
+// 나머지는 미리보기 없이 제목과 한 줄. 작은 스크린샷은 대부분 비슷한 회색 표로 보여 알아보는 데 도움이 되지 않았다.
+function itemHtml(p) {
+  return `
+    <article class="it" data-id="${escapeHtml(p.id)}">
+      <h4><button class="row-open" type="button" aria-haspopup="dialog">${escapeHtml(p.title)}</button>${statusHtml(p)}</h4>
+      <p>${escapeHtml(p.summary || p.problem)}</p>
+    </article>`;
+}
+
+// 전체를 볼 때: 대표작을 위에 크게, 나머지는 분야별로 묶어 최근 것부터.
+// 한 분야만 볼 때: 대표작 칸을 접고 그 분야 전부를 목록으로.
 function renderList() {
-  document.getElementById("list").innerHTML = PROJECTS.map(rowHtml).join("");
+  const all = activeCategory === "전체";
+  const featured = all ? PROJECTS.filter((p) => p.feature).sort((a, b) => a.feature - b.feature) : [];
+  const rest = PROJECTS.filter((p) => visible(p) && !featured.includes(p));
+  const groups = activeCategories()
+    .filter((cat) => all || cat === activeCategory)
+    .map((cat) => {
+      const items = rest.filter((p) => p.category === cat);
+      if (!items.length) return "";
+      return `<section class="grp"><h3 class="grp-h">${escapeHtml(cat)}<small>${items.length}</small></h3>${items.map(itemHtml).join("")}</section>`;
+    })
+    .join("");
+  document.getElementById("list").innerHTML = `
+    ${featured.length ? `<h3 class="kicker">대표 작업</h3><div class="feat">${featured.map(featureHtml).join("")}</div>` : ""}
+    ${all && featured.length ? `<h3 class="kicker">모든 작업</h3>` : ""}
+    <div class="groups">${groups}</div>`;
 }
 
 // ── 분야 거르기 ─────────────────────────────────────
@@ -102,13 +124,8 @@ function renderNav() {
 }
 
 function applyFilter() {
-  document.querySelectorAll("#list .row").forEach((row) => {
-    row.hidden = activeCategory !== "전체" && row.dataset.category !== activeCategory;
-  });
-  // 한 분야만 보고 있으면 칸마다 붙은 분야 이름은 전부 같은 글자다 — 숨긴다.
-  document.getElementById("list").classList.toggle("filtered", activeCategory !== "전체");
-  const n = PROJECTS.filter(visible).length;
-  document.getElementById("works-count").textContent = `${n}건`;
+  renderList();
+  document.getElementById("works-count").textContent = `${PROJECTS.filter(visible).length}건`;
   if (currentView === "timeline") renderTimeline();
 }
 
@@ -452,7 +469,6 @@ async function init() {
   if (latest) document.getElementById("last-update").textContent = `마지막 갱신 ${dotDate(latest)}`;
 
   renderNav();
-  renderList();
   setupViews();
   setupDialog();
   applyFilter();

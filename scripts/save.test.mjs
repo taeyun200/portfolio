@@ -41,6 +41,12 @@ assert(!isValidProject({ ...ok, start: "2026.07.11" }), "시작일도 ISO 여야
 assert.equal(normalize({ ...ok, start: "2026-07-11" }).start, "2026-07-11", "normalize 가 start 를 보존");
 assert(!("start" in normalize(ok)), "없으면 만들지 않는다");
 
+// 대표작 — 선택 필드
+assert(isValidProject({ ...ok, feature: 1, featureNote: "3·6·9월 정규 업무로 사용" }));
+assert(!isValidProject({ ...ok, feature: "1" }), "순서는 숫자");
+assert(!isValidProject({ ...ok, feature: 0 }), "1부터");
+assert.equal(normalize({ ...ok, feature: 2 }).feature, 2, "normalize 가 feature 를 보존");
+
 assert.equal(findDuplicateId([ok, { ...ok, id: "other" }]), null);
 assert.equal(findDuplicateId([ok, { ...ok, title: "다른 제목" }]), "my-tool");
 

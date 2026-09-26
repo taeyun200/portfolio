@@ -29,6 +29,8 @@ export function isValidProject(p) {
   // 선택 필드 — 없으면 가운데. 임의 CSS 를 그대로 받지 않고 아는 값만 허용한다.
   if ("shot" in p && !SHOT_VALUES.includes(p.shot)) return false;
   if ("start" in p && !/^\d{4}-\d{2}-\d{2}$/.test(p.start)) return false;
+  if ("feature" in p && !(Number.isInteger(p.feature) && p.feature >= 1 && p.feature <= 9)) return false;
+  if ("featureNote" in p && typeof p.featureNote !== "string") return false;
   return true;
 }
 

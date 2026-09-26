@@ -75,6 +75,8 @@ function projectFormHtml(p, i) {
       <label>GitHub 링크 (선택)<input type="text" data-field="repo" data-index="${i}" value="${escapeAttr(p.repo || "")}"></label>
       <label>사이트 주소 (선택)<input type="text" data-field="site" data-index="${i}" value="${escapeAttr(p.site || "")}"></label>
       <label>마지막 갱신일<input type="date" data-field="date" data-index="${i}" value="${escapeAttr(p.date)}"></label>
+      <label>대표작 순서 (선택 · 1~3 · 첫 화면 위쪽에 크게 놓임 · 비우면 일반 목록)<input type="number" min="1" max="9" step="1" data-field="feature" data-index="${i}" value="${escapeAttr(p.feature || "")}"></label>
+      <label>대표작 한 줄 (선택 · 대표작 카드 아래 · 예: 3·6·9월 정규 업무로 사용)<input type="text" maxlength="40" data-field="featureNote" data-index="${i}" value="${escapeAttr(p.featureNote || "")}"></label>
       <label>시작일 (선택 · 타임라인에서 칸이 놓이는 자리 · 비우면 마지막 갱신일)<input type="date" data-field="start" data-index="${i}" value="${escapeAttr(p.start || "")}"></label>
     </details>`;
 }
@@ -98,7 +100,11 @@ function collectProjects() {
       // 기본값이면 필드를 아예 두지 않아 데이터를 깔끔하게 유지한다.
       if (el.value && el.value !== "center") projects[i].shot = el.value;
       else delete projects[i].shot;
-    } else if (["repo", "site", "start"].includes(field)) {
+    } else if (field === "feature") {
+      const n = parseInt(el.value, 10);
+      if (n >= 1) projects[i].feature = n;
+      else delete projects[i].feature;
+    } else if (["repo", "site", "start", "featureNote"].includes(field)) {
       const v = el.value.trim();
       if (v) projects[i][field] = v;
       else delete projects[i][field];
