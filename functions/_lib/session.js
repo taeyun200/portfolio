@@ -1,4 +1,5 @@
-export const SESSION_TTL_SECONDS = 60 * 60 * 12; // 12 hours
+// 2 hours — 공용 PC 에서 편집하고 로그아웃을 잊어도 오래 열려 있지 않게 (2026-09-26, 12시간에서 줄임)
+export const SESSION_TTL_SECONDS = 60 * 60 * 2;
 
 async function importKey(secret) {
   return crypto.subtle.importKey(
