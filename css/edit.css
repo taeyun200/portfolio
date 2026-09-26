@@ -1,3 +1,9 @@
+/* 2026-09-26 공개 화면 개편 때 style.css 변수 이름이 바뀌었다. 편집 화면은 옛 이름을 그대로 쓰도록 이어 준다. */
+:root { --bg: var(--paper); --text: var(--ink); --border: var(--line); --accent: var(--acc-text); }
+
+/* /edit 페이지가 쓰는 컨테이너 — 예전엔 style.css 에 있었다 */
+.wrap { max-width: 1000px; margin: 0 auto; padding: 48px 20px 80px; }
+
 #login-section {
   max-width: 320px;
   margin: 60px auto;

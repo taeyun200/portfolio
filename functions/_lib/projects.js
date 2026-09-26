@@ -20,6 +20,10 @@ export function normalize(p) {
   };
   if (p.repo) out.repo = p.repo;
   if (p.site) out.site = p.site;
+  // 타임라인 칸 자리(없으면 date), 목록 오른쪽 성과 숫자와 그 설명. 모두 선택.
+  if (p.start) out.start = p.start;
+  if (p.figure) out.figure = p.figure;
+  if (p.figureNote) out.figureNote = p.figureNote;
   // 스크린샷을 카드 칸에 맞춰 자를 때 어디를 남길지. 기본(가운데)이면 아예 두지 않는다.
   if (p.shot) out.shot = p.shot;
   return out;

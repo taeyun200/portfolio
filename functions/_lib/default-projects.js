@@ -1,5 +1,5 @@
 // Seed data used only if KV has never been written to (fresh namespace / fallback).
-// This is a copy of the live KV "projects" key as of 2026-09-26 (16 projects), so a KV reset
+// This is a copy of the live KV "projects" key as of 2026-09-26 (16 projects, with start/figure), so a KV reset
 // does not lose the writing. After large edits through /edit, refresh it the same way:
 //   npx wrangler kv key get projects --namespace-id 3b5682746008416ab131dab3c2f59f21 --remote
 // and paste the array below.
@@ -21,7 +21,8 @@ export const DEFAULT_PROJECTS = [
     "result": "",
     "progress": "in-progress",
     "visibility": "public",
-    "repo": "https://github.com/taeyun200/ipsi-db"
+    "repo": "https://github.com/taeyun200/ipsi-db",
+    "start": "2026-06-30"
   },
   {
     "id": "hapbul",
@@ -87,7 +88,9 @@ export const DEFAULT_PROJECTS = [
     ],
     "result": "사전을 심은 뒤 세 개의 표본 모두 한 글자도 어긋나지 않았다 — 띄어쓰기와 문장부호까지 원문 그대로 살아난다. 다른 컴퓨터에서 뽑은 문서에도 그대로 통했다.",
     "progress": "in-progress",
-    "visibility": "private"
+    "visibility": "private",
+    "figure": "0자",
+    "figureNote": "원문과 어긋난 글자"
   },
   {
     "id": "mock-exam-analysis",
@@ -113,7 +116,10 @@ export const DEFAULT_PROJECTS = [
     "result": "3월·6월·9월 세 회차에 정규 업무로 썼다. 학생 160명·6과목 한 회차 분석이 1분 36초에 끝난다 — 예전에는 담당자에 따라 20분에서 420분까지 걸렸다. 동료 교사 9명 설문에서 6명이 결과물 대부분을 \"예전엔 없던 자료\"로 답했고, 아낀 시간을 어디에 쓰느냐는 물음에 9명 모두 \"학생 개별 상담\"을 골랐다. 다른 학교에서 쓰다 알려 준 문제(10반이 넘으면 분석이 빠지던 것)도 고쳤고, 이 과정을 정리해 10월 연구대회에 낸다.",
     "progress": "done",
     "visibility": "private",
-    "shot": "top"
+    "shot": "top",
+    "start": "2026-06-09",
+    "figure": "1분 36초",
+    "figureNote": "한 회차 전체 분석"
   },
   {
     "id": "2028-subject-guide",
@@ -133,7 +139,8 @@ export const DEFAULT_PROJECTS = [
     "progress": "done",
     "visibility": "public",
     "repo": "https://github.com/taeyun200/2028-subject-guide",
-    "shot": "top"
+    "shot": "top",
+    "start": "2026-06-23"
   },
   {
     "id": "ocg-dashboard",
@@ -159,7 +166,10 @@ export const DEFAULT_PROJECTS = [
     ],
     "result": "교직원이 로그인해서 매일 쓰는 학교 화면이 됐다. 선생님들의 건의를 받아 7월부터 9월까지 360번 넘게 고쳤고, 왜 그렇게 정했는지는 따로 적어 두어 같은 고민을 되풀이하지 않게 했다.",
     "progress": "in-progress",
-    "visibility": "private"
+    "visibility": "private",
+    "start": "2026-07-11",
+    "figure": "360번+",
+    "figureNote": "건의 받아 고침"
   },
   {
     "id": "shabonbu-search",
@@ -184,7 +194,9 @@ export const DEFAULT_PROJECTS = [
     "result": "",
     "progress": "done",
     "visibility": "private",
-    "shot": "top"
+    "shot": "top",
+    "figure": "909건",
+    "figureNote": "4년 · 24개교"
   },
   {
     "id": "jonghap-network",
@@ -231,7 +243,9 @@ export const DEFAULT_PROJECTS = [
     ],
     "result": "1분마다 돌며 실제로 쓰고 있다. 한 시간 반짜리 대담 기록을 핵심 14개·시간순 27개·그대로 옮긴 문장 15개로 정리해 노트에 쌓았다.",
     "progress": "done",
-    "visibility": "private"
+    "visibility": "private",
+    "figure": "1분",
+    "figureNote": "마다 자동 정리"
   },
   {
     "id": "slack-drive-bot",
@@ -258,7 +272,9 @@ export const DEFAULT_PROJECTS = [
     ],
     "result": "2026년 8월 9일부터 쓰고 있다. 18메가짜리 표 문서는 16초, 102메가짜리 문서는 63초 만에 올라가고 링크까지 돌아온다.",
     "progress": "done",
-    "visibility": "private"
+    "visibility": "private",
+    "figure": "63초",
+    "figureNote": "102MB 올리고 링크까지"
   },
   {
     "id": "finance-study",
@@ -281,7 +297,10 @@ export const DEFAULT_PROJECTS = [
     ],
     "result": "왜 사려는지 적게 했더니 실제로 걸러졌다. 어떤 회사를 \"인공지능 상담으로 돈을 번다\"고 적었는데 서류를 맞춰 보니 그건 매출의 2%짜리 곁다리였다. 틀린 답은 지우지 않고 그대로 뒀다 — 지우면 다음에 또 같은 착각을 한다. 주문을 대신 넣는 기능은 일부러 만들지 않았다. 사람만 답할 수 있는 문항이 남아 있는데 기계가 알아서 사고팔면, 이 시험지가 막으려던 상황이 바로 그거다.",
     "progress": "done",
-    "visibility": "private"
+    "visibility": "private",
+    "start": "2026-07-16",
+    "figure": "42문항",
+    "figureNote": "원전에서 뽑은 기준"
   },
   {
     "id": "ewsa-essay",
@@ -305,7 +324,9 @@ export const DEFAULT_PROJECTS = [
     ],
     "result": "2학년 84명의 2학기 수행평가에 쓰고 있고, 9월 공개수업용 안내 자료도 만들었다. 기성 프로그램에 수업을 맞추지 않고 평가 계획을 먼저 세운 뒤 필요한 칸만 화면으로 옮겼다 — 수업을 준비하는 동안에도 필수 항목과 쓰기 틀이 그 자리에서 더해졌다.",
     "progress": "in-progress",
-    "visibility": "private"
+    "visibility": "private",
+    "figure": "84명",
+    "figureNote": "2학년 2학기"
   },
   {
     "id": "practicum-kiosk",
@@ -329,7 +350,9 @@ export const DEFAULT_PROJECTS = [
     ],
     "result": "하루 만에 완성했다. 가짜 명단 15명으로 정상 출근·중복 입력·번호 겹침·앞자리 0·미등록 번호를 하나씩 확인하는 5분짜리 점검표를 함께 남겼고, 받는 분을 위한 설치 안내서에는 실제 화면을 넣었다.",
     "progress": "done",
-    "visibility": "private"
+    "visibility": "private",
+    "figure": "10초",
+    "figureNote": "마다 현황판 갱신"
   },
   {
     "id": "edufine-notion",
@@ -351,7 +374,9 @@ export const DEFAULT_PROJECTS = [
     "progress": "done",
     "visibility": "public",
     "repo": "https://github.com/taeyun200/edufine-notion",
-    "shot": "top"
+    "shot": "top",
+    "figure": "0건",
+    "figureNote": "서버로 보내는 파일"
   },
   {
     "id": "morning-air",
@@ -377,6 +402,9 @@ export const DEFAULT_PROJECTS = [
     ],
     "result": "매일 아침 실제로 쓰고 있고, 소개 페이지와 48초 소개 영상까지 만들었다. 다른 사람도 쓸 수 있게 여는 걸 준비하면서, 음악 서비스 약관이 막는 것(청취 기록을 인공지능에 넣지 말 것, 재생을 직접 명령하지 말 것)을 하나씩 확인해 설계를 맞췄다.",
     "progress": "in-progress",
-    "visibility": "private"
+    "visibility": "private",
+    "start": "2026-09-22",
+    "figure": "30분",
+    "figureNote": "음악과 함께 흐르는 아침"
   }
 ];

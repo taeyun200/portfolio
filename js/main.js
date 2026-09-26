@@ -1,4 +1,4 @@
-const PROGRESS_LABEL = { "in-progress": "진행중", done: "완료" };
+const PROGRESS_LABEL = { "in-progress": "진행 중", done: "완료" };
 const VISIBILITY_LABEL = { public: "공개", private: "비공개" };
 let PROJECTS = [];
 
@@ -21,6 +21,14 @@ function approachHtml(approach) {
   return `<p>${escapeHtml(approach)}</p>`;
 }
 
+// "2026-09-25" → "2026. 9. 25."
+function dotDate(iso, withYear = true) {
+  const [y, m, d] = iso.split("-").map(Number);
+  return withYear ? `${y}. ${m}. ${d}.` : `${m}. ${d}.`;
+}
+
+const startOf = (p) => p.start || p.date;
+
 // 이모지는 OS마다 모양·크기가 달라 통일된 인상을 못 만들고 글자색을 따라오지 않는다.
 // 획 굵기 1.5 로 맞춘 한 벌만 두고 색은 currentColor 로 받는다.
 const ICON = {
@@ -29,24 +37,205 @@ const ICON = {
   repo: `<svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M6.6 12.4c-2.8.9-2.8-1.4-4-1.7m8 3.3v-2.2c0-.6-.1-1 .3-1.4 1.8-.2 3.5-.9 3.5-3.9a3 3 0 0 0-.8-2.1 2.8 2.8 0 0 0-.1-2.1s-.7-.2-2.3.9a7.8 7.8 0 0 0-4 0C5.6 2.1 4.9 2.3 4.9 2.3a2.8 2.8 0 0 0-.1 2.1 3 3 0 0 0-.8 2.1c0 3 1.7 3.7 3.5 3.9-.3.3-.4.7-.3 1.1v2.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
 };
 
-// SCREENSHOTS 는 프로젝트당 배열이다. 첫 장이 카드 겉면, 전부가 모달에 실린다.
+// SCREENSHOTS 는 프로젝트당 배열이다. 첫 장이 목록 미리보기, 전부가 상세에 실린다.
 // 예전 형식(문자열 하나)도 그대로 읽히도록 감싸 준다.
 function shotsOf(p) {
   const v = SCREENSHOTS[p.id];
   return !v ? [] : Array.isArray(v) ? v : [v];
 }
 
-function screenshotHtml(p) {
+// 스크린샷이 없으면 구조 도식을 미리보기로 쓴다. 도식도 없으면 빈 칸이 남는다.
+function thumbHtml(p) {
   const src = shotsOf(p)[0];
   if (src) {
-    const shot = ["top", "bottom", "fit"].includes(p.shot) ? ` shot-${p.shot}` : "";
-    return `<img class="screenshot${shot}" src="${src}" alt="${escapeHtml(p.title)} 스크린샷">`;
+    const cls = ["bottom", "fit"].includes(p.shot) ? `shot-${p.shot}` : "";
+    return `<img class="${cls}" src="${src}" alt="" loading="lazy">`;
   }
-  return `<div class="screenshot-placeholder" data-project="${escapeHtml(p.id)}">스크린샷 준비 중</div>`;
+  return `<img class="is-diagram" src="assets/diagrams/${escapeHtml(p.id)}.svg" alt="" loading="lazy" onerror="this.remove()">`;
 }
 
-// 상태를 색면이 아니라 칩으로 옮긴다. 점 + 글자라 색을 못 봐도 읽히고,
-// 오렌지를 상태에서 빼내 '누를 수 있는 것' 한 뜻만 지게 한다.
+function statusHtml(p) {
+  return `<span class="st${p.progress === "done" ? "" : " ing"}">${PROGRESS_LABEL[p.progress]}</span>`;
+}
+
+function rowHtml(p) {
+  const figure = p.figure
+    ? `<div class="out"><b>${escapeHtml(p.figure)}</b><span>${escapeHtml(p.figureNote || "")}</span></div>`
+    : `<div class="out"></div>`;
+  return `
+    <article class="row" data-id="${escapeHtml(p.id)}" data-category="${escapeHtml(p.category)}">
+      <div class="thumb">${thumbHtml(p)}</div>
+      <div class="row-main">
+        <span class="cat">${escapeHtml(p.category)}</span>
+        <h3><button class="row-open" type="button" aria-haspopup="dialog">${escapeHtml(p.title)}</button></h3>
+        <p class="one">${escapeHtml(p.summary || p.problem)}</p>
+      </div>
+      <div class="meta">${figure}${statusHtml(p)}</div>
+    </article>`;
+}
+
+function renderList() {
+  document.getElementById("list").innerHTML = PROJECTS.map(rowHtml).join("");
+}
+
+// ── 분야 거르기 ─────────────────────────────────────
+// 사이드바 한 곳에서 고르면 목록·타임라인 둘 다에 적용된다.
+let activeCategory = "전체";
+
+function activeCategories() {
+  return CATEGORIES.filter((cat) => PROJECTS.some((p) => p.category === cat));
+}
+
+const visible = (p) => activeCategory === "전체" || p.category === activeCategory;
+
+function renderNav() {
+  const nav = document.getElementById("tabs");
+  const items = [["전체", PROJECTS.length], ...activeCategories().map((c) => [c, PROJECTS.filter((p) => p.category === c).length])];
+  // 선택 상태를 색에만 싣지 않는다. aria-pressed 로 눌린 상태를 함께 알린다.
+  nav.innerHTML = items
+    .map(([cat, n]) => `<button type="button" data-category="${escapeHtml(cat)}" aria-pressed="${cat === activeCategory}">${escapeHtml(cat)}<small>${n}</small></button>`)
+    .join("");
+  nav.addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-category]");
+    if (!btn) return;
+    activeCategory = btn.dataset.category;
+    nav.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+    applyFilter();
+  });
+}
+
+function applyFilter() {
+  document.querySelectorAll("#list .row").forEach((row) => {
+    row.hidden = activeCategory !== "전체" && row.dataset.category !== activeCategory;
+  });
+  const n = PROJECTS.filter(visible).length;
+  document.getElementById("works-count").textContent = `${n}건`;
+  if (currentView === "timeline") renderTimeline();
+}
+
+// ── 타임라인 ────────────────────────────────────────
+// 분야마다 한 줄, 칸은 시작일 자리에 놓는다. 칸끼리 겹치면 아랫줄로 내린다.
+const EV_PX = 150;
+const ROW_PX = 44;
+const DAY = 864e5;
+const t = (iso) => Date.parse(`${iso}T00:00:00`);
+const isoOf = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+
+function timelineRange() {
+  const today = isoOf(new Date());
+  const starts = PROJECTS.map(startOf).sort();
+  const ends = [...PROJECTS.map((p) => p.date), today].sort();
+  const [y0, m0] = starts[0].split("-").map(Number);
+  // 한 달을 더 열어 둔다. 월말에 시작한 칸이 오른쪽 끝에 부딪혀 앞 날짜로 밀려나지 않도록.
+  let [y1, m1] = ends[ends.length - 1].split("-").map(Number);
+  if (++m1 > 12) (m1 = 1), y1++;
+  const months = [];
+  for (let y = y0, m = m0; y < y1 || (y === y1 && m <= m1); m === 12 ? (y++, (m = 1)) : m++) months.push([y, m]);
+  const from = t(`${y0}-${String(m0).padStart(2, "0")}-01`);
+  const last = new Date(y1, m1, 1); // 마지막 달의 다음 달 1일
+  return { months, from, to: last.getTime(), today };
+}
+
+function renderTimeline() {
+  const root = document.getElementById("timeline");
+  if (!PROJECTS.length) return;
+  const { months, from, to, today } = timelineRange();
+  const span = to - from;
+  const pct = (iso) => ((t(iso) - from) / span) * 100;
+  const monthDays = months.map(([y, m]) => new Date(y, m, 0).getDate());
+
+  // 칸 폭을 %로 바꾸려면 실제 레인 폭이 필요하다. 숨어 있을 때는 0 이라 어림값을 쓴다.
+  const laneW = Math.max(root.clientWidth - 118, 400);
+  const evPct = (EV_PX / laneW) * 100;
+
+  const lanes = activeCategories()
+    .filter((c) => activeCategory === "전체" || c === activeCategory)
+    .map((cat, li) => {
+      const items = PROJECTS.filter((p) => p.category === cat).sort((a, b) => startOf(a).localeCompare(startOf(b)));
+      const rowEnds = [];
+      const evs = items.map((p) => {
+        const left = Math.min(pct(startOf(p)), 100 - evPct);
+        let r = rowEnds.findIndex((end) => end <= left);
+        if (r === -1) r = rowEnds.push(0) - 1;
+        rowEnds[r] = left + evPct + 0.6;
+        const sub = p.progress === "done" ? p.figure || "완료" : p.figure ? `${p.figure} · 진행 중` : "진행 중";
+        return `<button type="button" class="ev${p.progress === "done" ? "" : " ing"}" data-id="${escapeHtml(p.id)}"
+          style="left:${left.toFixed(2)}%;top:${8 + r * ROW_PX}px" title="${escapeHtml(p.title)} · ${dotDate(startOf(p))} 시작">
+          <b>${escapeHtml(p.title)}</b><span>${escapeHtml(sub)}</span></button>`;
+      });
+      const height = 16 + rowEnds.length * ROW_PX;
+      let x = 0;
+      const grid = monthDays.slice(1).map((d, i) => {
+        x += (monthDays[i] / monthDays.reduce((a, b) => a + b, 0)) * 100;
+        return `<div class="grid-line" style="left:${x.toFixed(2)}%"></div>`;
+      });
+      const todayMark = `<div class="today" style="left:${pct(today).toFixed(2)}%">${li === 0 ? `<span class="today-l">오늘 ${dotDate(today, false)}</span>` : ""}</div>`;
+      return `
+        <div class="lane-name">${escapeHtml(cat)}<small>${items.length}건</small></div>
+        <div class="lane" style="height:${height}px">${grid.join("")}${todayMark}${evs.join("")}</div>`;
+    });
+
+  const monthHead = `<div class="months" style="grid-template-columns:${monthDays.map((d) => `${d}fr`).join(" ")}">${months
+    .map(([, m]) => `<span>${m}월</span>`)
+    .join("")}</div>`;
+
+  // 휴대폰: 달력 대신 최근 것부터 월별 목록
+  const byMonth = new Map();
+  PROJECTS.filter(visible)
+    .slice()
+    .sort((a, b) => startOf(b).localeCompare(startOf(a)))
+    .forEach((p) => {
+      const key = startOf(p).slice(0, 7);
+      if (!byMonth.has(key)) byMonth.set(key, []);
+      byMonth.get(key).push(p);
+    });
+  const mlist = [...byMonth]
+    .map(([key, list]) => {
+      const [y, m] = key.split("-").map(Number);
+      return `<div class="mmonth">${y}년 ${m}월<small>${list.length}건</small></div>${list
+        .map(
+          (p) => `<button type="button" class="mitem${p.progress === "done" ? "" : " ing"}" data-id="${escapeHtml(p.id)}">
+            <time>${dotDate(startOf(p), false)}</time><b>${escapeHtml(p.title)}</b><em>${escapeHtml(p.figure || PROGRESS_LABEL[p.progress])}</em></button>`
+        )
+        .join("")}`;
+    })
+    .join("");
+
+  root.innerHTML = `
+    <div class="cal"><div></div>${monthHead}${lanes.join("")}</div>
+    <div class="legend"><span><i></i>완료</span><span><i class="ing"></i>진행 중</span><span>칸은 시작한 날 자리 · 누르면 자세히</span></div>
+    <div class="mlist">${mlist}</div>`;
+}
+
+// ── 보기 전환 · 주소 ────────────────────────────────
+// #timeline 은 보기, 그 밖의 #xxx 는 프로젝트 상세. 프로젝트 ID 에 timeline 은 쓰지 않는다.
+let currentView = "list";
+
+function setView(view) {
+  currentView = view;
+  document.getElementById("list").hidden = view !== "list";
+  document.getElementById("timeline").hidden = view !== "timeline";
+  document.querySelectorAll(".seg button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.view === view)));
+  if (view === "timeline") renderTimeline();
+}
+
+function setupViews() {
+  document.querySelector(".seg").addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-view]");
+    if (!btn) return;
+    setView(btn.dataset.view);
+    // 보기 바꾸기는 뒤로 가기 기록을 쌓지 않는다. 주소만 맞춰 두어 즐겨찾기·공유가 되게 한다.
+    history.replaceState(null, "", btn.dataset.view === "timeline" ? "#timeline" : location.pathname);
+  });
+
+  let timer;
+  window.addEventListener("resize", () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => currentView === "timeline" && renderTimeline(), 150);
+  });
+}
+
+// ── 상세 ────────────────────────────────────────────
 function chipsHtml(p) {
   const vis = p.visibility === "private" ? ICON.lock : ICON.globe;
   return `
@@ -56,94 +245,24 @@ function chipsHtml(p) {
     </div>`;
 }
 
-// trailing 은 카드에서만 쓰는 '자세히 보기' 힌트 — 모달에서는 뜻이 없어 비워 둔다.
-function footerHtml(p, trailing = "") {
+function footerHtml(p) {
   const href = safeRepoHref(p.repo);
   const site = safeRepoHref(p.site);
+  const period = p.start && p.start !== p.date ? `${dotDate(p.start)} 시작 · ${dotDate(p.date)} 갱신` : dotDate(p.date);
   return `
     <div class="card-footer">
       <div class="meta-group">
         ${site ? `<a class="repo-link" href="${site}" target="_blank" rel="noopener">${ICON.globe}사이트</a>` : ""}
         ${href ? `<a class="repo-link" href="${href}" target="_blank" rel="noopener">${ICON.repo}GitHub</a>` : ""}
-        <span class="meta-item">${escapeHtml(p.date)}</span>
+        <span>${period}</span>
       </div>
-      ${trailing}
     </div>`;
-}
-
-// 카드 전체를 role="button" 으로 두면 안의 GitHub 링크가 버튼 속에 갇히고,
-// 제목이 버튼 이름에 흡수돼 제목 목록에서 사라진다. 제목만 진짜 버튼으로 만들고
-// 카드 전체 클릭은 편의로 남긴다 — 스크린샷이 맨 위로 올라와 카드의 얼굴이 된다.
-function cardHtml(p) {
-  return `
-    <article class="card" data-id="${escapeHtml(p.id)}">
-      <div class="card-shot">${screenshotHtml(p)}</div>
-      <div class="card-body">
-        ${chipsHtml(p)}
-        <h3 class="card-title">
-          <button class="card-open" type="button" aria-haspopup="dialog">${escapeHtml(p.title)}</button>
-        </h3>
-        <p class="card-summary">${escapeHtml(p.summary || p.problem)}</p>
-        ${footerHtml(p, `<span class="more" aria-hidden="true">자세히 보기 →</span>`)}
-      </div>
-    </article>`;
-}
-
-function activeCategories() {
-  return CATEGORIES.filter((cat) => PROJECTS.some((p) => p.category === cat));
-}
-
-function renderCategories() {
-  const root = document.getElementById("categories");
-  root.innerHTML = activeCategories()
-    .map((cat) => {
-      const items = PROJECTS.filter((p) => p.category === cat);
-      return `
-      <section class="category" data-category="${cat}">
-        <h2>${cat}</h2>
-        <div class="card-grid">${items.map(cardHtml).join("")}</div>
-      </section>`;
-    })
-    .join("");
-}
-
-let activeCategory = "전체";
-
-function applyFilters() {
-  document.querySelectorAll("#categories .category").forEach((section) => {
-    section.hidden = activeCategory !== "전체" && section.dataset.category !== activeCategory;
-  });
-}
-
-function renderTabs() {
-  const tabs = document.getElementById("tabs");
-  const labels = ["전체", ...activeCategories()];
-  // 선택 상태를 .active 클래스(=색)에만 싣지 않는다. aria-pressed 로 눌린 상태를 함께 알린다.
-  tabs.innerHTML = labels
-    .map(
-      (cat, i) =>
-        `<button class="tab${i === 0 ? " active" : ""}" type="button" aria-pressed="${i === 0}" data-category="${cat}">${cat}</button>`
-    )
-    .join("");
-
-  tabs.addEventListener("click", (e) => {
-    const btn = e.target.closest(".tab");
-    if (!btn) return;
-    tabs.querySelectorAll(".tab").forEach((t) => {
-      const on = t === btn;
-      t.classList.toggle("active", on);
-      t.setAttribute("aria-pressed", String(on));
-    });
-    activeCategory = btn.dataset.category;
-    applyFilters();
-  });
 }
 
 // 도식은 있으면 쓰고 없으면 만다. 목록 파일을 두지 않아, 그림을 추가할 때 파일만 넣으면 된다.
 // 주의: Pages 는 없는 파일에 404 가 아니라 index.html(200) 을 돌려준다. 그래도 <img> 가
 // HTML 을 이미지로 디코딩하지 못해 error 가 나므로 아래 onerror 로 잡힌다.
 function diagramHtml(p) {
-  // 제목까지 함께 지워야 하므로 바깥 블록을 통째로 제거한다.
   return `
     <div class="diagram-block">
       <h4>구조</h4>
@@ -154,8 +273,6 @@ function diagramHtml(p) {
     </div>`;
 }
 
-// 겉면의 124px 칸에서는 잘려 보인다. 열었을 때는 잘림 없이 전체를 보여주고,
-// 누르면 원본 크기로 띄운다. 도식과 같은 .diagram 밴드를 그대로 쓴다.
 function shotHtml(p) {
   const list = shotsOf(p);
   if (!list.length) return "";
@@ -164,8 +281,7 @@ function shotHtml(p) {
       const label = `${escapeHtml(p.title)} 스크린샷${list.length > 1 ? ` ${i + 1}` : ""}`;
       return `
       <figure class="diagram shot-zoom">
-        <img src="${src}" alt="${label}" tabindex="0" role="button"
-             aria-label="${label} — 눌러서 크게 보기">
+        <img src="${src}" alt="${label}" tabindex="0" role="button" aria-label="${label} — 눌러서 크게 보기">
       </figure>`;
     })
     .join("");
@@ -175,17 +291,18 @@ function shotHtml(p) {
 function detailHtml(p) {
   return `
     <div class="dialog-head">
-      ${chipsHtml(p)}
+      <span class="cat">${escapeHtml(p.category)}</span>
       <h3 id="detail-title">${escapeHtml(p.title)}</h3>
+      ${chipsHtml(p)}
     </div>
     <div class="dialog-body">
+      ${p.result ? `<h4>결과</h4><p class="result">${escapeHtml(p.result)}</p>` : ""}
       ${shotHtml(p)}
       <h4>문제</h4>
       <p>${escapeHtml(p.problem)}</p>
       <h4>접근</h4>
       ${approachHtml(p.approach)}
       ${diagramHtml(p)}
-      ${p.result ? `<h4>결과</h4><p class="result">${escapeHtml(p.result)}</p>` : ""}
       ${footerHtml(p)}
     </div>`;
 }
@@ -204,37 +321,40 @@ function openProject(id, push) {
 
 function setupDialog() {
   const dialog = document.getElementById("detail-dialog");
-  const closeBtn = dialog.querySelector(".dialog-close");
 
-  // 제목 버튼의 Enter·Space 도 click 으로 올라오므로 별도의 keydown 처리가 필요 없다.
-  document.getElementById("categories").addEventListener("click", (e) => {
+  // 목록 행·타임라인 칸·첫 화면 숫자 어디를 눌러도 같은 상세가 열린다.
+  document.getElementById("works").addEventListener("click", (e) => {
     if (e.target.closest(".repo-link")) return;
-    const card = e.target.closest(".card");
-    if (!card) return;
-    openProject(card.dataset.id, true);
+    const hit = e.target.closest("[data-id], [data-open]");
+    if (!hit) return;
+    openProject(hit.dataset.id || hit.dataset.open, true);
   });
 
-  closeBtn.addEventListener("click", () => dialog.close());
+  dialog.querySelector(".dialog-close").addEventListener("click", () => dialog.close());
   dialog.addEventListener("click", (e) => {
     if (e.target === dialog) dialog.close();
   });
 
-  // Covers the ✕, the backdrop, and Esc in one place.
+  // Covers the ✕, the backdrop, and Esc in one place. 닫으면 보던 보기의 주소로 돌아간다.
   dialog.addEventListener("close", () => {
-    if (location.hash) history.pushState(null, "", location.pathname);
+    const back = currentView === "timeline" ? "#timeline" : "";
+    if (location.hash && location.hash !== back) history.pushState(null, "", back || location.pathname);
   });
 
   window.addEventListener("popstate", () => {
-    const id = location.hash.slice(1);
-    if (id) openProject(id, false);
-    else if (dialog.open) dialog.close();
+    const hash = location.hash.slice(1);
+    if (!hash || hash === "timeline") {
+      if (dialog.open) dialog.close();
+      setView(hash === "timeline" ? "timeline" : "list");
+    } else {
+      openProject(hash, false);
+    }
   });
 
   setupShotZoom();
 }
 
 // 원본 보기는 <dialog> 하나로 끝난다 — Esc·포커스 복귀·바깥 클릭을 브라우저가 맡는다.
-// 상세 모달 위에 겹쳐 뜨며(top layer), 닫혀도 상세 모달은 그대로 남는다.
 function setupShotZoom() {
   const shotDialog = document.getElementById("shot-dialog");
   const big = shotDialog.querySelector("img");
@@ -258,51 +378,9 @@ function setupShotZoom() {
     open(img);
   });
 
-  // 그림 자체가 아닌 곳(바깥 여백·✕)을 누르면 닫는다 — 닫기 버튼도 이 한 줄이 겸한다.
+  // 그림 자체가 아닌 곳(바깥 여백·✕)을 누르면 닫는다.
   shotDialog.addEventListener("click", (e) => {
     if (e.target !== big) shotDialog.close();
-  });
-}
-
-// 숫자는 전부 데이터에서 계산한다 — 손으로 적어두면 항목을 늘렸을 때 조용히 거짓말이 된다.
-function renderStats() {
-  const done = PROJECTS.filter((p) => p.progress === "done").length;
-  const latest = PROJECTS[0] ? PROJECTS[0].date.slice(5).replace("-", ".") : "-";
-  // '진행중 N' 은 포트폴리오 첫 화면에서 굳이 세어 내놓을 숫자가 아니다 — 아직 안 끝난 것이
-  // 몇 개인지보다, 다루는 분야가 몇 갈래인지가 훑는 사람에게 쓸모 있다.
-  const cells = [
-    ["산출물", PROJECTS.length],
-    ["완료", done],
-    ["분야", activeCategories().length],
-    ["최근 갱신", latest],
-  ];
-  document.getElementById("stats").innerHTML = cells
-    .map(([label, value]) => `<div class="stat"><strong>${escapeHtml(String(value))}</strong><span>${label}</span></div>`)
-    .join("");
-}
-
-// .reveal 을 JS로만 붙인다. 스크립트가 죽거나 IntersectionObserver 가 없으면
-// 클래스가 안 붙어 카드는 그냥 보인다 — 애니메이션 때문에 내용이 사라지는 일은 없다.
-function setupReveal() {
-  if (!("IntersectionObserver" in window)) return;
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-  const io = new IntersectionObserver(
-    (entries) => {
-      entries
-        .filter((e) => e.isIntersecting)
-        .forEach((e, i) => {
-          e.target.style.transitionDelay = `${i * 50}ms`;
-          e.target.classList.add("in");
-          io.unobserve(e.target);
-        });
-    },
-    { rootMargin: "0px 0px -40px 0px" }
-  );
-
-  document.querySelectorAll("#categories .card").forEach((card) => {
-    card.classList.add("reveal");
-    io.observe(card);
   });
 }
 
@@ -312,11 +390,14 @@ function setupContact() {
   const msg = document.getElementById("contact-msg");
   const sendBtn = document.getElementById("contact-send");
 
-  document.getElementById("contact-btn").addEventListener("click", () => {
-    msg.textContent = "";
-    form.reset();
-    dialog.showModal();
-  });
+  // 사이드바 버튼과 휴대폰 머리말 버튼 둘 다
+  document.querySelectorAll("[data-contact]").forEach((btn) =>
+    btn.addEventListener("click", () => {
+      msg.textContent = "";
+      form.reset();
+      dialog.showModal();
+    })
+  );
   document.getElementById("contact-cancel").addEventListener("click", () => dialog.close());
 
   form.addEventListener("submit", async (e) => {
@@ -350,27 +431,32 @@ function setupContact() {
 }
 
 async function init() {
-  const root = document.getElementById("categories");
+  setupContact();
+  const list = document.getElementById("list");
   try {
     const res = await fetch("/api/projects");
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     PROJECTS = await res.json();
   } catch (err) {
-    root.textContent = "프로젝트 정보를 불러오지 못했습니다. 잠시 후 새로고침해 주세요.";
+    list.innerHTML = `<p class="empty">프로젝트 정보를 불러오지 못했습니다. 잠시 후 새로고침해 주세요.</p>`;
     return;
   }
-  // 완료된 것을 먼저, 그 안에서 최신순. 완료·진행중이 섞이면 목록이 어수선해 보인다.
-  // ISO dates sort correctly as plain strings — that is why the schema uses them.
-  const rank = (p) => (p.progress === "done" ? 0 : 1);
-  PROJECTS.sort((a, b) => rank(a) - rank(b) || b.date.localeCompare(a.date));
-  renderStats();
-  renderCategories();
-  renderTabs();
-  setupReveal();
+  // 최근에 손본 것부터. ISO dates sort correctly as plain strings — that is why the schema uses them.
+  PROJECTS.sort((a, b) => b.date.localeCompare(a.date));
+
+  const latest = PROJECTS[0]?.date;
+  if (latest) document.getElementById("last-update").textContent = `마지막 갱신 ${dotDate(latest)}`;
+
+  renderNav();
+  renderList();
+  setupViews();
   setupDialog();
-  setupContact();
-  // Shared link like /#hapbul lands straight on that project.
-  if (location.hash) openProject(location.hash.slice(1), false);
+  applyFilter();
+
+  // /#timeline 은 타임라인으로, /#hapbul 같은 공유 링크는 그 프로젝트로 바로 연다.
+  const hash = location.hash.slice(1);
+  if (hash === "timeline") setView("timeline");
+  else if (hash) openProject(hash, false);
 }
 
 init();

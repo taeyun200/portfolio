@@ -16,40 +16,58 @@
 <meta property="og:locale" content="ko_KR">
 <meta name="twitter:card" content="summary">
 
+<!-- Pretendard: 한글 가변 글꼴. 없으면 아래 대체 글꼴로 떨어질 뿐 화면은 깨지지 않는다. -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<!-- 휴대폰에서만 보이는 머리말. 사이드바가 접히면 이름과 문의 버튼만 위에 붙어 따라온다. -->
+<div class="topbar">
+  <img src="assets/profile/profile.jpg" alt="">
+  <div class="topbar-name"><b>김태연</b><span>고등학교 교사</span></div>
+  <button type="button" class="cta cta-sm" data-contact>문의</button>
+</div>
 
-<header class="hero">
-  <div class="container hero-inner">
-    <div class="hero-text">
-      <p class="eyebrow">김태연 · 현직 고교 교사</p>
-      <h1>손이 많이 가는 일은 <em>도구에게</em>,<br>흩어진 데이터는 <em>한 곳에</em></h1>
-      <p class="summary">
-        매번 손으로 하던 학교 업무를 도구로 바꾸고, 여러 해에 걸쳐 쌓인 진학 기록을 상담에서 바로 쓸 수 있는 형태로 정리합니다.
-      </p>
-      <p class="interests">
-        <strong>관심 분야</strong> 진학 데이터 분석 · 학교 업무 자동화 · 개인정보를 지키는 교육용 도구 설계
-      </p>
-      <div class="hero-actions">
-        <button id="contact-btn" type="button">연수 · 강의 · 협업 문의</button>
-        <a class="ghost-btn" href="#works">산출물 둘러보기 ↓</a>
+<div class="shell">
+  <aside class="side" aria-label="소개">
+    <div class="me">
+      <img src="assets/profile/profile.jpg" alt="김태연 프로필 사진">
+      <div><b>김태연</b><span>고등학교 교사 · 진학지도와 학교 업무 도구</span></div>
+    </div>
+    <p class="say">학교에서 손으로 하던 일을 도구로 바꿉니다.</p>
+    <p class="lead">성적 분석, 진학 상담 자료, 교무실 업무. 매번 사람이 옮겨 적던 일을 버튼 하나로 줄이고, 학생 정보는 필요한 곳 밖으로 나가지 않게 만듭니다.</p>
+    <button type="button" class="cta" id="contact-btn" data-contact>연수 · 강의 문의</button>
+    <div class="nav-wrap">
+      <div class="nav-h" id="nav-h">분야</div>
+      <!-- 링크가 아니라 목록을 거르는 버튼들이라 nav 랜드마크가 아니다. -->
+      <div class="nav" id="tabs" role="group" aria-labelledby="nav-h"></div>
+    </div>
+    <div class="side-foot">
+      <span>관심 · 진학 데이터, 업무 자동화, 개인정보를 지키는 설계</span>
+      <span id="last-update"></span>
+    </div>
+  </aside>
+
+  <main id="works" class="main">
+    <!-- 첫 화면의 숫자는 실제 성과로 고른다. 누르면 그 작업의 상세가 열린다. -->
+    <section class="figs" aria-label="숫자로 본 결과">
+      <button type="button" class="fig" data-open="mock-exam-analysis"><b>1분 36초</b><span>학력평가 한 회차 전체 분석</span><em>예전엔 20분~420분</em></button>
+      <button type="button" class="fig" data-open="shabonbu-search"><b>909<small>건</small></b><span>입학처 질의응답을 뜻으로 검색</span><em>샤본부 질의응답</em></button>
+      <button type="button" class="fig" data-open="ewsa-essay"><b>84<small>명</small></b><span>수행평가를 웹 학습지로 운영</span><em>질문에서 면접까지</em></button>
+      <button type="button" class="fig" data-open="ocg-dashboard"><b>360<small>번+</small></b><span>교직원 건의로 고친 학교 화면</span><em>학교현황 대시보드</em></button>
+    </section>
+
+    <div class="works-head">
+      <h2 id="works-title">작업 <small id="works-count"></small></h2>
+      <div class="seg" role="group" aria-label="보기 방식">
+        <button type="button" data-view="list" aria-pressed="true">목록</button>
+        <button type="button" data-view="timeline" aria-pressed="false">타임라인</button>
       </div>
     </div>
-    <div class="hero-photo">
-      <img class="profile-photo" src="assets/profile/profile.jpg" alt="김태연 프로필 사진">
-    </div>
-  </div>
-</header>
-
-<main id="works">
-  <div class="container">
-    <div id="stats" class="stats"></div>
-    <!-- 링크가 아니라 목록을 거르는 버튼들이라 nav 랜드마크가 아니다. -->
-    <div class="tabs" id="tabs" role="group" aria-label="분야로 거르기"></div>
-    <div id="categories"></div>
-  </div>
-</main>
+    <div id="list" class="rows" aria-labelledby="works-title"></div>
+    <div id="timeline" class="timeline" hidden></div>
+  </main>
+</div>
 
 <!-- 제목은 열 때마다 detail-title 로 다시 그려진다 — 대화상자 이름이 프로젝트 이름이 되도록. -->
 <dialog id="detail-dialog" aria-labelledby="detail-title">
