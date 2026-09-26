@@ -76,8 +76,6 @@ function projectFormHtml(p, i) {
       <label>사이트 주소 (선택)<input type="text" data-field="site" data-index="${i}" value="${escapeAttr(p.site || "")}"></label>
       <label>마지막 갱신일<input type="date" data-field="date" data-index="${i}" value="${escapeAttr(p.date)}"></label>
       <label>시작일 (선택 · 타임라인에서 칸이 놓이는 자리 · 비우면 마지막 갱신일)<input type="date" data-field="start" data-index="${i}" value="${escapeAttr(p.start || "")}"></label>
-      <label>성과 숫자 (선택 · 목록 오른쪽에 크게 · 예: 1분 36초)<input type="text" data-field="figure" maxlength="12" data-index="${i}" value="${escapeAttr(p.figure || "")}"></label>
-      <label>숫자 설명 (선택 · 숫자 아래 작게 · 예: 한 회차 전체 분석)<input type="text" data-field="figureNote" maxlength="20" data-index="${i}" value="${escapeAttr(p.figureNote || "")}"></label>
     </details>`;
 }
 
@@ -100,7 +98,7 @@ function collectProjects() {
       // 기본값이면 필드를 아예 두지 않아 데이터를 깔끔하게 유지한다.
       if (el.value && el.value !== "center") projects[i].shot = el.value;
       else delete projects[i].shot;
-    } else if (["repo", "site", "start", "figure", "figureNote"].includes(field)) {
+    } else if (["repo", "site", "start"].includes(field)) {
       const v = el.value.trim();
       if (v) projects[i][field] = v;
       else delete projects[i][field];

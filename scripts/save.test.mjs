@@ -35,12 +35,11 @@ assert(!isValidProject({ ...ok, shot: "url(evil)" }), "임의 CSS 거부");
 assert.equal(normalize({ ...ok, shot: "top" }).shot, "top", "normalize 가 shot 을 보존");
 assert(!("shot" in normalize(ok)), "기본값이면 필드를 만들지 않는다");
 
-// 시작일·성과 숫자 — 선택 필드
-assert(isValidProject({ ...ok, start: "2026-07-11", figure: "1분 36초", figureNote: "한 회차 분석" }));
+// 시작일 — 선택 필드
+assert(isValidProject({ ...ok, start: "2026-07-11" }));
 assert(!isValidProject({ ...ok, start: "2026.07.11" }), "시작일도 ISO 여야 정렬·배치가 된다");
-assert(!isValidProject({ ...ok, figure: 360 }), "성과 숫자는 글자로 (단위가 붙는다)");
 assert.equal(normalize({ ...ok, start: "2026-07-11" }).start, "2026-07-11", "normalize 가 start 를 보존");
-assert(!("figure" in normalize(ok)), "없으면 만들지 않는다");
+assert(!("start" in normalize(ok)), "없으면 만들지 않는다");
 
 assert.equal(findDuplicateId([ok, { ...ok, id: "other" }]), null);
 assert.equal(findDuplicateId([ok, { ...ok, title: "다른 제목" }]), "my-tool");

@@ -58,19 +58,17 @@ function statusHtml(p) {
   return `<span class="st${p.progress === "done" ? "" : " ing"}">${PROGRESS_LABEL[p.progress]}</span>`;
 }
 
+// 한 칸에는 알아보는 데 필요한 것만 둔다 — 미리보기, 분야·상태, 제목, 두 줄 요약.
+// 성과 숫자는 도구마다 단위가 달라 나란히 놓으면 뜻이 없다. 상세의 '결과'에서 읽는다.
 function rowHtml(p) {
-  const figure = p.figure
-    ? `<div class="out"><b>${escapeHtml(p.figure)}</b><span>${escapeHtml(p.figureNote || "")}</span></div>`
-    : `<div class="out"></div>`;
   return `
     <article class="row" data-id="${escapeHtml(p.id)}" data-category="${escapeHtml(p.category)}">
       <div class="thumb">${thumbHtml(p)}</div>
       <div class="row-main">
-        <span class="cat">${escapeHtml(p.category)}</span>
+        <div class="row-top"><span class="cat">${escapeHtml(p.category)}</span>${statusHtml(p)}</div>
         <h3><button class="row-open" type="button" aria-haspopup="dialog">${escapeHtml(p.title)}</button></h3>
         <p class="one">${escapeHtml(p.summary || p.problem)}</p>
       </div>
-      <div class="meta">${figure}${statusHtml(p)}</div>
     </article>`;
 }
 
@@ -158,7 +156,9 @@ function renderTimeline() {
         let r = rowEnds.findIndex((end) => end <= left);
         if (r === -1) r = rowEnds.push(0) - 1;
         rowEnds[r] = left + evPct + 0.6;
-        const sub = p.progress === "done" ? p.figure || "완료" : p.figure ? `${p.figure} · 진행 중` : "진행 중";
+        // 기간: "7. 11. ~ 진행 중" / "7. 16. ~ 8. 27." / 하루짜리는 날짜만
+        const from = dotDate(startOf(p), false);
+        const sub = p.progress !== "done" ? `${from} ~ 진행 중` : p.date === startOf(p) ? from : `${from} ~ ${dotDate(p.date, false)}`;
         return `<button type="button" class="ev${p.progress === "done" ? "" : " ing"}" data-id="${escapeHtml(p.id)}"
           style="left:${left.toFixed(2)}%;top:${8 + r * ROW_PX}px" title="${escapeHtml(p.title)} · ${dotDate(startOf(p))} 시작">
           <b>${escapeHtml(p.title)}</b><span>${escapeHtml(sub)}</span></button>`;
@@ -195,7 +195,7 @@ function renderTimeline() {
       return `<div class="mmonth">${y}년 ${m}월<small>${list.length}건</small></div>${list
         .map(
           (p) => `<button type="button" class="mitem${p.progress === "done" ? "" : " ing"}" data-id="${escapeHtml(p.id)}">
-            <time>${dotDate(startOf(p), false)}</time><b>${escapeHtml(p.title)}</b><em>${escapeHtml(p.figure || PROGRESS_LABEL[p.progress])}</em></button>`
+            <time>${dotDate(startOf(p), false)}</time><b>${escapeHtml(p.title)}</b><em>${PROGRESS_LABEL[p.progress]}</em></button>`
         )
         .join("")}`;
     })
