@@ -5,42 +5,56 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>포트폴리오 편집</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="../css/edit.css">
 </head>
-<body>
-<div class="wrap">
+<body class="e-body">
 
+<section id="login-section" class="e-login">
   <h1>포트폴리오 편집</h1>
+  <p>비밀번호를 입력하세요.</p>
+  <form id="login-form">
+    <input type="password" id="password" placeholder="비밀번호" autocomplete="current-password" required>
+    <button type="submit" class="e-btn e-primary">로그인</button>
+  </form>
+  <p id="login-message" class="e-msg" role="status"></p>
+  <a class="e-quiet" href="../">사이트로 돌아가기</a>
+</section>
 
-  <section id="login-section">
-    <p>비밀번호를 입력하세요.</p>
-    <form id="login-form">
-      <input type="password" id="password" placeholder="비밀번호" autocomplete="current-password" required>
-      <button type="submit">로그인</button>
-    </form>
-    <p id="login-message" class="message"></p>
-  </section>
-
-  <section id="editor-section" hidden>
-    <div class="editor-toolbar">
-      <button id="add-btn" type="button">+ 새 프로젝트</button>
-      <button id="save-btn">전체 저장</button>
-      <button id="backup-btn" type="button">백업 내려받기</button>
-      <button id="logout-btn" type="button">로그아웃</button>
-      <span id="save-message" class="message"></span>
-      <span id="todo-count" class="message"></span>
-    </div>
-    <details id="messages-box">
-      <summary>받은 문의 <span id="messages-count"></span></summary>
-      <div id="messages-list"></div>
+<div id="editor-section" hidden>
+  <header class="e-top">
+    <h1>포트폴리오 편집</h1>
+    <a class="e-quiet" href="../" target="_blank" rel="noopener">사이트 보기 ↗</a>
+    <nav class="e-tabs" aria-label="편집 화면">
+      <a href="#" data-tab="projects">프로젝트</a>
+      <a href="#inbox" data-tab="inbox">받은 문의<em id="inbox-count" hidden></em></a>
+    </nav>
+    <span class="e-spacer"></span>
+    <button type="button" id="jump-btn" class="e-jump">프로젝트로 이동… <kbd>Ctrl K</kbd></button>
+    <span id="dirty" class="e-dirty" hidden></span>
+    <button type="button" id="save-btn" class="e-btn e-primary">저장 <kbd>Ctrl S</kbd></button>
+    <details class="e-more">
+      <summary aria-label="더 보기">⋯</summary>
+      <div class="e-menu">
+        <button type="button" id="backup-btn">백업 내려받기</button>
+        <button type="button" id="logout-btn">로그아웃</button>
+      </div>
     </details>
-
-    <div id="project-forms"></div>
-  </section>
-
+  </header>
+  <main id="view"></main>
 </div>
+
+<p id="toast" class="e-toast" role="status"></p>
+
+<!-- Ctrl+K: 이름 몇 글자로 다른 프로젝트로 건너뛴다 -->
+<dialog id="jump-dialog" class="e-palette" aria-label="프로젝트로 이동">
+  <input id="jump-input" type="text" placeholder="프로젝트 이름이나 ID" autocomplete="off">
+  <ul id="jump-results" role="listbox"></ul>
+</dialog>
+
 <script src="../js/categories.js"></script>
+<script src="../js/screenshots.js"></script>
 <script src="../js/edit.js"></script>
 </body>
 </html>
