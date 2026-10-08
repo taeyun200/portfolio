@@ -11,7 +11,21 @@
 
 ## 1. 가장 자주 하는 일
 
-### 새 산출물 올리기 (약 10분)
+### Claude Code 로 올리기 — "포트폴리오에 업로드"
+
+올릴 프로젝트 폴더에서 Claude Code 에 **"포트폴리오에 업로드"** 라고 하면 전역 스킬 `portfolio-upload`(`~/.claude/skills/portfolio-upload/SKILL.md`)가
+카드 글 · 구조 도식 · 설명 영상을 만들어 로컬 미리보기까지 띄우고 멈춘다. 보고 **"게시"** 라고 하면 커밋 · 배포 · 라이브 반영까지 한다.
+있는 프로젝트면 바뀐 칸만 고친다. 글·그림·영상의 기준은 [`docs/WRITING.md`](docs/WRITING.md) 하나 — 기준을 바꾸려면 거기만 고친다.
+
+손으로 하려면 같은 순서를 스크립트로 밟는다 — `upsert-project.mjs` 가 백업 · 검증 · 게시를 맡는다.
+
+```bash
+node scripts/upsert-project.mjs 프로젝트.json             # 무엇이 바뀌는지만
+node scripts/upsert-project.mjs 프로젝트.json --preview   # 예비본에 써서 로컬 미리보기
+node scripts/upsert-project.mjs 프로젝트.json --publish   # 배포 뒤에 — 라이브 데이터에 쓴다
+```
+
+### 새 산출물 올리기 — 편집 화면에서 (약 10분)
 
 1. `/edit` 접속 → 비밀번호 로그인
 2. **오른쪽 위 `⋯` → `백업 내려받기`를 먼저 누른다.** 아래 §5 참조. 편집 화면은 사이트 사이드바 맨 아래 `편집` 링크로도 들어간다
@@ -59,7 +73,23 @@ node scripts/gen-screenshots.js
 
 ### 구조 도식 고치기
 
-카드를 열면 나오는 '구조' 그림은 `assets/diagrams/<프로젝트ID>.svg` 다. **SVG를 직접 고치지 말고** `scripts/gen-diagrams.js` 안의 해당 항목을 고친 뒤 `node scripts/gen-diagrams.js` → 배포. 틀은 두 가지뿐이다 — 자료가 머무는 구역을 나누는 C, 구역이 하나뿐일 때 쓰는 흐름 한 줄 A. 글자가 칸을 넘으면 스크립트가 경고한다.
+카드를 열면 나오는 '구조' 그림은 `assets/diagrams/<프로젝트ID>.svg` 다. **SVG를 직접 고치지 말 것.** 틀은 두 가지뿐이다 — 자료가 머무는 구역을 나누는 C, 구역이 하나뿐일 때 쓰는 흐름 한 줄 A. 글자가 칸을 넘으면 스크립트가 경고한다.
+
+- **새 도식**은 `scripts/diagrams/<ID>.json` 에 열 · 상자 · 화살표만 적는다. 좌표는 생성기가 정한다. 형식은 `docs/WRITING.md`, 견본은 `practicum-kiosk.json`
+- 예전 도식은 `scripts/gen-diagrams.js` 안에 손으로 배치돼 있다. 같은 ID 의 JSON 이 있으면 JSON 이 이긴다
+- `node scripts/gen-diagrams.js <ID>` (ID 를 빼면 전부) → 배포
+
+### 설명 영상 만들기
+
+```bash
+python scripts/make-video.py scripts/videos/<ID>.json   # → assets/videos/<ID>.mp4 + 포스터 .jpg
+```
+
+대본(`scripts/videos/<ID>.json`)의 장면마다 화면을 그려 이어 붙이고, `say` 문장을 타입캐스트 음성 + 자막으로 얹는다. 배경음은 `scripts/video/bgm.mp3`(출처 같은 폴더).
+
+- **타입캐스트 키는 저장소 밖** `~/.config/portfolio/.env` 에 둔다(`TYPECAST_API_KEY`, `TYPECAST_VOICE_ID`). 배포가 저장소 폴더를 통째로 올리기 때문에 안에 두면 공개된다
+- 만든 음성은 `~/.cache/portfolio-video/voice/` 에 남는다. 같은 문장은 다시 결제하지 않는다. 키가 없거나 막히면 자막 + 배경음만으로 만든다
+- 카드에 붙이려면 프로젝트의 `video` 칸에 `assets/videos/<ID>.mp4` → 배포 → 저장
 
 ---
 
@@ -94,15 +124,20 @@ index.html          랜딩 페이지
 edit/index.html     관리 화면
 css/                style.css(공개) · edit.css(관리)
 js/                 main.js(공개) · edit.js(관리)
-                    categories.js  카테고리 3종 — 여기서만 고친다
+                    categories.js  카테고리 4종 — 여기서만 고친다
                     screenshots.js 자동 생성물, 직접 고치지 말 것
 functions/          Cloudflare Pages Functions (서버)
   _lib/             projects.js(스키마 변환) session.js rateLimit.js
                     default-projects.js  KV가 비었을 때만 쓰이는 씨앗 데이터
   api/              projects(공개 조회) login logout contact
   api/admin/        data save messages — 전부 세션 필요
+assets/             screenshots/<ID>/  diagrams/<ID>.svg  videos/<ID>.mp4
 scripts/            gen-screenshots.js  gen-diagrams.js  save.test.mjs
+                    upsert-project.mjs  프로젝트 하나 올리기·고치기 (백업 → 검증 → 게시)
+                    make-video.py       설명 영상 (Python · ffmpeg · 크롬 필요)
+  diagrams/         도식 원본 JSON      videos/  영상 대본 JSON      video/  배경음
 docs/PRD.md         기획 문서
+docs/WRITING.md     글 · 도식 · 영상 작성 기준 (전역 스킬 portfolio-upload 가 따른다)
 ```
 
 - **빌드 도구도 의존성도 없다.** 글꼴(Pretendard)만 CDN에서 받는데, 끊겨도 기본 글꼴로 보일 뿐 화면은 멀쩡하다. `npm install` 할 것이 없다. 이 성질이 이 사이트의 가장 큰 자산이다 — 6개월 방치해도 안 깨지는 이유다. 라이브러리를 추가하기 전에 정말 필요한지 두 번 생각할 것
@@ -150,7 +185,7 @@ npx wrangler kv key put projects --path 백업파일.json \
 |---|---|
 | 방문자 수 | Cloudflare 대시보드 → Analytics & Logs → **Web Analytics** |
 | 상세 도달률 | 같은 곳. 카드를 열면 주소가 `/#프로젝트ID` 로 바뀌며 별도 조회로 잡힌다 |
-| 샤본부 시도별 접속 | https://shabonbu-search.kimtae200.workers.dev/admin/geo?key=kimtae200 |
+| 샤본부 시도별 접속 | https://shabonbu-search.kimtae200.workers.dev/admin/geo?key=관리키 — 관리키는 이 PC의 `~/.config/shabonbu/admin-key` (2026-10-09 교체). **이 README 는 사이트와 공개 저장소에 그대로 보이므로 키를 적지 않는다** |
 
 Web Analytics가 붙은 사이트는 셋이다 — 포트폴리오, hapbul, shabonbu-search. **2026-07-31부터 쌓인다. 그 이전 기록은 없다.**
 

@@ -1,0 +1,22 @@
+{
+  "aria": "대기실 태블릿 숫자판에 휴대폰 뒤 네 자리를 누르면 담당 선생님 구글 계정의 표 문서에 출근 한 줄이 쌓이고, 교무실 현황판이 10초마다 읽어 색으로 보여 준다. 명단과 지각 기준은 표를 고치면 그대로 반영된다.",
+  "columns": [
+    { "zone": "대기실 태블릿", "items": [
+      { "id": "pad", "title": "숫자판", "subs": ["휴대폰 뒤 네 자리", "초록 화면 3초"], "key": true },
+      { "id": "pad-rule", "title": "같은 번호면 이름 고르기", "kind": "chip" }
+    ] },
+    { "zone": "담당 선생님의 구글 계정", "items": [
+      { "id": "sheet", "title": "표 문서", "subs": ["명단 · 출근 기록", "지각 기준 시각 한 칸"] },
+      { "id": "edit", "title": "표를 고치면 그대로 반영", "kind": "chip" }
+    ] },
+    { "zone": "교무실 현황판", "items": [
+      { "id": "board", "title": "현황판", "subs": ["10초마다 새로", "회색 · 주황 · 초록"] },
+      { "id": "board-rule", "title": "긴 주소를 아는 사람만", "kind": "chip" }
+    ] }
+  ],
+  "arrows": [
+    { "from": "pad", "to": "sheet", "label": "출근 한 줄" },
+    { "from": "sheet", "to": "board", "label": "10초마다" },
+    { "from": "edit", "to": "sheet", "style": "ln" }
+  ]
+}

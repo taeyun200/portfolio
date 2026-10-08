@@ -248,22 +248,7 @@ D["ewsa-essay"] = () => svg(
   ].join("\n  ")
 );
 
-// C · 실습생 출결 키오스크
-D["practicum-kiosk"] = () => svg(
-  "대기실 태블릿 숫자판에 휴대폰 뒤 네 자리를 누르면 담당 선생님 구글 계정의 표 문서에 출근 한 줄이 쌓이고, 교무실 현황판이 10초마다 읽어 색으로 보여 준다. 명단과 지각 기준은 표를 고치면 그대로 반영된다.",
-  [
-    zone(8, 196, "대기실 태블릿"), zone(226, 268, "담당 선생님의 구글 계정"), zone(516, 196, "교무실 현황판"),
-    box(24, 56, 164, 110, "숫자판", ["휴대폰 뒤 네 자리", "초록 화면 3초"], { key: true }),
-    S(106, 192, "같은 번호면 이름 고르기"), S(106, 210, "두 번 눌러도 처음 기록"),
-    box(242, 56, 236, 96, "표 문서", ["명단 · 출근 기록", "지각 기준 시각 한 칸"]),
-    ln("M360 154 V166"),
-    box(242, 168, 236, 44, "표를 고치면 그대로 반영"),
-    box(532, 56, 164, 110, "현황판", ["10초마다 새로", "회색 · 주황 · 초록"]),
-    S(614, 192, "긴 주소를 아는 사람만"),
-    arw("M190 104 H240"), L(215, 94, "출근 한 줄"),
-    arw("M480 104 H530"), L(505, 94, "10초마다"),
-  ].join("\n  ")
-);
+// C · 실습생 출결 키오스크 → scripts/diagrams/practicum-kiosk.json (자동 배치 견본)
 
 // C · 예산 장부 전처리기
 D["edufine-notion"] = () => svg(
@@ -387,10 +372,104 @@ D["finance-study"] = () => svg(
   ].join("\n  ")
 );
 
-// ── 쓰기 ─────────────────────────────────────────────
-const outDir = path.join(__dirname, "..", "assets", "diagrams");
-for (const [id, make] of Object.entries(D)) {
-  current = id;
-  fs.writeFileSync(path.join(outDir, `${id}.svg`), make());
+// ── 자동 배치: scripts/diagrams/<id>.json ─────────────
+// 좌표를 손으로 짜지 않는 도식. 열(column) → 상자(item) → 화살표(arrow)만 적으면 위치는 여기서 정한다.
+// 열에 zone 이름이 있으면 점선 구역(C), 없으면 흐름 한 줄(A). 같은 ID 의 손으로 짠 도식이 위에 있어도 JSON 이 이긴다.
+// 형식은 docs/WRITING.md "구조 도식" 참고.
+function itemHeight(it) {
+  if ((it.kind || "box") === "chip") return 32;
+  return Math.max(44, 34 + (it.subs || []).length * 18 + (it.key ? 6 : 0));
 }
-console.log(`Wrote ${Object.keys(D).length} diagram(s) to assets/diagrams/`);
+
+function columnsLayout(spec) {
+  const cols = spec.columns;
+  const n = cols.length;
+  const zoned = cols.some((c) => c.zone);
+  const margin = 8;
+  const gap = zoned ? 22 : 48;
+  const colW = (W - margin * 2 - gap * (n - 1)) / n;
+  const pad = zoned ? 16 : 0;
+  const y0 = zoned ? 52 : cols.some((c) => c.label) ? 40 : 24;
+  const stack = (c) => c.items.reduce((s, it) => s + itemHeight(it), 0) + 12 * (c.items.length - 1);
+  const bodyH = Math.max(150, ...cols.map(stack));
+  const h = Math.round(y0 + bodyH + (zoned ? 22 : 16));
+
+  const pos = {};
+  const parts = [];
+  cols.forEach((c, ci) => {
+    const x = margin + ci * (colW + gap);
+    if (c.zone) parts.push(zone(x, colW, c.zone, 22, h - 30));
+    else if (c.label) parts.push(T(x + colW / 2, 26, c.label, "zl"));
+    let y = y0 + (bodyH - stack(c)) / 2;
+    c.items.forEach((it) => {
+      const ih = itemHeight(it);
+      const ix = x + pad, iw = colW - pad * 2;
+      const kind = it.kind || "box";
+      if (kind === "chip") parts.push(chip(ix, y, iw, it.title, ih));
+      else parts.push(box(ix, y, iw, ih, it.title, it.subs || [], { key: !!it.key, cls: kind === "ghost" ? "ghost" : undefined }));
+      pos[it.id] = { col: ci, x: ix, y, w: iw, h: ih };
+      y += ih + 12;
+    });
+  });
+
+  // 같은 두 상자 사이를 오가는 화살표는 위아래로 벌려 겹치지 않게 한다.
+  const pairCount = {};
+  (spec.arrows || []).forEach((a) => {
+    const A = pos[a.from], B = pos[a.to];
+    if (!A || !B) return console.warn(`  ! ${current}: 화살표 ${a.from} → ${a.to} 의 상자가 없다`);
+    const key = [a.from, a.to].sort().join("|");
+    const k = (pairCount[key] = (pairCount[key] || 0) + 1);
+    const off = k === 1 ? 0 : 16;
+    const style = a.style || "arw";
+    const draw = (d) => (style === "arw" ? arw(d, a.both) : style === "no" ? no(d) : ln(d));
+    let mx, my, labelAt;
+    if (A.col === B.col) {
+      const down = A.y < B.y;
+      const sx = A.x + A.w / 2, sy = down ? A.y + A.h + 2 : A.y - 2;
+      const ey = down ? B.y - 2 : B.y + B.h + 2;
+      parts.push(draw(`M${sx} ${sy} V${ey}`));
+      mx = sx; my = (sy + ey) / 2;
+      labelAt = () => L(sx + 8, my + 4, a.label, "start");
+    } else {
+      const fwd = A.col < B.col;
+      const sx = fwd ? A.x + A.w + 2 : A.x - 2, ex = fwd ? B.x - 2 : B.x + B.w + 2;
+      const sy = A.y + A.h / 2 + off, ey = B.y + B.h / 2 + off;
+      const dx = (ex - sx) * 0.45;
+      parts.push(draw(`M${sx} ${sy} C ${sx + dx} ${sy}, ${ex - dx} ${ey}, ${ex} ${ey}`));
+      mx = (sx + ex) / 2; my = (sy + ey) / 2;
+      labelAt = () => L(mx, k === 1 ? my - 8 : my + 18, a.label);
+    }
+    if (a.cross) parts.push(X(mx, my));
+    if (a.label) parts.push(labelAt());
+  });
+  return { body: parts.join("\n  "), h };
+}
+
+const specDir = path.join(__dirname, "diagrams");
+if (fs.existsSync(specDir)) {
+  for (const f of fs.readdirSync(specDir).filter((f) => f.endsWith(".json"))) {
+    const id = f.replace(/\.json$/, "");
+    const spec = JSON.parse(fs.readFileSync(path.join(specDir, f), "utf8"));
+    D[id] = () => {
+      const { body, h } = columnsLayout(spec);
+      return svg(spec.aria, body, h);
+    };
+  }
+}
+
+// ── 쓰기 ─────────────────────────────────────────────
+// node scripts/gen-diagrams.js            전부
+// node scripts/gen-diagrams.js <id> ...   지정한 것만
+const outDir = path.join(__dirname, "..", "assets", "diagrams");
+const only = process.argv.slice(2);
+const targets = only.length ? only : Object.keys(D);
+for (const id of targets) {
+  if (!D[id]) {
+    console.error(`  ! ${id}: 도식 정의가 없다 (scripts/diagrams/${id}.json)`);
+    process.exitCode = 1;
+    continue;
+  }
+  current = id;
+  fs.writeFileSync(path.join(outDir, `${id}.svg`), D[id]());
+}
+console.log(`Wrote ${targets.length} diagram(s) to assets/diagrams/`);

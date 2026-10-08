@@ -1,0 +1,22 @@
+{
+  "id": "practicum-kiosk",
+  "title": "실습생 출결 키오스크",
+  "category": "학교 업무 자동화",
+  "summary": "교생이 태블릿에 번호 네 자리만 누르면 교무실 현황판에 바로 뜬다",
+  "scenes": [
+    { "type": "title", "say": "실습생 출결 키오스크입니다." },
+    { "type": "text", "heading": "문제",
+      "text": "교생 수십 명의 출근을 종이 출근부로 확인하면, 교무실까지 와서 봐야 알고 사람이 옮겨 적어야 기록이 된다.",
+      "say": "교육실습 기간에는 교생 수십 명이 매일 출근합니다. 종이 출근부로는 교무실까지 와서 봐야 알 수 있었습니다." },
+    { "type": "image", "src": "assets/screenshots/practicum-kiosk/02-kiosk.jpg",
+      "say": "대기실 태블릿에서 휴대폰 번호 뒤 네 자리만 누르면 출근이 기록됩니다." },
+    { "type": "image", "src": "assets/screenshots/practicum-kiosk/01-board.jpg",
+      "say": "교무실 현황판은 10초마다 새로 고쳐지고, 늦은 사람은 주황색으로 보입니다." },
+    { "type": "diagram", "src": "assets/diagrams/practicum-kiosk.svg",
+      "say": "기록은 담당 선생님의 구글 표 문서에만 쌓이고, 현황판은 그 표를 읽기만 합니다." },
+    { "type": "text", "heading": "결과",
+      "text": "하루 만에 완성. 다른 학교에는 표 문서 사본 링크 하나만 건네면 된다.",
+      "say": "하루 만에 만들었고, 다른 학교에는 표 문서 사본 링크 하나만 건네면 됩니다." },
+    { "type": "end", "say": "자세한 내용은 포트폴리오 사이트에서 볼 수 있습니다." }
+  ]
+}

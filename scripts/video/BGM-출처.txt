@@ -1,0 +1,10 @@
+프로젝트 설명 영상 배경음 (scripts/video/bgm.mp3)
+
+곡      : Chica Linda
+제작자  : Quincas Moreira
+출처    : YouTube 오디오 보관함 (YouTube Audio Library)
+라이선스: 무료 사용. 상업적 이용 가능, 저작자 표시 의무 없음.
+원본    : 알람 비서/promo/bgm/Chica Linda - Quincas Moreira.mp3 (137.9초, 320kbps)
+          → 96kbps 로 다시 압축해 넣었다.
+
+영상 길이가 137초를 넘으면 make-video.py 가 처음부터 다시 이어 붙인다.
