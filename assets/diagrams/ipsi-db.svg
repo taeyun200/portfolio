@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 236" role="img"
-     aria-label="대학마다 흩어진 모집인원·경쟁률·충원률·합격선 발표를 프로그램이 모아 해마다 다른 표 모양을 같은 모양으로 다듬고, 대학·전형·학과별 한 줄로 쌓아 상담 때 바로 찾는다.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 224" role="img"
+     aria-label="대학마다 낸 2028 시행계획 원문을 읽어 인원과 평가방법을 정리하고, 두 갈래로 다시 세어 맞는 것만 기억창고에 넣는다. 사이트는 사람 확인을 거친 요청에 한 대학씩만 보여 주고, 자료를 통째로 내려받는 길은 막아 둔다.">
   <style>
     text { font-family: "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
     .box  { fill: #ffffff; stroke: #1d1a17; stroke-width: 1.3; }
@@ -43,17 +43,23 @@
       <path d="M0 0 L10 5 L0 10 z" class="dot"/>
     </marker>
   </defs>
-  <text x="85" y="22" text-anchor="middle" class="zl">대학마다 흩어진 발표</text>
-  <rect x="10" y="34" width="150" height="30" rx="15" class="chip"/><text x="85" y="53.5" text-anchor="middle" class="c">모집인원</text>
-  <rect x="10" y="74" width="150" height="30" rx="15" class="chip"/><text x="85" y="93.5" text-anchor="middle" class="c">경쟁률</text>
-  <rect x="10" y="114" width="150" height="30" rx="15" class="chip"/><text x="85" y="133.5" text-anchor="middle" class="c">충원률</text>
-  <rect x="10" y="154" width="150" height="30" rx="15" class="chip"/><text x="85" y="173.5" text-anchor="middle" class="c">'어디가' 합격선</text>
-  <path d="M160 49 C 210 49, 210 120, 250 120" class="ln"/>
-  <path d="M160 89 C 205 89, 210 120, 250 120" class="ln"/>
-  <path d="M160 129 C 205 129, 210 120, 250 120" class="ln"/>
-  <path d="M160 169 C 210 169, 210 120, 250 120" class="ln"/>
-  <rect x="252" y="70" width="200" height="100" rx="14" class="key"/><text x="352" y="107" text-anchor="middle" class="tb">같은 모양으로 다듬기</text><text x="352" y="128" text-anchor="middle" class="s">해마다 표 모양이 달라도</text><text x="352" y="146" text-anchor="middle" class="s">값은 같은 자리에</text>
-  <path d="M454 120 H494" class="arw" marker-end="url(#h)"/>
-  <text x="474" y="110" text-anchor="middle" class="al">쌓기</text>
-  <rect x="498" y="78" width="212" height="84" rx="12" class="box"/><text x="604" y="107" text-anchor="middle" class="t">자료창고</text><text x="604" y="128" text-anchor="middle" class="s">대학 · 전형 · 학과별 한 줄</text><text x="604" y="146" text-anchor="middle" class="s">상담 때 바로 찾기</text>
+  <rect x="8" y="22" width="159.5" height="194" rx="14" class="zone"/><text x="22" y="41" text-anchor="start" class="zl">대학이 낸 자료</text>
+  <rect x="24" y="92" width="127.5" height="70" rx="12" class="box"/><text x="87.75" y="114" text-anchor="middle" class="t">시행계획 원문</text><text x="87.75" y="135" text-anchor="middle" class="s">대학마다 수십 쪽</text><text x="87.75" y="153" text-anchor="middle" class="s">표와 글 섞인 문서</text>
+  <rect x="189.5" y="22" width="159.5" height="194" rx="14" class="zone"/><text x="203.5" y="41" text-anchor="start" class="zl">정리하는 컴퓨터</text>
+  <rect x="205.5" y="67" width="127.5" height="76" rx="14" class="key"/><text x="269.25" y="92" text-anchor="middle" class="tb">원문 읽고 정리</text><text x="269.25" y="113" text-anchor="middle" class="s">인원 · 평가방법</text><text x="269.25" y="131" text-anchor="middle" class="s">쪽 번호도 적기</text>
+  <rect x="205.5" y="155" width="127.5" height="32" rx="16" class="chip"/><text x="269.25" y="175.5" text-anchor="middle" class="c">두 번 세어 확인</text>
+  <rect x="371" y="22" width="159.5" height="194" rx="14" class="zone"/><text x="385" y="41" text-anchor="start" class="zl">인터넷 기억창고</text>
+  <rect x="387" y="92" width="127.5" height="70" rx="12" class="box"/><text x="450.75" y="114" text-anchor="middle" class="t">입시 기억창고</text><text x="450.75" y="135" text-anchor="middle" class="s">2028 · 2027 인원</text><text x="450.75" y="153" text-anchor="middle" class="s">전형별 평가방법</text>
+  <rect x="552.5" y="22" width="159.5" height="194" rx="14" class="zone"/><text x="566.5" y="41" text-anchor="start" class="zl">누구나 여는 사이트</text>
+  <rect x="568.5" y="64" width="127.5" height="70" rx="12" class="box"/><text x="632.25" y="86" text-anchor="middle" class="t">2028 한 페이지</text><text x="632.25" y="107" text-anchor="middle" class="s">대학마다 한 화면</text><text x="632.25" y="125" text-anchor="middle" class="s">조건으로 전형 찾기</text>
+  <rect x="568.5" y="146" width="127.5" height="44" rx="12" class="ghost"/><text x="632.25" y="173" text-anchor="middle" class="t">통째로 내려받기</text>
+  <path d="M153.5 127 C 176 127, 181 105, 203.5 105" class="arw" marker-end="url(#h)"/>
+  <text x="178.5" y="108" text-anchor="middle" class="al">원문대로</text>
+  <path d="M335 105 C 357.5 105, 362.5 127, 385 127" class="arw" marker-end="url(#h)"/>
+  <text x="360" y="108" text-anchor="middle" class="al">맞는 것만</text>
+  <path d="M269.25 153 V145" class="ln"/>
+  <path d="M516.5 127 C 539 127, 544 99, 566.5 99" class="arw" marker-end="url(#h)"/>
+  <text x="541.5" y="105" text-anchor="middle" class="al">한 곳씩</text>
+  <path d="M632.25 136 V144" class="no"/>
+  <path d="M626.25 134 L638.25 146 M638.25 134 L626.25 146" class="x"/>
 </svg>

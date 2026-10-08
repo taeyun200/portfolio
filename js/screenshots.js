@@ -23,6 +23,11 @@ const SCREENSHOTS = {
   "hapbul": [
     "assets/screenshots/hapbul/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-07-30%20145542.png"
   ],
+  "ipsi-db": [
+    "assets/screenshots/ipsi-db/01-univ.jpg",
+    "assets/screenshots/ipsi-db/02-track.jpg",
+    "assets/screenshots/ipsi-db/03-units.jpg"
+  ],
   "jonghap-network": [
     "assets/screenshots/jonghap-network/Snipaste_2026-07-31_15-57-26.png"
   ],

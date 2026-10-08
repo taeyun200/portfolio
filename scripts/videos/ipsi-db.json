@@ -1,0 +1,24 @@
+{
+  "id": "ipsi-db",
+  "title": "2028 한 페이지",
+  "category": "대입 · 진학지도",
+  "summary": "4년제 대학의 2028 전형을 대학마다 한 화면에 — 원문에서 직접 정리",
+  "scenes": [
+    { "type": "title", "say": "2028 한 페이지입니다." },
+    { "type": "text", "heading": "문제",
+      "text": "2028 대입 정보는 대학마다 수십 쪽짜리 시행계획 문서에 흩어져 있다. 대학 하나를 확인하려 해도 쪽을 찾아다녀야 한다.",
+      "say": "2028 대입 정보는 대학마다 수십 쪽짜리 문서에 흩어져 있습니다." },
+    { "type": "image", "src": "assets/screenshots/ipsi-db/01-univ.jpg",
+      "say": "4년제 대학과 캠퍼스 206곳의 2028 전형을 대학마다 한 화면에 모았습니다." },
+    { "type": "image", "src": "assets/screenshots/ipsi-db/02-track.jpg",
+      "say": "전형을 펼치면 교과 성적 계산식과 면접 방식이 원문 쪽 번호와 함께 나옵니다." },
+    { "type": "image", "src": "assets/screenshots/ipsi-db/03-units.jpg",
+      "say": "학과 하나가 어느 전형으로 몇 명을 뽑는지, 작년보다 늘었는지도 봅니다." },
+    { "type": "diagram", "src": "assets/diagrams/ipsi-db.svg",
+      "say": "원문을 읽어 정리하고, 두 번 세어 맞는 숫자만 사이트에 올립니다." },
+    { "type": "text", "heading": "지금",
+      "text": "2028 모집인원 340,703명을 원문과 맞춰 실었다. 누구나 주소만 열면 된다.",
+      "say": "2028 모집인원 34만여 명을 원문과 맞춰 실었고, 누구나 주소만 열면 됩니다." },
+    { "type": "end", "say": "자세한 내용은 포트폴리오 사이트에서 볼 수 있습니다." }
+  ]
+}

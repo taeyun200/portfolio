@@ -1,0 +1,26 @@
+{
+  "aria": "대학마다 낸 2028 시행계획 원문을 읽어 인원과 평가방법을 정리하고, 두 갈래로 다시 세어 맞는 것만 기억창고에 넣는다. 사이트는 사람 확인을 거친 요청에 한 대학씩만 보여 주고, 자료를 통째로 내려받는 길은 막아 둔다.",
+  "columns": [
+    { "zone": "대학이 낸 자료", "items": [
+      { "id": "pdf", "title": "시행계획 원문", "subs": ["대학마다 수십 쪽", "표와 글 섞인 문서"] }
+    ] },
+    { "zone": "정리하는 컴퓨터", "items": [
+      { "id": "read", "title": "원문 읽고 정리", "subs": ["인원 · 평가방법", "쪽 번호도 적기"], "key": true },
+      { "id": "check", "title": "두 번 세어 확인", "kind": "chip" }
+    ] },
+    { "zone": "인터넷 기억창고", "items": [
+      { "id": "db", "title": "입시 기억창고", "subs": ["2028 · 2027 인원", "전형별 평가방법"] }
+    ] },
+    { "zone": "누구나 여는 사이트", "items": [
+      { "id": "site", "title": "2028 한 페이지", "subs": ["대학마다 한 화면", "조건으로 전형 찾기"] },
+      { "id": "bulk", "title": "통째로 내려받기", "kind": "ghost" }
+    ] }
+  ],
+  "arrows": [
+    { "from": "pdf", "to": "read", "label": "원문대로" },
+    { "from": "read", "to": "db", "label": "맞는 것만" },
+    { "from": "check", "to": "read", "style": "ln" },
+    { "from": "db", "to": "site", "label": "한 곳씩" },
+    { "from": "site", "to": "bulk", "style": "no", "cross": true }
+  ]
+}
