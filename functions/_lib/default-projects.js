@@ -338,7 +338,8 @@ export const DEFAULT_PROJECTS = [
     ],
     "result": "하루 만에 완성했다. 가짜 명단 15명으로 정상 출근·중복 입력·번호 겹침·앞자리 0·미등록 번호를 하나씩 확인하는 5분짜리 점검표를 함께 남겼고, 받는 분을 위한 설치 안내서에는 실제 화면을 넣었다.",
     "progress": "done",
-    "visibility": "private"
+    "visibility": "private",
+    "video": "assets/videos/practicum-kiosk.mp4"
   },
   {
     "id": "edufine-notion",
