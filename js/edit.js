@@ -291,9 +291,9 @@ function renderEditor(p) {
         ${field("한 줄 요약", `<input name="summary" maxlength="60" value="${esc(p.summary)}" placeholder="예) 9등급 시절 대입 결과를 5등급 학생과 같은 잣대로 바꿔 비교">`, count("summary", (p.summary || "").length, 60))}
       </fieldset>
 
-      <fieldset id="sec-feature" class="e-fs"><legend>대표작 <small>첫 화면 위쪽의 큰 카드 · 최대 3개</small></legend>
+      <fieldset id="sec-feature" class="e-fs"><legend>대표작 <small>첫 화면 위쪽의 큰 카드 · 최대 4개</small></legend>
         <div class="e-g2">
-          ${field("순서", seg("feature", [["", "아님"], ["1", "1"], ["2", "2"], ["3", "3"]], p.feature || ""))}
+          ${field("순서", seg("feature", [["", "아님"], ["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"]], p.feature || ""))}
           ${field("카드 아래 한 줄", `<input name="featureNote" maxlength="40" value="${esc(p.featureNote || "")}" placeholder="예) 3·6·9월 정규 업무로 사용">`, count("featureNote", (p.featureNote || "").length, 40))}
         </div>
         <p class="e-hint" id="feature-hint">${esc(featureHint(p))}</p>

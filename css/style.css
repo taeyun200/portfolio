@@ -171,6 +171,9 @@ button { font: inherit; color: inherit; }
 /* 대표작 — 큰 그림으로 무엇을 만든 것인지 보이게 */
 /* 본문이 좁으면(사이드바가 있는 중간 폭) 2 + 1 로 접힌다. */
 .feat { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+/* 넷이면 한 줄에 넷, 그만큼 넓지 않으면 2 × 2 — 3 + 1 로 하나만 떨어지지 않게 */
+.feat:has(> :nth-child(4)) { grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 1200px) { .feat:has(> :nth-child(4)) { grid-template-columns: repeat(4, 1fr); } }
 .fcard { display: flex; flex-direction: column; gap: 8px; cursor: pointer; }
 .mat {
   aspect-ratio: 16 / 10;
