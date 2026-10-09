@@ -61,9 +61,10 @@ const SCREENSHOTS = {
     "assets/screenshots/practicum-kiosk/02-kiosk.jpg"
   ],
   "saenggibu-review": [
-    "assets/screenshots/saenggibu-review/01-seongjeok.png",
-    "assets/screenshots/saenggibu-review/02-seteuk.png",
-    "assets/screenshots/saenggibu-review/03-hakjeok-bongsa.png"
+    "assets/screenshots/saenggibu-review/01-desk.jpg",
+    "assets/screenshots/saenggibu-review/02-host.jpg",
+    "assets/screenshots/saenggibu-review/03-host-desk.jpg",
+    "assets/screenshots/saenggibu-review/04-grades.jpg"
   ],
   "shabonbu-search": [
     "assets/screenshots/shabonbu-search/01-home.png",
