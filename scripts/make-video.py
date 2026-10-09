@@ -89,7 +89,9 @@ CSS = """
   .who { position: absolute; left: 110px; bottom: 56px; font-size: 22px; color: #6f6860; font-weight: 600; }
   .rule { width: 72px; height: 6px; background: #c9561c; border-radius: 3px; }
   .kick { color: #a9460f; font-size: 26px; font-weight: 800; }
-  .big { margin: 0; font-size: 46px; font-weight: 800; line-height: 1.45; max-width: 1040px; letter-spacing: -0.01em; }
+  .big { margin: 0; font-size: 46px; font-weight: 800; line-height: 1.45; max-width: 1040px; letter-spacing: -0.01em;
+         white-space: pre-line; }  /* 대본의 줄바꿈(
+)을 살린다 — 기능 목록 같은 장면 */
   .band { position: absolute; inset: 0; background: #f5f2ec; }
   .shot { position: absolute; left: 60px; right: 60px; top: 40px; bottom: 150px; display: flex; align-items: center; justify-content: center; }
   /* 작은 원본도 영역을 채우게 키운다(contain). 그림자는 실제 그림 모양을 따라가도록 drop-shadow. */
