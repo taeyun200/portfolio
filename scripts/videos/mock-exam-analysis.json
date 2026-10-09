@@ -1,0 +1,24 @@
+{
+  "id": "mock-exam-analysis",
+  "title": "학력평가 성적분석 시스템",
+  "category": "대입 · 진학지도",
+  "summary": "원점수만 넣으면 기준 자료는 서버에서 받고, 분석은 1분 반에 끝난다",
+  "scenes": [
+    { "type": "title", "say": "학력평가 성적분석 시스템입니다." },
+    { "type": "text", "heading": "문제",
+      "text": "모의고사 분석이 담당 교사의 엑셀 실력과 물려받은 낡은 파일에 달려 있었다. 문항별 분석이나 개인 성적표까지는 손을 대지 못했다.",
+      "say": "모의고사 분석은 담당 교사의 엑셀 실력에 달려 있어, 문항별 분석까지는 손대기 어려웠습니다." },
+    { "type": "image", "src": "assets/screenshots/mock-exam-analysis/01-dashboard.jpg",
+      "say": "교사는 원점수만 넣고, 정답과 등급컷 같은 기준 자료는 버튼 하나로 받습니다." },
+    { "type": "image", "src": "assets/screenshots/mock-exam-analysis/02-heatmap.jpg",
+      "say": "문항마다 등급별 정답률을 색으로 칠해, 많이 틀린 문항이 한눈에 보입니다." },
+    { "type": "image", "src": "assets/screenshots/mock-exam-analysis/03-counsel.jpg",
+      "say": "학생 한 명을 고르면 회차별 변화와 약한 영역, 되풀이해 틀린 문항이 한 장에 모입니다." },
+    { "type": "diagram", "src": "assets/diagrams/mock-exam-analysis.svg",
+      "say": "기준 자료는 서버에서 읽기만 하므로, 다른 학교도 같은 자료를 받아 씁니다." },
+    { "type": "text", "heading": "결과",
+      "text": "3·6·9월 정규 업무로 썼다. 학생 160명 한 회차 분석이 1분 36초에 끝난다. 예전엔 20분에서 420분이 걸렸다.",
+      "say": "세 번의 시험에 정규 업무로 썼고, 길게는 420분 걸리던 분석이 1분 36초에 끝납니다." },
+    { "type": "end", "say": "자세한 내용은 포트폴리오 사이트에서 볼 수 있습니다." }
+  ]
+}

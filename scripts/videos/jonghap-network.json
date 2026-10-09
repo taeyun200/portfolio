@@ -1,0 +1,19 @@
+{
+  "id": "jonghap-network",
+  "title": "종합전형 지원 연결망",
+  "category": "대입 · 진학지도",
+  "summary": "한 학과를 검색하면 함께 지원한 학과들이 동심원에 펼쳐진다",
+  "scenes": [
+    { "type": "title", "say": "종합전형 지원 연결망입니다." },
+    { "type": "text", "heading": "문제",
+      "text": "“여기 쓰면 같이 어디를 쓰나요?” 답은 지난 진학결과에 있지만, 한 줄씩 늘어선 명단에서는 함께 지원한 조합이 보이지 않는다.",
+      "say": "학생들은 여기 쓰면 같이 어디를 쓰냐고 묻습니다. 지난 명단에선 그 조합이 안 보였습니다." },
+    { "type": "image", "src": "assets/screenshots/jonghap-network/02-search.jpg",
+      "say": "학과 하나를 검색하면, 그 학과 지원자들이 함께 지원한 학과들이 선으로 이어집니다." },
+    { "type": "image", "src": "assets/screenshots/jonghap-network/03-rings.jpg",
+      "say": "가운데서 멀수록 문턱이 낮은 대학군이라, 상향, 적정, 안정을 어떻게 섞었는지 보입니다." },
+    { "type": "diagram", "src": "assets/diagrams/jonghap-network.svg",
+      "say": "선이 굵을수록 함께 쓴 사람이 많습니다. 한두 건짜리 잔가지는 걷어내고 경향만 봅니다." },
+    { "type": "end", "say": "자세한 내용은 포트폴리오 사이트에서 볼 수 있습니다." }
+  ]
+}

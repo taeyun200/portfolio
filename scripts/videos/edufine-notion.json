@@ -1,0 +1,22 @@
+{
+  "id": "edufine-notion",
+  "title": "예산 장부 전처리기",
+  "category": "학교 업무 자동화",
+  "summary": "에듀파인 예산 파일을 놓으면 노션에 바로 넣을 수 있는 표로 바꿔 준다",
+  "scenes": [
+    { "type": "title", "say": "예산 장부 전처리기입니다." },
+    { "type": "text", "heading": "문제",
+      "text": "부서 예산을 노션에서 관리하려면 에듀파인 파일을 손으로 다시 옮겨야 한다. 파일 모양이 달라 그대로는 들어가지 않는다.",
+      "say": "에듀파인 예산 파일은 모양이 달라, 노션에 넣으려면 손으로 다시 옮겨야 했습니다." },
+    { "type": "image", "src": "assets/screenshots/edufine-notion/01-page.jpg",
+      "say": "내려받은 파일을 놓고 가져올 사업을 고르면, 노션에 넣을 표 파일이 나옵니다." },
+    { "type": "image", "src": "assets/screenshots/edufine-notion/02-guide.jpg",
+      "say": "노션에 넣는 법도 화면에 적혀 있습니다. 예산액만 넣고, 남은 돈은 노션이 계산합니다." },
+    { "type": "diagram", "src": "assets/diagrams/edufine-notion.svg",
+      "say": "바꾸는 일은 그 컴퓨터 안에서만 하고, 원본과 합계가 다르면 경고를 띄웁니다." },
+    { "type": "text", "heading": "결과",
+      "text": "설치도 로그인도 없이 주소 하나로 쓴다. 누구나 열어 볼 수 있게 공개해 두었다.",
+      "say": "설치도 로그인도 없이 주소 하나로 쓰고, 누구나 열어 볼 수 있습니다." },
+    { "type": "end", "say": "자세한 내용은 포트폴리오 사이트에서 볼 수 있습니다." }
+  ]
+}

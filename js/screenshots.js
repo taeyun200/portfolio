@@ -1,9 +1,12 @@
 const SCREENSHOTS = {
   "2028-subject-guide": [
-    "assets/screenshots/2028-subject-guide/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-07-30%20150513.png"
+    "assets/screenshots/2028-subject-guide/01-home.png",
+    "assets/screenshots/2028-subject-guide/02-search.jpg",
+    "assets/screenshots/2028-subject-guide/03-major.jpg"
   ],
   "edufine-notion": [
-    "assets/screenshots/edufine-notion/01-page.jpg"
+    "assets/screenshots/edufine-notion/01-page.jpg",
+    "assets/screenshots/edufine-notion/02-guide.jpg"
   ],
   "ewsa-essay": [
     "assets/screenshots/ewsa-essay/01-overview.jpg",
@@ -21,7 +24,8 @@ const SCREENSHOTS = {
     "assets/screenshots/grade5-position-convert/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-07-30%20150249.png"
   ],
   "hapbul": [
-    "assets/screenshots/hapbul/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-07-30%20145542.png"
+    "assets/screenshots/hapbul/01-cards.png",
+    "assets/screenshots/hapbul/02-upload.jpg"
   ],
   "ipsi-db": [
     "assets/screenshots/ipsi-db/01-univ.jpg",
@@ -29,7 +33,9 @@ const SCREENSHOTS = {
     "assets/screenshots/ipsi-db/03-units.jpg"
   ],
   "jonghap-network": [
-    "assets/screenshots/jonghap-network/Snipaste_2026-07-31_15-57-26.png"
+    "assets/screenshots/jonghap-network/01-concentric.png",
+    "assets/screenshots/jonghap-network/02-search.jpg",
+    "assets/screenshots/jonghap-network/03-rings.jpg"
   ],
   "mock-exam-analysis": [
     "assets/screenshots/mock-exam-analysis/01-dashboard.jpg",
@@ -60,7 +66,8 @@ const SCREENSHOTS = {
     "assets/screenshots/saenggibu-review/03-hakjeok-bongsa.png"
   ],
   "shabonbu-search": [
-    "assets/screenshots/shabonbu-search/Snipaste_2026-07-31_15-00-46.png"
+    "assets/screenshots/shabonbu-search/01-home.png",
+    "assets/screenshots/shabonbu-search/02-result.jpg"
   ],
   "slack-drive-bot": [
     "assets/screenshots/slack-drive-bot/screenshot.png"

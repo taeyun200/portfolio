@@ -1,0 +1,24 @@
+{
+  "id": "ewsa-essay",
+  "title": "윤리와 사상 수행평가 — 질문에서 면접까지",
+  "category": "수업 · 평가",
+  "summary": "질문은 스스로, 근거는 도구로, 면접은 자기 말로 — 수행평가 웹 학습지",
+  "scenes": [
+    { "type": "title", "say": "윤리와 사상 수행평가, 질문에서 면접까지입니다." },
+    { "type": "text", "heading": "문제",
+      "text": "학생들이 질문 만드는 일을 생성형 인공지능에 넘기면서 활동 수준이 크게 떨어졌다. 태블릿이 손에 있는 한 막을 방법도 없다.",
+      "say": "학생들이 질문 만드는 일을 인공지능에 넘기면서, 활동 수준이 크게 떨어졌습니다." },
+    { "type": "image", "src": "assets/screenshots/ewsa-essay/01-overview.jpg",
+      "say": "종이로 질문을 만들고, 다른 학생의 질문을 골라 글을 쓴 뒤, 면접으로 확인합니다." },
+    { "type": "image", "src": "assets/screenshots/ewsa-essay/02-student.jpg",
+      "say": "자료마다 점수가 다르고, 인공지능을 쓰면 물어본 질문과 대화 캡처를 남깁니다." },
+    { "type": "image", "src": "assets/screenshots/ewsa-essay/03-teacher.jpg",
+      "say": "교사 화면은 84명의 다섯 단계를 한 표에 모으고, 누르면 늦은 학생이 위로 옵니다." },
+    { "type": "diagram", "src": "assets/diagrams/ewsa-essay.svg",
+      "say": "논술은 붙여넣기를 막고 쓴 과정을 남겨, 면접에서 자기 말로 설명하게 합니다." },
+    { "type": "text", "heading": "결과",
+      "text": "2학년 84명의 2학기 수행평가에 쓰고 있다. 9월 공개수업용 안내 자료도 만들었다.",
+      "say": "2학년 84명의 2학기 수행평가에 쓰고 있고, 9월 공개수업 자료도 만들었습니다." },
+    { "type": "end", "say": "자세한 내용은 포트폴리오 사이트에서 볼 수 있습니다." }
+  ]
+}

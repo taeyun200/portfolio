@@ -1,0 +1,19 @@
+{
+  "id": "shabonbu-search",
+  "title": "샤본부 질의응답 검색",
+  "category": "대입 · 진학지도",
+  "summary": "4년치 간담회 질의응답 909건을 뜻으로 찾아보는 검색",
+  "scenes": [
+    { "type": "title", "say": "샤본부 질의응답 검색입니다." },
+    { "type": "text", "heading": "문제",
+      "text": "서울대 입학처와 충북 고교들이 4년 동안 나눈 간담회 질문과 답이 해마다 다른 형식의 문서에 흩어져 있었다.",
+      "say": "4년치 간담회 질문과 답이 해마다 다른 문서에 흩어져, 하나씩 열어 훑어야 했습니다." },
+    { "type": "image", "src": "assets/screenshots/shabonbu-search/01-home.png",
+      "say": "질의응답 909건을 한곳에 모았고, 궁금한 내용을 문장으로 적어 찾습니다." },
+    { "type": "image", "src": "assets/screenshots/shabonbu-search/02-result.jpg",
+      "say": "‘면접 준비’로 찾으면 뜻이 비슷한 질문과 답이 나옵니다. 내용은 가렸습니다." },
+    { "type": "diagram", "src": "assets/diagrams/shabonbu-search.svg",
+      "say": "분류 이름은 하나로 맞췄고, 결과만 돌려주어 자료를 통째로 가져갈 수 없습니다." },
+    { "type": "end", "say": "자세한 내용은 포트폴리오 사이트에서 볼 수 있습니다." }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "2028-subject-guide",
+  "title": "2028 학과별 권장과목 찾기",
+  "category": "대입 · 진학지도",
+  "summary": "2028 대입에서 학과별로 권하는 선택과목을 바로 찾아보는 화면",
+  "scenes": [
+    { "type": "title", "say": "2028 학과별 권장과목 찾기입니다." },
+    { "type": "text", "heading": "문제",
+      "text": "어느 학과가 어떤 과목을 권하는지는 대학들이 모여 낸 자료에 들어 있다. 그 자료에서 자기 학과를 찾아보기는 번거롭다.",
+      "say": "학과별 권장 과목은 대학들이 낸 자료에 있지만, 거기서 자기 학과를 찾기는 번거로웠습니다." },
+    { "type": "image", "src": "assets/screenshots/2028-subject-guide/02-search.jpg",
+      "say": "‘컴퓨터’처럼 낱말을 넣으면 관련 학과와 개설 대학 수가 바로 나옵니다." },
+    { "type": "image", "src": "assets/screenshots/2028-subject-guide/03-major.jpg",
+      "say": "학과를 고르면, 여러 대학이 함께 권하는 과목이 많이 권한 순서대로 나옵니다." },
+    { "type": "diagram", "src": "assets/diagrams/2028-subject-guide.svg",
+      "say": "발표된 자료를 학과 기준으로 다시 묶었고, 화면 파일 하나라 주소만 열면 됩니다." },
+    { "type": "end", "say": "자세한 내용은 포트폴리오 사이트에서 볼 수 있습니다." }
+  ]
+}
