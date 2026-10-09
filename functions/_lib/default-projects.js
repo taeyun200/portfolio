@@ -50,7 +50,8 @@ export const DEFAULT_PROJECTS = [
     "result": "학기 초와 수시 원서 쓰기 전에 크게 뽑아 학교에 붙여 뒀다. 학생들이 자기 위치를 먼저 보고 상담에 온다.",
     "progress": "done",
     "visibility": "private",
-    "shot": "top"
+    "shot": "top",
+    "video": "assets/videos/hapbul.mp4"
   },
   {
     "id": "grade5-position-convert",
@@ -93,7 +94,8 @@ export const DEFAULT_PROJECTS = [
     ],
     "result": "사전을 심은 뒤 세 개의 표본 모두 한 글자도 어긋나지 않았다 — 띄어쓰기와 문장부호까지 원문 그대로 살아난다. 다른 컴퓨터에서 뽑은 문서에도 그대로 통했다.",
     "progress": "in-progress",
-    "visibility": "private"
+    "visibility": "private",
+    "video": "assets/videos/saenggibu-review.mp4"
   },
   {
     "id": "mock-exam-analysis",
@@ -122,7 +124,8 @@ export const DEFAULT_PROJECTS = [
     "start": "2026-06-09",
     "feature": 1,
     "featureNote": "3·6·9월 정규 업무로 사용 · 10월 연구대회 출품",
-    "shot": "top"
+    "shot": "top",
+    "video": "assets/videos/mock-exam-analysis.mp4"
   },
   {
     "id": "2028-subject-guide",
@@ -143,7 +146,8 @@ export const DEFAULT_PROJECTS = [
     "visibility": "public",
     "repo": "https://github.com/taeyun200/2028-subject-guide",
     "start": "2026-06-23",
-    "shot": "top"
+    "shot": "top",
+    "video": "assets/videos/2028-subject-guide.mp4"
   },
   {
     "id": "ocg-dashboard",
@@ -172,7 +176,8 @@ export const DEFAULT_PROJECTS = [
     "visibility": "private",
     "start": "2026-07-11",
     "feature": 2,
-    "featureNote": "교직원 건의를 받아 7월부터 계속 고쳐 옴"
+    "featureNote": "교직원 건의를 받아 7월부터 계속 고쳐 옴",
+    "video": "assets/videos/ocg-dashboard.mp4"
   },
   {
     "id": "shabonbu-search",
@@ -197,7 +202,8 @@ export const DEFAULT_PROJECTS = [
     "result": "",
     "progress": "done",
     "visibility": "private",
-    "shot": "top"
+    "shot": "top",
+    "video": "assets/videos/shabonbu-search.mp4"
   },
   {
     "id": "jonghap-network",
@@ -219,7 +225,8 @@ export const DEFAULT_PROJECTS = [
     ],
     "result": "",
     "progress": "done",
-    "visibility": "private"
+    "visibility": "private",
+    "video": "assets/videos/jonghap-network.mp4"
   },
   {
     "id": "slack-scrap-bot",
@@ -295,7 +302,8 @@ export const DEFAULT_PROJECTS = [
     "result": "왜 사려는지 적게 했더니 실제로 걸러졌다. 어떤 회사를 \"인공지능 상담으로 돈을 번다\"고 적었는데 서류를 맞춰 보니 그건 매출의 2%짜리 곁다리였다. 틀린 답은 지우지 않고 그대로 뒀다 — 지우면 다음에 또 같은 착각을 한다. 주문을 대신 넣는 기능은 일부러 만들지 않았다. 사람만 답할 수 있는 문항이 남아 있는데 기계가 알아서 사고팔면, 이 시험지가 막으려던 상황이 바로 그거다.",
     "progress": "done",
     "visibility": "private",
-    "start": "2026-07-16"
+    "start": "2026-07-16",
+    "video": "assets/videos/finance-study.mp4"
   },
   {
     "id": "ewsa-essay",
@@ -319,7 +327,8 @@ export const DEFAULT_PROJECTS = [
     ],
     "result": "2학년 84명의 2학기 수행평가에 쓰고 있고, 9월 공개수업용 안내 자료도 만들었다. 기성 프로그램에 수업을 맞추지 않고 평가 계획을 먼저 세운 뒤 필요한 칸만 화면으로 옮겼다 — 수업을 준비하는 동안에도 필수 항목과 쓰기 틀이 그 자리에서 더해졌다.",
     "progress": "in-progress",
-    "visibility": "private"
+    "visibility": "private",
+    "video": "assets/videos/ewsa-essay.mp4"
   },
   {
     "id": "practicum-kiosk",
@@ -366,7 +375,8 @@ export const DEFAULT_PROJECTS = [
     "progress": "done",
     "visibility": "public",
     "repo": "https://github.com/taeyun200/edufine-notion",
-    "shot": "top"
+    "shot": "top",
+    "video": "assets/videos/edufine-notion.mp4"
   },
   {
     "id": "morning-air",
