@@ -27,7 +27,9 @@ export const DEFAULT_PROJECTS = [
     "visibility": "private",
     "start": "2026-06-30",
     "site": "https://ipsi-taeyun.pages.dev",
-    "video": "assets/videos/ipsi-db.mp4"
+    "video": "assets/videos/ipsi-db.mp4",
+    "feature": 4,
+    "featureNote": "대학·캠퍼스 206곳 · 모든 값에 원문 쪽 번호"
   },
   {
     "id": "hapbul",
